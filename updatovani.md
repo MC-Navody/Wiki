@@ -2,7 +2,7 @@
 title: Updatování
 description: Updaduj jednoduše svůj server
 published: true
-date: 2023-11-25T20:48:52.922Z
+date: 2023-11-25T20:48:53.721Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:26.631Z

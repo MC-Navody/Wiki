@@ -2,7 +2,7 @@
 title: Dynmapa
 description: Nastavení dynamické mapy
 published: true
-date: 2023-11-25T10:36:23.596Z
+date: 2023-11-25T10:36:24.406Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:13.523Z

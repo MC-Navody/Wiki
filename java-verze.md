@@ -2,7 +2,7 @@
 title: Java verze
 description: Seznam java verzí pro MC server
 published: true
-date: 2023-11-25T20:56:48.816Z
+date: 2023-11-25T20:56:49.631Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:19.426Z

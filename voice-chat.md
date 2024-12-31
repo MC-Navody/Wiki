@@ -2,7 +2,7 @@
 title: Voice chat
 description: Nastavení pluginu Simple Voice Chat
 published: true
-date: 2023-11-25T19:35:25.131Z
+date: 2023-11-25T19:35:25.922Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:28.951Z

@@ -2,7 +2,7 @@
 title:  Ikona serveru
 description: Nastavení ikony v server listu
 published: true
-date: 2023-11-25T21:00:46.338Z
+date: 2023-11-25T21:00:47.134Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:17.080Z

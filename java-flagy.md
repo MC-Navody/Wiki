@@ -2,7 +2,7 @@
 title: Java flagy
 description: Startovací java flagy pro váš server
 published: true
-date: 2023-11-25T21:00:04.737Z
+date: 2023-11-25T21:00:05.545Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:18.244Z

@@ -2,7 +2,7 @@
 title: Optimalizace
 description: Průvodce optimalizací serveru Minecraft
 published: true
-date: 2023-11-25T20:56:15.944Z
+date: 2023-11-25T20:56:16.864Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:20.591Z

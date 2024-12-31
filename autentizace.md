@@ -2,7 +2,7 @@
 title: Autentizace
 description: Nastavení autentizačního pluginu
 published: true
-date: 2023-11-25T10:31:19.366Z
+date: 2023-11-25T10:31:20.300Z
 tags: velocity, waterfall, paper
 editor: markdown
 dateCreated: 2023-11-24T23:42:09.884Z

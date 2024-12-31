@@ -2,7 +2,7 @@
 title: Bedrock
 description: Zpřístupnění serveru pro bedrock hráče
 published: true
-date: 2023-11-25T10:32:48.609Z
+date: 2023-11-25T10:32:49.434Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:11.136Z

@@ -2,7 +2,7 @@
 title: Podpora Jiných Verzí Hry
 description: 
 published: false
-date: 2023-11-25T21:11:52.857Z
+date: 2023-11-25T21:11:53.656Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-25T21:11:52.857Z

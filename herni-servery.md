@@ -2,7 +2,7 @@
 title: Herní Servery
 description: Typy herních serverů
 published: true
-date: 2023-11-25T21:05:02.360Z
+date: 2023-11-25T21:05:03.191Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:14.724Z
