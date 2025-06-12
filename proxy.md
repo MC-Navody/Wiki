@@ -2,7 +2,7 @@
 title: Proxy Servery
 description: Typy proxy serverů
 published: true
-date: 2023-11-25T20:49:59.744Z
+date: 2025-06-12T11:17:07.529Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:24.266Z
@@ -15,7 +15,6 @@ Proxy server umožňuje propojení ostatních serverů dohromady, což je velice
 Naštěstí máme hromadu možných druhů proxy serverů, které můžeme využít, níže jsou vypsané všechny nejvíce využívané.
 
 -   [Bungeecord](https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/)
--   [Waterfall](https://papermc.io/downloads/waterfall)
 -   [Flamecord](https://builtbybit.com/resources/13492/)
 -   [Velocity](https://papermc.io/downloads/velocity)
 
