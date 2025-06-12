@@ -2,7 +2,7 @@
 title: Bedrock
 description: Zpřístupnění serveru pro bedrock hráče
 published: true
-date: 2023-11-25T10:32:49.434Z
+date: 2025-06-12T12:28:40.815Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:11.136Z
@@ -155,5 +155,5 @@ Pokud máme port jiný než výchozí, musíme ho přidat za IP adresu např. `5
 ## Firewall
 Máte-li vlastní VPS/VDS a používáte firewall, musíte povolit přístup na port, který jste nastavili v configu. Pokud používáte port 19132, tak je potřeba povolit přístup na tento port. Pokud používáte jiný port, tak je potřeba povolit přístup na tento port.
 
-[GeyserMC]: https://ci.opencollab.dev//job/GeyserMC/job/Geyser/job/master/
-[Floodgate]: https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/master/
+[GeyserMC]: https://geysermc.org/download/
+[Floodgate]: https://geysermc.org/download/?project=floodgate
