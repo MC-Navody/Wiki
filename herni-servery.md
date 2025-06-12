@@ -2,7 +2,7 @@
 title: Herní Servery
 description: Typy herních serverů
 published: true
-date: 2023-11-25T21:05:03.191Z
+date: 2025-06-12T11:15:49.468Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:14.724Z
@@ -71,7 +71,8 @@ Instalace všech herních forků je velice jednoduchá. Stačí si ověřit, že
 <h2>Shrnutí</h2>
 Pro menší shrnutí na konec, si zopakujeme, jaké doporučujeme druhy serverů pro dané verze.
 
-- 1.20.* - Paper
+- 1.21.* - Paper, Pufferfish
+- 1.20.* - Paper, Pufferfish
 - 1.19.* - Paper, Pufferfish
 - 1.18.* - Paper, Pufferfish
 - 1.17.* - Purpur, případně Airplane
