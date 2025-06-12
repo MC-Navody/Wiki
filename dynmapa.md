@@ -2,7 +2,7 @@
 title: Dynmapa
 description: Nastavení dynamické mapy
 published: true
-date: 2023-11-25T10:36:24.406Z
+date: 2025-06-12T12:41:55.182Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:13.523Z
@@ -54,7 +54,7 @@ Pokud máte zájem vidět celý svět v nějakém rádiusu, musíte svět první
 
 Jestliže preferujete video tutorial, stačí se podívat [sem](https://youtu.be/so-kKy1pI-Q).
 
-> Pokud máte jakékoliv dotazy nebo problémy s nastavením dynmapy, stačí nás kontaktovat na našem [discordu](https://discord.minecraftnavody.eu/).
+> Pokud máte jakékoliv dotazy nebo problémy s nastavením dynmapy, stačí nás kontaktovat na našem [discordu](https://discord.mcnavody.eu/).
 
 
 
