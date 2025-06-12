@@ -2,13 +2,11 @@
 title: Doporučené pluginy
 description: Seznam doporučených pluginů pro každý server
 published: true
-date: 2025-06-12T12:32:12.903Z
+date: 2025-06-12T12:32:34.558Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:12.329Z
 ---
-
-# Seznam univerzálních Minecraft pluginů
 
 Níže najdete seznam nejpoužívanějších a nejkvalitnějších **zdarma dostupných pluginů**, které najdou uplatnění téměř na každém serveru. V mnoha případech jsou dokonce lepší než jejich placené alternativy. Pokud je dostupný vývojový (dev) build, odkaz vede právě na něj.
 
