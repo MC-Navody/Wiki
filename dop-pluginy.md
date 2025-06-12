@@ -2,86 +2,54 @@
 title: Doporučené pluginy
 description: Seznam doporučených pluginů pro každý server
 published: true
-date: 2023-11-25T10:35:35.617Z
+date: 2025-06-12T12:32:12.903Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:12.329Z
 ---
 
-Zde naleznete seznam univerzálních pluginů, které se používají na skoro každém serveru. Všechny uvedené pluginy jsou úplně zdarma ke stažení a víceméně vždy jsou lepší než jejich placené alternativy. Odkazy vedou na dev buildy pluginů, jsou-li dostupné. 
+# Seznam univerzálních Minecraft pluginů
 
-Zde naleznete seznam univerzálních pluginů, které se používají na skoro každém serveru. Všechny uvedené pluginy jsou úplně zdarma ke stažení a víceméně vždy jsou lepší než jejich placené alternativy. Odkazy vedou na dev buildy pluginů, jsou-li dostupné. 
+Níže najdete seznam nejpoužívanějších a nejkvalitnějších **zdarma dostupných pluginů**, které najdou uplatnění téměř na každém serveru. V mnoha případech jsou dokonce lepší než jejich placené alternativy. Pokud je dostupný vývojový (dev) build, odkaz vede právě na něj.
 
-## Hlavní pluginy
+## 🔧 Hlavní pluginy
 
-[**Vault**](https://github.com/MilkBowl/Vault/releases) - Vault je API pro permisse, chat a ekonomiku, je potřebný k správnému fungovaní mnoha jiných pluginů.
-[**ProtocolLib**](https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/) - ProtocolLib je plugin, který je nutné mít na serveru pro fungování hromady jiných pluginů.
-[**PlaceholderAPI**](https://ci.extendedclip.com/job/PlaceholderAPI/) - PlaceholderAPI (zkráceně PAPI) je plugin díky kterému je možné používat placeholdery (např ukázání ranku před jménem) víceméně kdekoliv ve hře. 
-[**LuckPerms**](https://luckperms.net/download) - LuckPerms je bezesporu nejlepší plugin pro správu permissí. Pro správné funguvání je potřeba mít Vault.
-[**Spark**](https://spark.lucko.me/download) - Spark je momentálně nejlepší profiler k zobrazení problémů s výkonem serveru. Spark máte automaticky na serveru v případě, že používáte Purpur či jeho fork.
-[**LibertyBans**](https://ci.hahota.net/job/LibertyBans/) - LibertyBans je velice dobrý ban plugin, který poskytne vše potřebné. Lehce se vyrovná a překoná jeho alternativy (např LiteBans).
-[**TAB**](https://github.com/NEZNAMY/TAB/releases) - TAB je pluginy, který umožňuje kompletní správu TABu/ScoreBoardu, zároveň přidává další užitečné funkce.
-[**LPC**](https://www.spigotmc.org/resources/lpc-chat-formatter-1-7-10-1-19.68965/history) - LPC je plugin, které umožňuje základní formátování chatu. Plugin vyžaduje LuckPerms pro správné fungování.
-[**EssentialsX**](https://essentialsx.net/downloads.html) - EssentialsX je plugin, který přidává na server základní příkazy typu /kit, /home atd. Na **Essentials** stránce zároveň najdete užitečné doplňky typu EssentialsChat atd.
+* [**Vault**](https://github.com/MilkBowl/Vault/releases) – API pro **permissí**, **chat** a **ekonomiku**. Nutný pro mnoho dalších pluginů.
+* [**ProtocolLib**](https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/) – Slouží jako základ pro pluginy pracující s packetama.
+* [**PlaceholderAPI (PAPI)**](https://ci.extendedclip.com/job/PlaceholderAPI/) – Přidává možnost používat **placeholdery** ve hrách, chatu, GUI atd.
+* [**LuckPerms**](https://luckperms.net/download) – Nejlepší plugin pro **správu práv**. Funguje nejlépe s Vaultem.
+* [**Spark**](https://spark.lucko.me/download) – Výkonnostní profiler – skvělý pro ladění výkonu serveru. U Purpuru je automaticky předinstalovaný.
+* [**LibertyBans**](https://ci.hahota.net/job/LibertyBans/) – Moderní systém pro bany, který konkuruje např. LiteBans.
+* [**TAB**](https://github.com/NEZNAMY/TAB/releases) – Komplexní správa **TAB menu** a **scoreboardu**.
+* [**LPC**](https://www.spigotmc.org/resources/lpc-chat-formatter-1-7-10-1-19.68965/history) – Základní formátování chatu (vyžaduje LuckPerms).
+* [**EssentialsX**](https://essentialsx.net/downloads.html) – Nezbytné příkazy jako `/home`, `/spawn`, `/kit` atd. K dispozici jsou i rozšíření jako EssentialsChat.
 
+## 🌲 Survival pluginy
 
-## Survival pluginy
+* [**WorldEdit**](https://builds.enginehub.org/job/worldedit) / [**FastAsyncWorldEdit (FAWE)**](https://ci.athion.net/job/FastAsyncWorldEdit/) – Pro úpravu terénu. FAWE je rychlejší, ale méně stabilní.
+* [**WorldGuard**](https://builds.enginehub.org/job/worldguard) – Ochrana oblastí pomocí regionů. Vyžaduje WorldEdit.
+* [**WorldGuardExtraFlags**](https://www.spigotmc.org/resources/worldguard-extra-flags.4823/) – Přidává další funkce do regionů (efekty, příkazy apod.).
+* [**Chunky**](https://www.spigotmc.org/resources/chunky.81534/history) – Předgenerace a čištění chunků mimo hranice světa.
+* [**CoreProtect**](https://github.com/PlayPro/CoreProtect/releases) / [**Prism**](https://ci.darkhelmet.network/job/Prism/) – Logging a rollback – proti griefu.
+* [**GriefPrevention**](https://github.com/TechFortress/GriefPrevention/releases) – Ochrana pozemků hráči, oblíbené hlavně v zahraničí (v CZ/SK se více používá Residence).
 
-**WorldEdit/FastAsyncWorldEdit** - WorldEdit je stabilní plugin na úpravu terénu či pomoci při stavění. Je velice stabilní, ale provádění akcí může nějakou dobu trvat. FastAsyncWorldEdit je mnohem rychlejší alternativa, avšak je rychlejší za cenu stability. FAWE doporučuje používat pouze na build servery (časté zálohy jsou nutností jelikož FAWE může pokazit celý svět) či na server, které nejsou v produkci. 
-**WorldGuard** - WorldGuard umožňuje tvorbu regionů, které slouží ke správě pozemků či světů. Nejedná se o plugin typu residencí určený pro hráče. Pro fungování pluginu je nutné mít přidaný WorldEdit.
-**WorldGuardExtraFlags** - Tento plugin přidává další flagy pro WorldGuard regiony, jedná se např o potion efekty či provedení příkazu při vstupu do regionu. Pro jeho fungování je nutné mít WorldGuard.
-**Chunky** - Chunky je plugin, který umožňuje předgeneraci světa či smazání chunků za borderem. Předgenerace světa je víceméně nutná pro každý Survival server.
-**CoreProtect/Prism** - CoreProtect a Prism jsou pluginy sloužící ke kontrole griefování, možnénu návratu terénu/truhle či v případě CoreProtectu i inventářů.
-**GriefPrevention** - GriefPrevention je nejvíce používaný plugin pro hráčské claimy, v CZ/SK ovšem není moc rozšířený, místo něj většina serverů používá Residence.
+## 🔧 Ostatní pluginy
 
-## Jiné
-
-**NuVotifier** - NuVotifier je fork Votifieru umožňují komunikaci serveru s vote stránkami. 
-**SuperbVote** - SuperbVote je plugin, který dokáže rozdat odměny za hlasování. Pro správné fungování je potřeba mít na serveru NuVotifier.
-**NoCheatPlus/GrimAC** - NoCheatPlus je tradiční a spolehlivý anticheat (na NCP je např založený i anticheat používaný na Hypixelu). Nabídne vše, co většina serverů bude kdykoliv od anticheatu potřebovat. GrimAC je další dobrá volba, avšak se jedná o novější anticheat, který je stále ve vývoji.
-**CrazyCrates**
-**McMMO**
-**DeluxeMenus** - Plugin, který umožňuje lehkou tvorbu veškerých druhů menu. Nemá víceméně žádné omezení, jdou v něm udělat denní odměny, server teleporter, shop s výkupem i nákupem či mnoho dalšího. Pro správné fungování je potřeba mít na serveru i PlaceholderAPI. 
-**Plan**
-**ViaVersion/ViaBackwards**
-**Maintenance**
-**MultiverseCore**
-**VoidGen**
-**VoidSpawn**
-**Citizens**
-**CommandWhitelist**
-**AntiWorldFly**
-**DiscordSRV**
-**Dynmap**
-**ItemJoin**
-
-
-**WorldEdit** - https://builds.enginehub.org/job/worldedit
-**FastAsyncWorldEdit** - https://ci.athion.net/job/FastAsyncWorldEdit/
-**WorldGuard** - https://builds.enginehub.org/job/worldguard
-**WorldGuardExtraFlags** - https://www.spigotmc.org/resources/worldguard-extra-flags.4823/
-**Chunky** - https://www.spigotmc.org/resources/chunky.81534/history
-**CoreProtect** - https://github.com/PlayPro/CoreProtect/releases
-**Prism** - https://ci.darkhelmet.network/job/Prism/
-**GriefPrevention** - https://github.com/TechFortress/GriefPrevention/releases
-
-**NuVotifier** - https://github.com/NuVotifier/NuVotifier/releases
-**SuperbVote** - https://www.spigotmc.org/resources/superbvote.11626/history
-**NoCheatPlus** - https://ci.codemc.io/job/Updated-NoCheatPlus/job/Updated-NoCheatPlus/
-**GrimAC** - https://www.spigotmc.org/resources/grim-anticheat.99923/history
-**CrazyCrates** - https://ci.badbones69.com/view/Stable/job/CrazyCrates/
-**McMMO** - https://popicraft.net/jenkins/job/mcMMO/
-**DeluxeMenus** - https://ci.extendedclip.com/job/DeluxeMenus/
-**Plan** - https://github.com/plan-player-analytics/Plan/releases
-**ViaVersion** - https://ci.viaversion.com/
-**ViaBackwards** - https://ci.viaversion.com/view/ViaBackwards/job/ViaBackwards-DEV/
-**Maintenance** - https://github.com/kennytv/Maintenance/releases
-**MultiverseCore** - https://ci.onarandombox.com/job/Multiverse-Core/
-**VoidGen** - https://github.com/xtkq-is-not-available/VoidGen/releases
-**VoidSpawn** - https://github.com/endercrest/VoidSpawn/releases
-**Citizens** - https://ci.citizensnpcs.co/job/Citizens2/
-**CommandWhitelist** - https://github.com/YouHaveTrouble/CommandWhitelist/releases
-**AntiWorldFly** - https://github.com/PyvesB/AntiWorldFly/releases
-**DiscordSRV** - https://snapshot.discordsrv.com/
-**Dynmap** - https://www.spigotmc.org/resources/dynmap%C2%AE.274/history
-**ItemJoin** - https://ci.craftationgaming.com/job/ItemJoin/
+* [**NuVotifier**](https://github.com/NuVotifier/NuVotifier/releases) – Přijímání hlasů ze vote stránek.
+* [**SuperbVote**](https://www.spigotmc.org/resources/superbvote.11626/history) – Odměny za hlasování (vyžaduje NuVotifier).
+* [**NoCheatPlus**](https://ci.codemc.io/job/Updated-NoCheatPlus/job/Updated-NoCheatPlus/) – Spolehlivý základní anticheat.
+* [**GrimAC**](https://www.spigotmc.org/resources/grim-anticheat.99923/history) – Moderní anticheat stále ve vývoji.
+* [**CrazyCrates**](https://ci.badbones69.com/view/Stable/job/CrazyCrates/) – Plugin pro tvorbu crate systémů.
+* [**McMMO**](https://popicraft.net/jenkins/job/mcMMO/) – RPG systém dovedností.
+* [**DeluxeMenus**](https://ci.extendedclip.com/job/DeluxeMenus/) – Pokročilé GUI menu (vyžaduje PlaceholderAPI).
+* [**Plan**](https://github.com/plan-player-analytics/Plan/releases) – Statistiky a analýzy hráčů.
+* [**ViaVersion**](https://ci.viaversion.com/) / [**ViaBackwards**](https://ci.viaversion.com/view/ViaBackwards/job/ViaBackwards-DEV/) – Podpora připojení ze starších verzí.
+* [**Maintenance**](https://github.com/kennytv/Maintenance/releases) – Údržbový režim serveru.
+* [**MultiverseCore**](https://ci.onarandombox.com/job/Multiverse-Core/) – Správa více světů na serveru.
+* [**VoidGen**](https://github.com/xtkq-is-not-available/VoidGen/releases) / [**VoidSpawn**](https://github.com/endercrest/VoidSpawn/releases) – Prázdné světy a spawnpointy ve Voidu.
+* [**Citizens**](https://ci.citizensnpcs.co/job/Citizens2/) – NPC plugin pro questy, dekorace, obchodníky atd.
+* [**CommandWhitelist**](https://github.com/YouHaveTrouble/CommandWhitelist/releases) – Whitelist příkazů např. v lobby.
+* [**AntiWorldFly**](https://github.com/PyvesB/AntiWorldFly/releases) – Zakázání fly režimu v určitých světech.
+* [**DiscordSRV**](https://snapshot.discordsrv.com/) – Propojení Minecraftu s Discordem.
+* [**Dynmap**](https://www.spigotmc.org/resources/dynmap%C2%AE.274/history) – Interaktivní mapa serveru.
+* [**ItemJoin**](https://ci.craftationgaming.com/job/ItemJoin/) – Přiřazování předmětů hráčům při připojení.
