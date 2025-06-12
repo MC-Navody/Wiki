@@ -2,7 +2,7 @@
 title: Java verze
 description: Seznam java verzí pro MC server
 published: true
-date: 2023-11-25T20:56:49.631Z
+date: 2025-06-12T12:24:46.740Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:19.426Z
@@ -11,6 +11,7 @@ dateCreated: 2023-11-24T23:42:19.426Z
 # Java Verze
 To, že určité verze Minecraftu vyžadují určitou verzi Javy, není pro mnohé překvapením. Menším problémem už ale je vědět, jakou Java verzi vaše Minecraft verze vyžaduje. Máme tady pro to připravený malý seznam. Doporučujeme vždy používat vždy nejnovější oficiálně podporovanou verzi Javy.
 
+- Verze 1.21 - Java 21+
 - Verze 1.20 - Java 17+
 - Verze 1.19 - Java 17+
 - Verze 1.18 - Java 17+
