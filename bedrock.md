@@ -2,158 +2,188 @@
 title: Bedrock
 description: Zpřístupnění serveru pro bedrock hráče
 published: true
-date: 2025-06-12T12:28:40.815Z
+date: 2025-12-21T21:00:22.756Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:11.136Z
 ---
 
 # Podpora Bedrock
-Jesliže chcete umožnit připojení bedrock hráčům na váš server, postačí nám na to jeden nebo dva pluginy. Vyberte si verzi serveru a postupujte podle návodu.
+
+Jestliže chcete umožnit připojení Bedrock hráčům na váš server (mobily, konzole, Windows 10/11 edition), postačí nám na to jeden nebo dva pluginy. Vyberte si verzi serveru a postupujte podle návodu.
 
 ## Nastavení
 
 ### Online mode server
 
+*Pokud máte server pouze pro hráče se zakoupeným MC (online-mode=true).*
+
 <details>
-  <summary><b>Velocity 🚀</b></summary>
+  <summary><b>Velocity 🚀 (Doporučeno)</b></summary>
 
-Přidáme na Velocity server plugin [GeyserMC], server poté restartujeme a otevřeme **config.yml**, který nalezneme v `/plugins/Gyeser-Velocity/`.
+Přidáme na Velocity server plugin [GeyserMC](https://www.google.com/search?q=%5Bhttps://geysermc.org/download/%5D(https://geysermc.org/download/)), server poté restartujeme a otevřeme **config.yml**, který nalezneme v `/plugins/Geyser-Velocity/`.
 V configu upravíme `port`, jestliže nechceme používat výchozí `19132`.
+
 ```yaml
 bedrock:
-  # IP adresa, která bude naslouchat připojení.
-  # Není důvod ji měnit, pokud nechcete omezit IP adresy, které se mohou připojit k serveru.
-  address: 0.0.0.0
-  # Port, který bude naslouchat pro připojení
-  port: 19132
+  # IP adresa, která bude naslouchat připojení.
+  # Není důvod ji měnit, pokud nechcete omezit IP adresy.
+  address: 0.0.0.0
+  # Port, který bude naslouchat pro připojení (UDP)
+  port: 19132
+
 ```
+
 Pokud jsme port upravili, musíme server opět restartovat.
+
 </details>
 
-<details><summary><b>BungeeCord/Waterfall 🌊</b></summary>
+<details><summary><b>BungeeCord 🌊</b></summary>
 
-Přidáme na Bungeecord server plugin [GeyserMC], server poté restartujeme a otevřeme **config.yml**, který nalezneme v `/plugins/Gyeser-Bungee/`.
+Přidáme na Bungeecord server plugin [GeyserMC](https://www.google.com/search?q=%5Bhttps://geysermc.org/download/%5D(https://geysermc.org/download/)), server poté restartujeme a otevřeme **config.yml**, který nalezneme v `/plugins/Geyser-BungeeCord/`.
 V configu upravíme `port`, jestliže nechceme používat výchozí `19132`.
+
 ```yaml
 bedrock:
-  # IP adresa, která bude naslouchat připojení.
-  # Není důvod ji měnit, pokud nechcete omezit IP adresy, které se mohou připojit k serveru.
-  address: 0.0.0.0
-  # Port, který bude naslouchat pro připojení
-  port: 19132
+  # IP adresa, která bude naslouchat připojení.
+  address: 0.0.0.0
+  # Port, který bude naslouchat pro připojení (UDP)
+  port: 19132
+
 ```
-Pokud jsme port upravili, musíme server opět restartovat.
+
+Pokud jsme port upravili, musíme server opět restartovat. *Poznámka: Waterfall je již nepodporovaný software.*
+
 </details>
-<details><summary><b>Spigot 🌳</b></summary>
+<details><summary><b>Spigot/Paper 🌳 (Bez proxy)</b></summary>
 
-Přidáme na Spigot server plugin [GeyserMC], server poté restartujeme a otevřeme **config.yml**, který nalezneme v `/plugins/Gyeser-Spigot/`.
+Přidáme na Spigot/Paper server plugin [GeyserMC](https://www.google.com/search?q=%5Bhttps://geysermc.org/download/%5D(https://geysermc.org/download/)), server poté restartujeme a otevřeme **config.yml**, který nalezneme v `/plugins/Geyser-Spigot/`.
 V configu upravíme `port`, jestliže nechceme používat výchozí `19132`.
+
 ```yaml
 bedrock:
-  # IP adresa, která bude naslouchat připojení.
-  # Není důvod ji měnit, pokud nechcete omezit IP adresy, které se mohou připojit k serveru.
-  address: 0.0.0.0
-  # Port, který bude naslouchat pro připojení
-  port: 19132
+  # IP adresa, která bude naslouchat připojení.
+  address: 0.0.0.0
+  # Port, který bude naslouchat pro připojení (UDP)
+  port: 19132
+
 ```
+
 Pokud jsme port upravili, musíme server opět restartovat.
+
 </details>
 
 ### Offline mode server
-<details><summary><b>Velocity 🚀</b></summary>
 
-Přidáme na Velocity server plugin [GeyserMC] a [Floodgate], server poté restartujeme a otevřeme **config.yml**, který nalezneme v `/plugins/Gyeser-Velocity/`.
-V configu upravíme `port`, jestliže nechceme používat výchozí `19132` a `auth-type` na `floodgate`. U offline serverů musí mít bedrock hráč nějaký prefix před jménem, výhozí nastavení je `.`, ale některé pluginy tyho hráče blokují a proto doporučujeme prefix změnit na jiný, tuto hodnotu změníme v **config.yml**, který nalezneme v `plugins/floodagte/`.
+*Pokud máte server i pro warez nebo chcete, aby se Bedrock hráči nemuseli přihlašovat přes Java účet (použijeme Floodgate).*
+
+<details><summary><b>Velocity 🚀 (Doporučeno)</b></summary>
+
+Přidáme na Velocity server plugin [GeyserMC](https://www.google.com/search?q=%5Bhttps://geysermc.org/download/%5D(https://geysermc.org/download/)) a [Floodgate](https://www.google.com/search?q=%5Bhttps://geysermc.org/download/%3Fproject%3Dfloodgate%5D(https://geysermc.org/download/%3Fproject%3Dfloodgate)). Server poté restartujeme.
+
+1. Otevřeme **config.yml** v `/plugins/Geyser-Velocity/`:
+
 ```yaml
 bedrock:
-  # IP adresa, která bude naslouchat připojení.
-  # Není důvod ji měnit, pokud nechcete omezit IP adresy, které se mohou připojit k serveru.
-  address: 0.0.0.0
-  # Port, který bude naslouchat pro připojení
-  port: 19132
-```
-```yaml
-  # Typ ověření. Může být offline, online nebo floodgate (viz https://github.com/GeyserMC/Geyser/wiki/Floodgate).
-  # U verzí pluginů se doporučuje ponechat v poli `address` hodnotu "auto", aby byla podpora Floodgate nakonfigurována automaticky.
-  # Pokud je nainstalována funkce Floodgate a `adresa:` je nastavena na "auto", pak se automaticky použije "auth-type: floodgate".
+  address: 0.0.0.0
+  port: 19132
+  
+remote:
+  # Zde změníme auth-type na floodgate
   auth-type: floodgate
-```
-```yaml
-# Floodgate předřazuje uživatelským jménům v základu předponu, aby se předešlo konfliktům.
-# Některé konflikty však mohou způsobit problémy s některými pluginy, takže tento prefix je konfigurovatelný pomocí níže uvedené vlastnosti
-# Doporučuje se používat předponu, která neobsahuje alfanumerické znaky, aby se zabránilo možnosti duplicitních uživatelských jmen.
-username-prefix: "."
-```
-Pokud jsme vše upravili, musíme server opět restartovat.
-</details>
-<details><summary><b>BungeeCord/Waterfall 🌊</b></summary>
 
-Přidáme na Bungeecord server plugin [GeyserMC] a [Floodgate], server poté restartujeme a otevřeme **config.yml**, který nalezneme v `/plugins/Gyeser-Bungee/`.
-V configu upravíme `port`, jestliže nechceme používat výchozí `19132` a `auth-type` na `floodgate`. U offline serverů musí mít bedrock hráč nějaký prefix před jménem, výhozí nastavení je `.`, ale některé pluginy tyho hráče blokují a proto doporučujeme prefix změnit na jiný, tuto hodnotu změníme v **config.yml**, který nalezneme v `plugins/floodagte/`.
+```
+
+2. (Volitelné) Otevřeme **config.yml** v `/plugins/floodgate/`:
+U offline serverů musí mít Bedrock hráč nějaký prefix před jménem, aby se nehádal s Java jmény. Výchozí nastavení je `.`, ale některé pluginy (např. Essentials) tento znak blokují, proto doporučujeme prefix změnit například na `*`.
+
+```yaml
+# Floodgate předřazuje uživatelským jménům prefix.
+# Doporučuje se používat předponu, která neobsahuje alfanumerické znaky.
+username-prefix: "*"
+
+```
+
+Pokud jsme vše upravili, musíme server opět restartovat.
+
+</details>
+
+<details><summary><b>BungeeCord 🌊</b></summary>
+
+Přidáme na Bungeecord server plugin [GeyserMC](https://www.google.com/search?q=%5Bhttps://geysermc.org/download/%5D(https://geysermc.org/download/)) a [Floodgate](https://www.google.com/search?q=%5Bhttps://geysermc.org/download/%3Fproject%3Dfloodgate%5D(https://geysermc.org/download/%3Fproject%3Dfloodgate)). Server poté restartujeme.
+
+1. Otevřeme **config.yml** v `/plugins/Geyser-BungeeCord/`:
+
 ```yaml
 bedrock:
-  # IP adresa, která bude naslouchat připojení.
-  # Není důvod ji měnit, pokud nechcete omezit IP adresy, které se mohou připojit k serveru.
-  address: 0.0.0.0
-  # Port, který bude naslouchat pro připojení
-  port: 19132
-```
-```yaml
-  # Typ ověření. Může být offline, online nebo floodgate (viz https://github.com/GeyserMC/Geyser/wiki/Floodgate).
-  # U verzí pluginů se doporučuje ponechat v poli `address` hodnotu "auto", aby byla podpora Floodgate nakonfigurována automaticky.
-  # Pokud je nainstalována funkce Floodgate a `adresa:` je nastavena na "auto", pak se automaticky použije "auth-type: floodgate".
-  auth-type: floodgate
-```
-```yaml
-# Floodgate předřazuje uživatelským jménům v základu předponu, aby se předešlo konfliktům.
-# Některé konflikty však mohou způsobit problémy s některými pluginy, takže tento prefix je konfigurovatelný pomocí níže uvedené vlastnosti
-# Doporučuje se používat předponu, která neobsahuje alfanumerické znaky, aby se zabránilo možnosti duplicitních uživatelských jmen.
-username-prefix: "."
-```
-Pokud jsme vše upravili, musíme server opět restartovat.
-</details>
-<details><summary><b>Spigot 🌳</b></summary>
+  address: 0.0.0.0
+  port: 19132
 
-Přidáme na Spigot server plugin [GeyserMC] a [Floodgate], server poté restartujeme a otevřeme **config.yml**, který nalezneme v `/plugins/Gyeser-Spigot/`.
-V configu upravíme `port`, jestliže nechceme používat výchozí `19132` a `auth-type` na `floodgate`. U offline serverů musí mít bedrock hráč nějaký prefix před jménem, výhozí nastavení je `.`, ale některé pluginy tyho hráče blokují a proto doporučujeme prefix změnit na jiný, tuto hodnotu změníme v **config.yml**, který nalezneme v `plugins/floodagte/`.
+remote:
+  # Zde změníme auth-type na floodgate
+  auth-type: floodgate
+
+```
+
+2. (Volitelné) Otevřeme **config.yml** v `/plugins/floodgate/`:
+
+```yaml
+# Floodgate předřazuje uživatelským jménům prefix.
+username-prefix: "*"
+
+```
+
+Pokud jsme vše upravili, musíme server opět restartovat.
+
+</details>
+
+<details><summary><b>Spigot/Paper 🌳 (Bez proxy)</b></summary>
+
+Přidáme na Spigot server plugin [GeyserMC](https://www.google.com/search?q=%5Bhttps://geysermc.org/download/%5D(https://geysermc.org/download/)) a [Floodgate](https://www.google.com/search?q=%5Bhttps://geysermc.org/download/%3Fproject%3Dfloodgate%5D(https://geysermc.org/download/%3Fproject%3Dfloodgate)). Server poté restartujeme.
+
+1. Otevřeme **config.yml** v `/plugins/Geyser-Spigot/`:
+
 ```yaml
 bedrock:
-  # IP adresa, která bude naslouchat připojení.
-  # Není důvod ji měnit, pokud nechcete omezit IP adresy, které se mohou připojit k serveru.
-  address: 0.0.0.0
-  # Port, který bude naslouchat pro připojení
-  port: 19132
-```
-```yaml
-  # Typ ověření. Může být offline, online nebo floodgate (viz https://github.com/GeyserMC/Geyser/wiki/Floodgate).
-  # U verzí pluginů se doporučuje ponechat v poli `address` hodnotu "auto", aby byla podpora Floodgate nakonfigurována automaticky.
-  # Pokud je nainstalována funkce Floodgate a `adresa:` je nastavena na "auto", pak se automaticky použije "auth-type: floodgate".
+  address: 0.0.0.0
+  port: 19132
+
+remote:
+  # Zde změníme auth-type na floodgate
   auth-type: floodgate
+
 ```
+
+2. (Volitelné) Otevřeme **config.yml** v `/plugins/floodgate/`:
+
 ```yaml
-# Floodgate předřazuje uživatelským jménům v základu předponu, aby se předešlo konfliktům.
-# Některé konflikty však mohou způsobit problémy s některými pluginy, takže tento prefix je konfigurovatelný pomocí níže uvedené vlastnosti
-# Doporučuje se používat předponu, která neobsahuje alfanumerické znaky, aby se zabránilo možnosti duplicitních uživatelských jmen.
-username-prefix: "."
+# Floodgate předřazuje uživatelským jménům prefix.
+username-prefix: "*"
+
 ```
+
 Pokud jsme vše upravili, musíme server opět restartovat.
+
 </details>
-<br>
 
 ## Připojení
+
 <details><summary><b>S výchozím portem</b></summary>
 
-Připojit se můžeme pomocí základní IP adresy např. `524.199.132.183` nebo pomocí vlastní domény např. `mc.superserver.cz`. Doména musí být nastavená v DNS přes typ A nebo CNAME, pokud používáme typ SRV, budeme k tomu muset vytvořit ještě nový záznam typu A nebo CNAME na IP adresu serveru. Výsledná doména bude muset být jiná než pro Java verzi, třeba `be.superserver.cz`.
+Připojit se můžeme pomocí základní IP adresy např. `524.199.132.183` nebo pomocí vlastní domény např. `mc.superserver.cz`.
+Doména musí být nastavená v DNS přes typ **A** (nebo CNAME). Bedrock edice má problémy s načítáním SRV záznamů, proto je vždy jistější používat přímou A doménu nebo číselnou IP.
+
 </details>
 <details><summary><b>S vlastním portem</b></summary>
 
-Pokud máme port jiný než výchozí, musíme ho přidat za IP adresu např. `524.199.132.183:40005` nebo doménu, např. `mc.superserver.cz:19132`. Doména musí být nastavená v DNS přes typ A nebo CNAME, pokud používáme typ SRV, budeme k tomu muset vytvořit ještě nový záznam typu A nebo CNAME na IP adresu serveru. Výsledná doména bude muset být jiná než pro Java verzi, třeba `be.superserver.cz:40005`.
+Pokud máme port jiný než výchozí, musíme ho přidat za IP adresu např. `524.199.132.183:40005`.
+Pokud používáte doménu, port se píše za ní: `be.superserver.cz:40005`.
+
 </details>
-<br>
 
-## Firewall
-Máte-li vlastní VPS/VDS a používáte firewall, musíte povolit přístup na port, který jste nastavili v configu. Pokud používáte port 19132, tak je potřeba povolit přístup na tento port. Pokud používáte jiný port, tak je potřeba povolit přístup na tento port.
+## Firewall (Důležité!)
 
-[GeyserMC]: https://geysermc.org/download/
-[Floodgate]: https://geysermc.org/download/?project=floodgate
+Máte-li vlastní VPS/VDS a používáte firewall (např. UFW nebo IPTables), musíte povolit přístup na port, který jste nastavili v configu Geyseru.
+**POZOR:** Bedrock edice komunikuje přes protokol **UDP** (zatímco Java edice používá TCP).
+
+Při povolování portu (např. 19132) se ujistěte, že povolujete **UDP** protokol. Pokud povolíte pouze TCP, Bedrock hráči se nepřipojí.
