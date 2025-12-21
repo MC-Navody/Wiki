@@ -2,7 +2,7 @@
 title: Updatování
 description: Updaduj jednoduše svůj server
 published: true
-date: 2025-12-21T20:54:32.883Z
+date: 2025-12-21T20:54:37.802Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:26.631Z
@@ -27,8 +27,6 @@ Updatování serveru bohužel zatím nemá podobnou automatickou možnost, jako 
 4. Zapněte server.
 
 Nikdy nemažte ani nepřepisujte serverový soubor za chodu serveru! Mohlo by dojít k poškození souborů (korupci mapy). 
-
-
 
 Vždy si udělejte jako první zálohu!
 
