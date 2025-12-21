@@ -2,7 +2,7 @@
 title: Dynmapa
 description: Nastavení dynamické mapy
 published: true
-date: 2025-12-21T21:39:59.199Z
+date: 2025-12-21T21:42:02.139Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:13.523Z
@@ -79,7 +79,7 @@ Pokud vše máme, config uložíme a server opět restartujeme. Web dynmapy nale
 
 ## Renderování (Generování mapy)
 
-Dynmapa sama o sobě ukáže jen to, co hráči prozkoumali. Pokud chcete vidět celý svět, musíte ho nejprve **předgenerovat** pomocí pluginu Chunky (viz [návod na předgeneraci](https://www.google.com/search?q=/cs/predgenerace-sveta)).
+Dynmapa sama o sobě ukáže jen to, co hráči prozkoumali. Pokud chcete vidět celý svět, musíte ho nejprve **předgenerovat** pomocí pluginu Chunky (viz [návod na předgeneraci](/cs/predgenerace-sveta)).
 
 Až budeme mít svět předgenerovaný, napíšeme příkaz pro vykreslení celé mapy:
 
