@@ -2,59 +2,92 @@
 title: Dynmapa
 description: Nastavení dynamické mapy
 published: true
-date: 2025-06-12T12:41:55.182Z
+date: 2025-12-21T21:39:59.199Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:13.523Z
 ---
 
 # Dynmapa
-Dynmapa je dynamická mapa, která vám dokáže prostřednictvím webu ukázat živý náhled světa a pohyb hráčů po světě. Pojďme si ukázat jak Dynmapu nastavit na váš server.
 
+Dynmapa je dynamická mapa, která vám dokáže prostřednictvím webu ukázat živý náhled světa a pohyb hráčů po světě. Pojďme si ukázat, jak Dynmapu nastavit na váš server.
+
+> **Tip:** Dynmapa je velmi náročná na disk a výkon. Pro moderní servery (1.21) často doporučujeme zvážit lehčí alternativu **[Squaremap](https://modrinth.com/plugin/squaremap)** (dříve Pl3xMap), která je rychlejší a zabírá méně místa.
+> {.is-info}
 
 ## Stažení
-První stáhneme pluginy z [SpigotMC](https://www.spigotmc.org/resources/dynmap%C2%AE.274/).
+
+Nejnovější verzi stáhneme ze [SpigotMC](https://www.spigotmc.org/resources/dynmap%C2%AE.274/) nebo [Modrinthu](https://modrinth.com/plugin/dynmap).
 Stažený plugin nahrajeme do složky **plugins** na našem serveru a server restartujeme.
 
 ## Nastavení
-Otevřeme si config dynmapy, který nalezneme v **plugins -> dynmap -> configuration.txt**
-Jako první krok nastvíme správný typ úložiště kam se budou data ukládat. Doporučujeme použití typu SQLite, proto před **řádek 30** umístíme `#` ,následně před **řádkem 32 a 33** `#` odebereme.
 
-```
+Otevřeme si config dynmapy, který nalezneme v `plugins/dynmap/configuration.txt`.
+
+### 1. Typ úložiště (Storage)
+
+Jako první krok nastavíme správný typ úložiště, kam se budou data ukládat. **Důrazně doporučujeme** použití typu **SQLite**. Výchozí `filetree` vytváří miliony malých souborů, což zpomaluje zálohování a může zahltit disk (inode limit).
+
+V configu najděte sekci `storage`. Před `type: filetree` přidejte `#` a u `type: sqlite` naopak `#` smažte.
+
+```yaml
 storage:
   # Filetree storage (standard tree of image files for maps)
   #type: filetree
   # SQLite db for map storage (uses dbfile as storage location)
-  #type: sqlite
-  #dbfile: dynmap.db
-	# MySQL DB for map storage 
+  type: sqlite
+  dbfile: dynmap.db
+  # MySQL DB for map storage 
   #type: mysql
-```
-
-Na **řádku 16** můžeme nastavit kvalitu mapy. Doporučujeme použít kvalitu `vlowres`, která vám nebude zabírat tolik místa na disku. Jestliže máte vyhrazený velký prostor pro dynmapu, když můžete hodnotu `hires` ponechat.
-
-`vlowres` - zabíráné nejmnéně místa
-`lowres` - zabírá přibližně 4x více než vlowres
-`hires` - zabírá přibližně 16x více než lowres
 
 ```
-deftemplatesuffix: vlowres
+
+### 2. Formát obrázků (Velká úspora místa!)
+
+Ve výchozím nastavení Dynmapa ukládá obrázky jako PNG. Pro verzi 1.21 doporučujeme změnit formát na **WebP**, který ušetří obrovské množství místa na disku.
+Najděte řádek `image-format: png` a změňte ho na:
+
+```yaml
+image-format: webp
+
 ```
 
-Dalším krokem bude nastavení portu. Nastavení portu se nachazí na **řádku 349**, kde nastavíme jeden z volných portů, který je přidělený vašemu serveru. Pokud nemáte žádný volný port, budete muset požádat váš hosting o přidělení.
+### 3. Kvalita mapy
+
+V sekci `deftemplatesuffix` můžeme nastavit rozlišení mapy.
+
+* `vlowres` - Zabírá nejméně místa, ale kvalita je velmi nízká (rozmazané).
+* `lowres` - Zlatá střední cesta (doporučeno).
+* `hires` - Vysoká kvalita, ale mapa bude zabírat stovky GB.
+
+```yaml
+deftemplatesuffix: lowres
 
 ```
+
+### 4. Nastavení portu
+
+Nastavení portu se nachází u položky `webserver-port`. Zde nastavíme jeden z volných portů, který je přidělený vašemu serveru (musí být otevřený ve firewallu, nejedná se o herní port 25565!). Pokud nemáte žádný volný port, budete muset požádat váš hosting o přidělení.
+
+```yaml
 # The TCP-port the webserver will listen on.
 webserver-port: 8123
+
 ```
 
-Pokud vše máme, config uložíme a server opět restartujeme. Web dynmapy nalezneme na ip vašeho serveru s nastaveným portem, například `786.235.980:<port>` nebo `node.superhosting.cz:<port>`.
+Pokud vše máme, config uložíme a server opět restartujeme. Web dynmapy nalezneme na IP vašeho serveru s nastaveným portem, například `82.208.17.10:8123`.
 
-Pokud máte zájem vidět celý svět v nějakém rádiusu, musíte svět první předgenerovat pomocí tohoto [návodu](/cs/predgenerace-sveta). Až budeme mít svět předgenerovaný, napíšeme příkaz `/dynmap fullrender`, což nám vygeneruje celou dynmapu.
+## Renderování (Generování mapy)
 
-Jestliže preferujete video tutorial, stačí se podívat [sem](https://youtu.be/so-kKy1pI-Q).
+Dynmapa sama o sobě ukáže jen to, co hráči prozkoumali. Pokud chcete vidět celý svět, musíte ho nejprve **předgenerovat** pomocí pluginu Chunky (viz [návod na předgeneraci](https://www.google.com/search?q=/cs/predgenerace-sveta)).
+
+Až budeme mít svět předgenerovaný, napíšeme příkaz pro vykreslení celé mapy:
+
+```bash
+/dynmap fullrender
+
+```
+
+Tento proces může trvat hodiny a výrazně zatíží server. Doporučujeme to dělat v noci nebo při údržbě.
 
 > Pokud máte jakékoliv dotazy nebo problémy s nastavením dynmapy, stačí nás kontaktovat na našem [discordu](https://discord.mcnavody.eu/).
-
-
-
