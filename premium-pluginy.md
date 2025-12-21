@@ -2,7 +2,7 @@
 title: Premium Pluginy
 description: Nejznámější premium pluginy
 published: true
-date: 2025-12-21T21:23:44.289Z
+date: 2025-12-21T21:25:46.552Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:23.078Z
@@ -94,20 +94,6 @@ Níže najdete přehled **prémiových Minecraft pluginů**, které jsme osobně
 **🔎 Shrnutí:**
 ✅ **Absolutní špička.** Pokud chcete "all-in-one" řešení pro Survival server, toto je nejlepší investice. **Doporučujeme.**
 
-## LiteBans
-
-**✅ Výhody:**
-
-* Průmyslový standard pro bany a tresty.
-* Skvělá webová stránka (interface) pro zobrazení banů.
-* Podpora napříč celou sítí (Bungeecord/Velocity).
-* Import dat z jiných pluginů.
-
-**❌ Nevýhody:**
-
-* Nemá GUI pro trestání přímo ve hře (musí se řešit přes configy nebo aliasy).
-* Vyšší cena.
-
 **🔎 Shrnutí:**
 ✅ **Doporučujeme** pro větší sítě a servery, které to myslí vážně. Pro menší servery postačí zdarma *LibertyBans*.
 
@@ -179,4 +165,4 @@ Níže najdete přehled **prémiových Minecraft pluginů**, které jsme osobně
 * Detekce nejsou tak dobré jako u GrimAC (který je zdarma).
 
 **🔎 Shrnutí:**
-❌ **Nedoporučujeme.** V roce 2024/2025 je lepší volbou zdarma dostupný **GrimAC** nebo placený **Vulcan**.
+❌ **Nedoporučujeme.** V roce 2024/2025 je lepší volbou zdarma dostupný **GrimAC**.
