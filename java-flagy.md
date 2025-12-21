@@ -2,39 +2,52 @@
 title: Java flagy
 description: Startovací java flagy pro váš server
 published: true
-date: 2025-06-12T12:12:05.708Z
+date: 2025-12-21T20:51:43.450Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:18.244Z
 ---
 
 # Java Flagy
-Jak většina z vás určitě ví, Minecraft používá Java Flagy, díky nim pozná, jaký má mít server výkon, jak se má v určitých situacích chovat atd. Volba flagů je tedy velice důležitá, jelikož vám může opravdu hodně pomoci s výkonem serveru.<br>
-Flagy tu nebudeme podrobně rozebírat, jen si uvedeme pár příkladů. Jestli vás ale zajímá více, můžete se o nich dočíst [zde](https://aikar.co/mcflags.html).<br>
-Nejvíce důležité jsou flagy **Xmx** a **Xms**, jelikož ty určují, kolik má server přiřazeno RAMky.
 
+Jak většina z vás určitě ví, Minecraft používá Java Flagy (startovací argumenty). Díky nim Java pozná, jaký má mít server výkon, jak se má v určitých situacích chovat atd. Volba flagů je velice důležitá, jelikož vám může opravdu hodně pomoci s výkonem serveru a stabilitou TPS.
 
-<h2>Minecraft 1.21.5 5GB RAM, Paper/Purpur server</h2>
+Flagy tu nebudeme podrobně rozebírat, jen si uvedeme pár příkladů. Jestli vás ale zajímá více, můžete se o nich dočíst [zde](https://aikar.co/mcflags.html).
+
+Nejvíce důležité jsou flagy **Xmx** a **Xms**, jelikož ty určují, kolik má server přiřazeno RAMky. Pro nejlepší výkon doporučujeme nastavit obě hodnoty na stejné číslo.
+
+<h2>Minecraft 1.21.x - 6GB RAM (Paper/Purpur)</h2>
+*Vhodné pro menší až střední servery.*
 
 ```java
-java -Xms5120M -Xmx5120M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -jar server.jar --nogui
+java -Xms6144M -Xmx6144M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -jar server.jar --nogui
+
 ```
 
-<h2>Minecraft 1.21.5 12GB RAM, Pufferfish/Purpur server</h2>
+<h2>Minecraft 1.21.x - 12GB RAM (Pufferfish/Purpur)</h2>
+*Vhodné pro větší servery. Zde využíváme i modul pro vektorové operace (SIMD), který Pufferfish podporuje.*
 
 ```java
 java -Xms12288M -Xmx12288M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=40 -XX:G1MaxNewSizePercent=50 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=15 -jar server.jar --nogui
+
 ```
 
-<h2>Velocity 3GB RAM, Pterodactyl panel</h2>
+<h2>Velocity - 3GB RAM (Pterodactyl/Pelican panel)</h2>
+*Pro Velocity proxy stačí méně RAM, ale záleží na počtu hráčů.*
 
 ```java
 java -Xms3072M -Xmx3072M -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -jar server.jar --nogui
+
 ```
 
-> Pokud používáte Pterodactyl, nastavte ve flagách max. 85 % RAM kontejneru a odeberte `-XX:+AlwaysPreTouch`, může způsobovat problémy se se stabilitou.
+> **Pozor pro uživatele Pterodactylu (Docker):**
+> Pokud máte server hostovaný na panelu (Pterodactyl, Pelican), **nikdy nenastavujte Xmx na 100 % kapacity serveru**. Java potřebuje extra paměť pro svá vlákna (Overhead).
+> Doporučujeme nastavit Xmx/Xms na cca **85-90 %** celkové RAM (např. pokud máte 10GB server, flagy nastavte na cca 9GB).
+> Pokud server padá při startu, odeberte flag `-XX:+AlwaysPreTouch`.
 > {.is-warning}
 
-Jak mnozí určitě poznali, jedná se ve většině případů o Aikar Flagy, případně o Pufferfish dodatek. Dané flagy doporučujeme vždy používat, jestli jste zároveň jedni z mála, kteří používají nové ZGC flagy pro servery s více jak 16GB RAM, tak bych to na vašem místě znovu zvážil. Sice jsou v některých případech lepší, ale  stále se jedná o novinku, která není úplně doladěná a není v některých případech úplně stabilní.
-<br>
-Případně můžete použít [tuto stránku](https://flags.sh/) pro vygenerování flagů.
+Jak mnozí určitě poznali, jedná se ve většině případů o Aikar Flagy, případně o Pufferfish dodatek. Dané flagy doporučujeme vždy používat.
+
+**Poznámka k ZGC:** Java 21 přináší "Generational ZGC", který může být pro servery s velkou RAM (16GB+) velmi efektivní. Nicméně pro většinu serverů je G1GC (Aikar) stále nejstabilnější a nejověřenější volbou. Pokud přesně nevíte, jak ZGC ladit, zůstaňte u výše uvedených flagů.
+
+Případně můžete použít [tuto stránku](https://flags.sh/) pro vygenerování flagů přesně pro váš hardware.
