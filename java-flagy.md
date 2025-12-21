@@ -2,7 +2,7 @@
 title: Java flagy
 description: Startovací java flagy pro váš server
 published: true
-date: 2025-12-21T20:51:43.450Z
+date: 2025-12-21T20:52:34.075Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:18.244Z
@@ -12,7 +12,7 @@ dateCreated: 2023-11-24T23:42:18.244Z
 
 Jak většina z vás určitě ví, Minecraft používá Java Flagy (startovací argumenty). Díky nim Java pozná, jaký má mít server výkon, jak se má v určitých situacích chovat atd. Volba flagů je velice důležitá, jelikož vám může opravdu hodně pomoci s výkonem serveru a stabilitou TPS.
 
-Flagy tu nebudeme podrobně rozebírat, jen si uvedeme pár příkladů. Jestli vás ale zajímá více, můžete se o nich dočíst [zde](https://aikar.co/mcflags.html).
+Flagy tu nebudeme podrobně rozebírat, jen si uvedeme pár příkladů. Jestli vás ale zajímá více, můžete se o nich dočíst [zde](https://aikar.co/2018/07/02/tuning-the-jvm-g1gc-garbage-collector-flags-for-minecraft/).
 
 Nejvíce důležité jsou flagy **Xmx** a **Xms**, jelikož ty určují, kolik má server přiřazeno RAMky. Pro nejlepší výkon doporučujeme nastavit obě hodnoty na stejné číslo.
 
