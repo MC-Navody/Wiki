@@ -2,7 +2,7 @@
 title: Doporučené pluginy
 description: Seznam doporučených pluginů pro každý server
 published: true
-date: 2025-12-21T21:21:32.207Z
+date: 2025-12-21T21:21:44.463Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:12.329Z
