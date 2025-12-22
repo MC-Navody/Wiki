@@ -2,7 +2,7 @@
 title: MC Návody
 description: Užitečné Minecraft návody, pro jakékoliv servery.
 published: true
-date: 2025-12-21T21:52:23.388Z
+date: 2025-12-22T17:00:48.172Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:15.906Z
@@ -31,6 +31,5 @@ Jestli máš jakékoliv nápady na nové návody, neváhej nám je sdělit, bude
 Návody: https://mcnavody.eu/
 Paste stránka: https://log.mcnavody.eu/
 Náš discord: https://discord.mcnavody.eu/
-Náš plugin: [Stáhneš zde](https://github.com/MC-Navody/Pastebin-plugin/releases/latest)
 <br>
 <div id="kofi-button-container"></div>
