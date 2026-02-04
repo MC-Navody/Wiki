@@ -2,7 +2,7 @@
 title: Autentizace
 description: Nastavení autentizačního pluginu
 published: true
-date: 2025-12-21T21:08:28.650Z
+date: 2026-02-04T20:24:19.925Z
 tags: velocity, waterfall, paper
 editor: markdown
 dateCreated: 2023-11-24T23:42:09.884Z
@@ -69,7 +69,7 @@ Pokračujeme dále na [nastavení databáze](#nastavení-databáze).
 
 #### Vytvoření přihlašovacího světu
 
-Stáhneme si plugin [MultiVerse Core](https://ci.onarandombox.com/job/Multiverse-Core/) a přesuneme ho do složky plugins.
+Stáhneme si plugin [MultiVerse Core](https://github.com/Multiverse/Multiverse-Core/releases) a přesuneme ho do složky plugins.
 
 Zapneme server a vytvoříme si nový svět, kde se budou hráči přihlašovat (aby nemohli vykrádat věci v hlavním světě před loginem).
 Příklad vytvoření světa s názvem `auth`:
