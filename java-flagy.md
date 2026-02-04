@@ -2,7 +2,7 @@
 title: Java flagy
 description: Startovací java flagy pro váš server
 published: true
-date: 2025-12-21T20:52:34.075Z
+date: 2026-02-04T20:19:15.633Z
 tags: 
 editor: markdown
 dateCreated: 2023-11-24T23:42:18.244Z
@@ -17,6 +17,7 @@ Flagy tu nebudeme podrobně rozebírat, jen si uvedeme pár příkladů. Jestli 
 Nejvíce důležité jsou flagy **Xmx** a **Xms**, jelikož ty určují, kolik má server přiřazeno RAMky. Pro nejlepší výkon doporučujeme nastavit obě hodnoty na stejné číslo.
 
 <h2>Minecraft 1.21.x - 6GB RAM (Paper/Purpur)</h2>
+
 *Vhodné pro menší až střední servery.*
 
 ```java
@@ -25,6 +26,7 @@ java -Xms6144M -Xmx6144M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+Pa
 ```
 
 <h2>Minecraft 1.21.x - 12GB RAM (Pufferfish/Purpur)</h2>
+
 *Vhodné pro větší servery. Zde využíváme i modul pro vektorové operace (SIMD), který Pufferfish podporuje.*
 
 ```java
@@ -33,6 +35,7 @@ java -Xms12288M -Xmx12288M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+
 ```
 
 <h2>Velocity - 3GB RAM (Pterodactyl/Pelican panel)</h2>
+
 *Pro Velocity proxy stačí méně RAM, ale záleží na počtu hráčů.*
 
 ```java
