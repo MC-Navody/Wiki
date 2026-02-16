@@ -60,7 +60,7 @@ export default defineConfig({
             },
 
             editLink: {
-                baseUrl: 'https://github.com/MC-Navody/Wiki/edit/master/',
+                baseUrl: 'https://github.com/MC-Navody/Wiki/edit/main/',
                 label: 'Upravit tuto stránku',
             },
             lastUpdated: true,
