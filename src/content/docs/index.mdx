@@ -1,0 +1,109 @@
+---
+title: Wiki
+description: Užitečné Minecraft návody pro jakékoliv servery.
+template: splash
+hero:
+  title: 'Vítej na<br> MC Návodech!'
+  tagline: Pomáháme tvořit lepší Minecraft servery. Vše pro správu a optimalizaci na jednom místě.
+  image:
+    file: ../../assets/logo-velky.avif
+  actions:
+    - text: Procházet návody
+      link: /uvod/
+      icon: open-book
+      variant: primary
+    - text: Pastebin
+      link: https://log.mcnavody.eu/
+      icon: document
+      variant: secondary
+      attrs: { target: _blank }
+    - text: Náš Discord
+      link: https://discord.mcnavody.eu/
+      icon: discord
+      variant: secondary
+      attrs: { target: _blank }
+---
+
+
+import {CardGrid, LinkCard} from '@astrojs/starlight/components';
+
+## Základní kameny serveru
+
+<CardGrid stagger>
+    <LinkCard
+        title="Herní jádro"
+        description={`Proč už v roce ${new Date().getFullYear()} nepoužívat Spigot? Zjisti, jaký je rozdíl mezi Paper, Pufferfish a Purpur.`}
+        href="/nastaveni/herni-servery/"
+        icon="seti:hex"
+    />
+    <LinkCard
+        title="Proxy síť"
+        description="Buduješ síť serverů? Přejdi na Velocity. Je modernější, bezpečnější a výkonnější než BungeeCord."
+        href="/nastaveni/proxy/"
+        icon="list-format"
+    />
+    <LinkCard
+        title="Optimalizace serveru"
+        description="Kompletní průvodce optimalizací. Nastavení server.properties a Java arguments pro maximální výkon."
+        href="/nastaveni/optimalizace/"
+        icon="rocket"
+    />
+    <LinkCard
+        title="Údržba a Update"
+        description="Jak bezpečně aktualizovat server na novější verze a jak efektivně spravovat pluginy."
+        href="/nastaveni/updatovani/"
+        icon="cloud-download"
+    />
+</CardGrid>
+
+---
+
+## Rozšíření a Hratelnost
+
+<CardGrid>
+    <LinkCard
+        title="Doporučené pluginy"
+        description="Výběr základních pluginů pro správu serveru. Nahraď zastaralé pluginy moderními alternativami."
+        href="/pluginy/dop-pluginy/"
+        icon="puzzle"
+    />
+    <LinkCard
+        title="Podpora Bedrock"
+        description="Umožni přístup hráčům z mobilů a konzolí. Návod na nastavení GeyserMC."
+        href="/nastaveni/bedrock/"
+        icon="phone"
+    />
+    <LinkCard
+        title="Předgenerování světa"
+        description="Jak předgenerovat svět pomocí Chunky a zamezit tak lagům při prozkoumávání mapy."
+        href="/pluginy/predgenerace-sveta/"
+        icon="magnifier"
+    />
+    <LinkCard
+        title="Voice Chat"
+        description="Návod na zprovoznění Simple Voice Chat přes UDP port pro komunikaci ve hře."
+        href="/pluginy/voice-chat/"
+        icon="comment"
+    />
+</CardGrid>
+
+---
+
+## Ostatní
+
+<CardGrid>
+    <LinkCard
+        title="Unban Žádost"
+        description="Máš ban na našem Discordu? Zde si můžeš požádat o unban."
+        href="https://odvolani.mcnavody.eu/"
+        icon="email"
+        target="_blank"
+    />
+    <LinkCard
+        title="Status služeb"
+        description="Zkontroluj, zda naše weby a služby fungují správně."
+        href="https://status.bbhost.cz/status/mcnavody"
+        icon="signal"
+        target="_blank"
+    />
+</CardGrid>

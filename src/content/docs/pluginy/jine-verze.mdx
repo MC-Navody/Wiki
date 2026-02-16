@@ -1,0 +1,98 @@
+---
+title: Podpora jiných verzí
+description: Jak umožnit připojení hráčů se starším i novějším klientem.
+---
+
+
+import {CardGrid, LinkCard, Steps, TabItem, Tabs, FileTree} from '@astrojs/starlight/components';
+
+Ve výchozím stavu Minecraft vyžaduje, aby verze serveru a klienta byla **naprosto shodná**. Pokud máš server na verzi 1.21.1, připojí se jen hráči s klientem 1.21.1.
+
+Aby se mohli připojit i ostatní, potřebuješ sadu pluginů, které překládají packety mezi serverem a hráčem.
+
+## Rozdíl mezi pluginy
+
+Mnoho lidí si myslí, že stačí stáhnout jen ViaVersion. To je ale omyl. Existují tři hlavní pluginy, každý dělá něco jiného:
+
+### 1. ViaVersion
+Umožňuje připojení **novějších klientů** na **starší server**.
+* *Příklad:* Server běží na 1.8.8, ale chceš, aby se připojili hráči s 1.21.
+* **Nutnost:** Toto je základní plugin, který je vyžadován pro fungování ostatních doplňků.
+
+### 2. ViaBackwards
+Umožňuje připojení **starších klientů** na **novější server** (až do verze 1.9).
+* *Příklad:* Server běží na 1.21, ale chceš, aby se připojili hráči s 1.16.5.
+* *Vyžaduje:* ViaVersion.
+
+### 3. ViaRewind
+Umožňuje připojení **historických klientů** (1.7 a 1.8) na **novější server**.
+* *Příklad:* Server běží na 1.21, ale chceš podporovat PvP komunitu na verzi 1.8.8.
+* *Vyžaduje:* ViaVersion + ViaBackwards.
+
+---
+
+## Kam pluginy nainstalovat?
+
+To záleží na tom, jak je tvůj server nastavený.
+
+<Tabs>
+    <TabItem label="🚀 Velocity / Bungee (Síť)">
+        Toto je **nejlepší a doporučené řešení**.
+        Pokud máš Proxy server, nainstaluj ViaVersion (a doplňky) **pouze na Proxy**.
+
+        **Výhody:**
+        * Ušetříš výkon na herních serverech (Backend).
+        * Hráč může měnit verze serverů (Lobby 1.21 -> Survival 1.18) bez odpojování.
+        * Stačí nastavit jen jednou.
+
+        *Poznámka: Ujisti se, že stahuješ verzi pluginu určenou pro Velocity/BungeeCord!*
+    </TabItem>
+
+    <TabItem label="📜 Paper / Spigot (Jeden server)">
+        Pokud nemáš proxy a provozuješ jen jeden samostatný server.
+        Nainstaluj pluginy přímo do složky `/plugins/` na tomto serveru.
+    </TabItem>
+</Tabs>
+
+## Instalace
+
+<Steps>
+
+    1. **Stáhni potřebné pluginy**
+        Vyber si kombinaci podle toho, jaké verze chceš podporovat.
+
+        <CardGrid>
+            <LinkCard title="ViaVersion" href="https://hangar.papermc.io/ViaVersion/ViaVersion" target="_blank"
+                      description="Základ. Povolí novější verze na starším serveru."/>
+            <LinkCard title="ViaBackwards" href="https://hangar.papermc.io/ViaVersion/ViaBackwards" target="_blank"
+                      description="Doplněk. Povolí starší verze (do 1.9) na novém serveru."/>
+            <LinkCard title="ViaRewind" href="https://hangar.papermc.io/ViaVersion/ViaRewind" target="_blank"
+                      description="Doplněk. Povolí verzi 1.8 na novém serveru."/>
+        </CardGrid>
+
+    2. **Nahraj je na server**
+        Vlož stažené `.jar` soubory do složky `plugins` (buď na Proxy, nebo na Serveru, viz výše).
+
+        <FileTree>
+        - plugins/
+          - **ViaVersion.jar**
+          - **ViaBackwards.jar**
+          - **ViaRewind.jar**
+        </FileTree>
+
+    3. **Restartuj server**
+        Pluginy se načtou a vygenerují config.
+
+</Steps>
+
+## Časté otázky a problémy
+
+### Jak je to s bloky?
+Pokud se hráč s verzí **1.8** připojí na server **1.21**, neuvidí nové bloky (Netherite, Copper, atd.). ViaVersion je musí nahradit něčím, co 1.8 zná (např. Stone).
+* Hra může vypadat pro starší klienty "divně".
+* Hráči na starších verzích nemohou používat nové funkce (plavání, Elytra, druhá ruka - offhand).
+
+### Hráče to kope kvůli "Outdated Server/Client"
+1.  Zkontroluj, zda máš na serveru **ViaVersion**.
+2.  Pokud chceš podporovat starší verze, zkontroluj, zda máš i **ViaBackwards**.
+3.  Zkontroluj v konzoli, zda se pluginy správně načetly (žádné červené chyby při startu).

@@ -1,0 +1,103 @@
+---
+title: Updatování
+description: Jak bezpečně aktualizovat server a pluginy.
+---
+
+
+import {FileTree, Steps} from '@astrojs/starlight/components';
+
+Pravidelné aktualizace jsou klíčem k bezpečnému a stabilnímu serveru. V tomto návodu si ukážeme, jak správně postupovat.
+
+:::danger[Zálohuj!]
+Před jakýmkoliv zásahem do serveru (update pluginů, jádra nebo verze hry) si **vždy udělej kompletní zálohu**. Nikdy nevíš, co se může pokazit, a cesta zpět bez zálohy často neexistuje.
+:::
+
+## Jak aktualizovat pluginy?
+
+Mnoho lidí dělá chybu, že smaže starý plugin a nahraje nový za běhu serveru, nebo použije `/reload`. To je **špatně**.
+
+Nejbezpečnější a nejjednodušší způsob je využití automatické složky `update`, kterou server sám kontroluje při startu.
+
+<Steps>
+
+    1. Otevři složku `plugins` na svém serveru.
+
+    2. Vytvoř v ní novou složku s názvem `update` (pokud tam ještě není).
+
+        <FileTree>
+            - plugins/
+            - EssentialsX.jar
+            - ...
+            - **update/**
+        </FileTree>
+
+    3. Do této složky nahraj nové verze pluginů (`.jar` soubory). Nemusíš nic mazat ani přepisovat.
+
+    4. **Restartuj server.**
+        Server při startu automaticky detekuje soubory ve složce `update`, smaže staré verze pluginů o úroveň výš a nahradí
+        je těmi novými.
+
+</Steps>
+
+:::tip[Proč restart?]
+Nikdy neupdatuj pluginy příkazem `/reload` nebo pomocí pluginů typu PlugMan za běhu serveru! Moderní pluginy jsou komplexní a reloady často způsobují chyby v paměti (memory leaky) nebo rozbíjí funkčnost. **Vždy server restartuj.**
+:::
+
+## Jak aktualizovat jádro serveru (Paper/Purpur)?
+
+Aktualizace samotného serveru (souboru `server.jar`) v rámci stejné verze hry (např. z Paper build 100 na Paper build 120 pro verzi 1.21) je snadná.
+
+<Steps>
+
+    1. **Vypni server.**
+
+    2. Smaž starý soubor `server.jar`.
+
+    3. Nahraj nový soubor `server.jar`.
+
+    4. Zapni server.
+
+</Steps>
+
+:::caution[Pozor na soubory]
+Nikdy nepřepisuj `server.jar`, když server běží! Soubor by se mohl poškodit (korumpovat) a server by už nenastartoval. Vždy server nejprve vypni.
+:::
+
+## Přechod na novou verzi hry (Upgrade)
+
+Přechod mezi hlavními verzemi (např. z **1.20.4** na **1.21**) je složitější proces. Zde musíš být obzvlášť opatrný.
+
+### 1. Příprava
+
+* **Java 21:** Ujisti se, že tvůj hosting nebo VPS používá **Javu 21**. Verze 1.20.5+ na starší Javě nespustíš.
+* **Pluginy:** Mezi verzí 1.20.4 a 1.20.5 došlo k **obrovským změnám** v kódu (NBT tagy byly nahrazeny Komponentami). Staré pluginy na verzi 1.21 **nebudou fungovat**. Musíš stáhnout aktuální verze všech pluginů.
+* **Záloha:** Zopakuji to znovu – udělej si zálohu.
+
+### 2. Proces upgradu
+
+<Steps>
+
+    1. Vypni server.
+
+    2. Nahraď `server.jar` novou verzí (např. pro 1.21).
+
+    3. Aktualizuj všechny pluginy.
+
+    4. **Spusť konverzi světa (Doporučeno):**
+        Pokud máš velký svět, nespouštěj server normálně. Spusť ho jednorázově s parametrem `--forceUpgrade`.
+
+        * Tento příkaz donutí server projít všechny uložené chunky a převést je na nový formát **najednou**.
+        * Trvá to déle, ale zabráníš tím lagům, které by jinak vznikaly, kdyby se svět převáděl postupně až ve chvíli, kdy
+        se tam připojí hráči.
+
+        ```bash
+        java -jar server.jar --forceUpgrade --nogui
+        ```
+
+    5. Po dokončení konverze server vypni a spusť ho už normálně bez tohoto parametru.
+
+</Steps>
+
+:::danger[Cesta zpět neexistuje]
+Minecraft nepodporuje downgrade! Pokud jednou načteš svět na verzi 1.21, už ho **nikdy nespustíš na 1.20** bez toho, aby se poškodil nebo resetoval. Jediná cesta zpět je obnova ze zálohy.
+:::

@@ -1,0 +1,153 @@
+---
+title: Optimalizace
+description: Průvodce optimalizací serveru Minecraft pro maximální výkon.
+---
+
+
+import {CardGrid, LinkCard, Steps, FileTree} from '@astrojs/starlight/components';
+
+Tento průvodce je určen primárně pro verzi **1.21.x**, ale většina informací platí i pro starší verze (1.18+).
+
+:::note[Zlaté pravidlo]
+Nikdy nebude existovat jeden univerzální návod, který přinese perfektní výsledky pro všechny. Každý server má jiné potřeby (Survival vs. Skyblock) a jiný hardware. Ladění možností pro tvůj konkrétní server je klíčem.
+:::
+
+## 1. Výběr Softwaru
+
+Volba serverového software (JAR) má **největší vliv** na výkon.
+
+<CardGrid>
+    <LinkCard title="Paper" description="Zlatý standard. Zaměřený na výkon a opravy herních mechanik."
+              href="https://papermc.io/downloads" target="_blank"/>
+    <LinkCard title="Pufferfish" description="Fork Paperu s agresivní optimalizací. Skvělý pro větší servery."
+              href="https://pufferfish.host/downloads" target="_blank"/>
+    <LinkCard title="Purpur" description="Fork Pufferfish s důrazem na herní možnosti a konfigurovatelnost."
+              href="https://purpurmc.org/downloads" target="_blank"/>
+    <LinkCard title="Leaf" description="Novější fork zaměřený na opravy a další optimalizace."
+              href="https://www.leafmc.one/download" target="_blank"/>
+</CardGrid>
+
+:::danger[Čemu se vyhnout?]
+* **Vanilla / CraftBukkit / Spigot:** Zastaralé a neefektivní.
+* **"Async" forky:** Placené JARy slibující "všechno asynchronně" jsou často podvody nebo extrémně nestabilní.
+* **Reloadery:** Pluginy jako PlugMan pro "reload" pluginů za běhu často způsobují chyby a úniky paměti.
+:::
+
+## 2. Předgenerování mapy
+
+Generace nového světa (1.18+) je extrémně náročná na procesor. Pokud hráč běží do neprozkoumaného území, server se začne sekat.
+
+**Řešení:** Předgeneruj mapu pomocí pluginu **Chunky**.
+<Steps>
+    1.  Nainstaluj [Chunky](https://hangar.papermc.io/pop4959/Chunky).
+    2.  Nastav hranice světa (WorldBorder).
+    3.  Spusť generování příkazem `chunky start`.
+</Steps>
+
+:::tip[Tip]
+Nezapomeň nastavit hranice i pro Nether a End! Nether je 8× menší než Overworld. Pokud nastavíš Overworld na 10 000 bloků, Nether nastav na 1 250.
+:::
+
+## 3. Konfigurace serveru
+
+Zde jsou nejdůležitější nastavení, která mají největší dopad na výkon.
+
+### server.properties
+
+<FileTree>
+- **server.properties**
+</FileTree>
+
+* **`simulation-distance`** (Doporučeno: **4**)
+* Určuje, jak daleko od hráče server "počítá fyziku" (růst obilí, pece, mobové).
+* Toto je **nejdůležitější nastavení pro výkon**. Hodnota 3 nebo 4 je ideální pro většinu serverů.
+* **`view-distance`** (Doporučeno: **7-10**)
+* Jak daleko hráči vidí. Tuto hodnotu nastav vyšší než `simulation-distance`. Paper umí posílat chunky, aniž by je zatěžoval (tickoval).
+* **`network-compression-threshold`** (Doporučeno: **256**)
+* Velikost paketu pro kompresi. Pro veřejné servery nech 256. Pokud máš BungeeCord na stejném stroji, zvaž -1 (vypnuto).
+
+### spigot.yml
+
+<FileTree>
+- **spigot.yml**
+</FileTree>
+
+* **`mob-spawn-range`** (Doporučeno: **3**)
+* Okruh spawnování mobů. Musí být menší nebo rovno `simulation-distance`. Snížení výrazně pomáhá s výkonem AI.
+* **`entity-activation-range`**
+* Mobové mimo tuto vzdálenost nebudou mít aktivní AI (nebudou se hýbat).
+```yaml
+animals: 16
+monsters: 24
+raiders: 48
+misc: 8
+tick-inactive-villagers: false # Pozor: Může rozbít farmy na železo.
+ignore-spectators: true
+```
+* **`merge-radius`** (Doporučeno: `item: 3.5`, `exp: 4.0`)
+* Spojuje itemy na zemi do jednoho stacku. Méně entit = menší lagy.
+
+### config/paper-world-defaults.yml
+*(Dříve paper.yml)*
+
+<FileTree>
+- config/
+  - **paper-world-defaults.yml**
+</FileTree>
+
+* **`max-entity-collisions`** (Doporučeno: **2**)
+* Kolik entit se může "strkat" najednou. Hodnota 2 stačí pro většinu farem a zabrání lagům při přemnožení mobů na jednom bloku.
+* **`despawn-ranges`** (Soft / Hard)
+* **Monster:** 32 / 96
+* Mobové dále než Hard limit zmizí okamžitě. Hard limit by měl být mírně větší než `simulation-distance * 16`.
+* **`per-player-mob-spawns`** (Doporučeno: **true**)
+* Zajišťuje spravedlivé rozdělení mobů. Zabrání tomu, aby jeden hráč u mob farmy vyčerpal celý limit serveru.
+* **`redstone-implementation`** (Doporučeno: **ALTERNATE_CURRENT**)
+* Mnohem efektivnější algoritmus pro redstone. Snižuje lagy z velkých obvodů až o 80 %.
+* **`optimize-explosions`** (Doporučeno: **true**)
+* Rychlejší výpočet TNT.
+* **`treasure-maps.enabled`** (Doporučeno: **false**)
+* Hledání pokladů (mapy k vrakům) je častým důvodem zamrznutí serveru při generaci světa. Pokud nemáš svět 100% předgenerovaný, vypni to.
+
+### purpur.yml
+*(Pouze pro Purpur)*
+
+<FileTree>
+- **purpur.yml**
+</FileTree>
+
+* **`zombie.aggressive-towards-villager-when-lagging`** (Doporučeno: **false**)
+* Pokud TPS klesne, zombíci přestanou hledat vesničany.
+* **`villager.lobotomize.enabled`** (Doporučeno: **true**)
+* Vesničané, kteří nemohou najít cestu nebo jsou zavření v 1x1 prostoru, ztratí AI a přestanou zatěžovat server.
+
+## 4. Java Flagy (Startovací argumenty)
+
+**⚠️ Důležité:** Minecraft 1.21 vyžaduje **Java 21**.
+
+Nepoužívej výchozí parametry. Používej **Aikar's Flags**, které jsou průmyslovým standardem pro optimalizaci Garbage Collectoru (G1GC).
+
+<LinkCard title="Generátor Flagů" description="Vygeneruj si správné argumenty pro svůj hardware."
+          href="https://flags.sh/" target="_blank" icon="rocket"/>
+
+Podrobnější návod najdeš v sekci [Java Flagy](/nastaveni/java-flagy/).
+
+## 5. Měření výkonu (Lagy?)
+
+Nehádej, co způsobuje lagy. Změř to.
+<Steps>
+    1.  **`/mspt`**
+        * Příkaz Paperu. Ukáže průměrnou délku ticku.
+        * Pod **50ms** = ✅ OK (20 TPS)
+        * Nad **50ms** = ⚠️ Lagy (TPS klesá)
+    2.  **Spark**
+        * [Spark](https://spark.lucko.me/download) je nejlepší nástroj na analýzu. Je součástí Paperu.
+        * Napiš `/spark profiler start`, nech běžet cca 5 minut při lagách a pak `/spark profiler stop`. Dostaneš odkaz, kde přesně uvidíš, který plugin nebo entita "žere" výkon.
+</Steps>
+## 6. Mýty a nebezpečné "optimalizace"
+
+🚫 **Pluginy na mazání itemů (ClearLag)**
+Zbytečné. Většinou způsobí více lagů skenováním světa, než kolik ušetří smazáním itemů. Použij raději nastavení `alt-item-despawn-rate` v configu Paperu (např. cobblestone zmizí po 30s).
+
+🚫 **Reload (`/reload` nebo PlugMan)**
+Nikdy nepoužívej `/reload` na produkčním serveru. Rozbíjí to pluginy, způsobuje úniky paměti (memory leaks) a chyby v datech. **Vždy server restartujte.**

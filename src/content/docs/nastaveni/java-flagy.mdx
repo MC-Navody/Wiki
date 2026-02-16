@@ -1,0 +1,100 @@
+---
+title: Java flagy
+description: Doporučené Java flagy (startovací argumenty) pro Minecraft servery.
+---
+
+
+import {CardGrid, LinkCard, TabItem, Tabs} from '@astrojs/starlight/components';
+
+Jak většina z vás určitě ví, Minecraft používá **Java Flagy** (startovací argumenty). Díky nim Java pozná, jaký má mít server výkon, jak se má chovat při čištění paměti (Garbage Collection) a kolik RAM může využít.
+
+Volba správných flagů je **kriticky důležitá**. Špatné nastavení může způsobovat záseky (lagy) při ukládání světa nebo při čištění paměti, i když máš výkonný hardware.
+
+## Generátor flagů (Doporučeno)
+
+Místo složitého kopírování a upravování čísel ti doporučuji použít ověřený generátor. Ten za tebe vypočítá ideální hodnoty podle tvé paměti RAM a typu serveru.
+
+<CardGrid>
+    <LinkCard title="Flags.sh" description="Generátor startovacích argumentů pro Paper, Velocity a další."
+              href="https://flags.sh/" target="_blank" icon="rocket"/>
+</CardGrid>
+
+---
+
+## Ruční nastavení (Aikar's Flags)
+
+Pokud si chceš flagy nastavit sám, vycházíme z legendárních **Aikar's Flags**, které jsou v komunitě standardem pro stabilitu a výkon.
+
+### 1. Nastavení RAM (Xms a Xmx)
+
+Nejdůležitější jsou parametry `-Xms` (startovní RAM) a `-Xmx` (maximální RAM).
+* **Pravidlo:** Obě hodnoty nastav vždy na **stejné číslo**. Zabráníš tím zbytečným operacím při změně velikosti paměti za běhu.
+* **Pterodactyl / Docker:** Pokud máš server na hostingu v kontejneru (např. máš zaplaceno 10 GB RAM), **nikdy nenastavuj Xmx na 100 %**. Java potřebuje extra místo pro svá vlákna (Overhead).
+
+:::caution[Kolik RAM nastavit?]
+Doporučuji nastavit `Xmx` a `Xms` na cca **85-90 %** celkové kapacity, kterou máš k dispozici.
+* Máš 8 GB RAM? Nastav `-Xms7G -Xmx7G`
+* Máš 12 GB RAM? Nastav `-Xms10G -Xmx10G`
+:::
+
+### 2. Seznam flagů
+
+Vyber si typ serveru, který používáš:
+
+<Tabs>
+    <TabItem label="📄 Paper / Purpur (G1GC)">
+        Standardní Aikarovy flagy. Vhodné pro drtivou většinu serverů (Paper, Purpur, Spigot).
+        *Nezapomeň změnit hodnotu RAM (první dva argumenty) podle potřeby.*
+
+        ```bash
+        java -Xms6G -Xmx6G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200
+        -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5
+        -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90
+        -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1
+        -Dusing.aikars.flags=[https://mcflags.emc.gs](https://mcflags.emc.gs) -Daikars.new.flags=true
+        -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -jar
+        server.jar --nogui
+        ```
+    </TabItem>
+
+    <TabItem label="🐡 Pufferfish (SIMD)">
+        Pufferfish (a jeho forky jako Purpur) umí využít **vektorové operace (SIMD)** pro zrychlení matematických
+        výpočtů.
+        Vyžaduje to moderní Javu (17+) a přidání modulu `--add-modules=jdk.incubator.vector`.
+
+        *Poznámka: V konzoli se může objevit varování o "Incubator module", to je v pořádku.*
+
+        ```bash
+        java -Xms6G -Xmx6G --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled
+        -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch
+        -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15
+        -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32
+        -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1
+        -Dusing.aikars.flags=[https://mcflags.emc.gs](https://mcflags.emc.gs) -Daikars.new.flags=true
+        -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -jar
+        server.jar --nogui
+        ```
+    </TabItem>
+
+    <TabItem label="🚀 Velocity Proxy">
+        Proxy server (Velocity) funguje jinak než herní server, nepotřebuje tolik RAM a má jiné chování Garbage
+        Collectoru.
+
+        ```bash
+        java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions
+        -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -jar server.jar --nogui
+        ```
+    </TabItem>
+</Tabs>
+
+## Časté problémy
+
+### Pterodactyl a Pelican (AlwaysPreTouch)
+Pokud používáš hosting s panelem **Pterodactyl** nebo **Pelican** (běží v Dockeru), pravděpodobně **nebudeš moci použít** flag `-XX:+AlwaysPreTouch`.
+* **Problém:** Tento flag nutí Javu při startu "osahat" a vynulovat celou přidělenou RAM. V kontejnerovém prostředí to může trvat dlouho, nebo to systém vyhodnotí jako zaseknutí a server zabije (Kill).
+* **Řešení:** Pokud se server po přidání flagů restartuje nebo padá při startu, **odeber** z příkazu část `-XX:+AlwaysPreTouch`.
+
+### Generational ZGC (Java 21+)
+Možná jsi slyšel o **ZGC**, novém Garbage Collectoru v Javě 21.
+* Pro servery s **velkou RAM (nad 16 GB)** může být ZGC lepší než G1GC (žádné záseky).
+* Pro běžné servery (do 12 GB) je **G1GC (Aikar)** stále stabilnější a ověřenější volbou. Pokud nevíš co děláš, zůstaň u Aikara.

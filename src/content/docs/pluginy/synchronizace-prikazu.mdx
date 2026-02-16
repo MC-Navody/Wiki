@@ -1,0 +1,116 @@
+---
+title: Synchronizace příkazů
+description: Jak posílat příkazy z proxy na herní servery (např. pro VIP).
+---
+
+
+import {Steps, FileTree} from '@astrojs/starlight/components';
+
+Synchronizace příkazů je nezbytná funkce pro každou větší síť serverů. Hodí se zejména pro **obchody (Store)** nebo **hlasování**.
+
+Představ si situaci: Hráč si koupí VIP na webu. Web pošle příkaz na Proxy (nebo na server, kde je hráč online), ale ty potřebuješ, aby se příkaz vykonal na Survivalu, i když je hráč zrovna na Lobby. Právě k tomu slouží plugin **CommandSync**.
+
+## Instalace a Nastavení
+
+V tomto návodu použijeme plugin [CommandSync](https://www.spigotmc.org/resources/commandsync.52093/), který funguje na bázi socketů (komunikace přes porty).
+
+:::caution[Důležité: Porty]
+Tento plugin vyžaduje **otevřené porty**. Pokud jsi na hostingu (např. Pterodactyl), musíš si k serverům přiřadit další porty (v sekci Network/Sítě) a ty následně použít v konfiguraci níže. **Nelze použít porty, které už využívá Minecraft (např. 25565)!**
+:::
+
+<Steps>
+
+    1. **Stažení pluginu**
+
+        Stáhni plugin **CommandSync** a nahraj ho do složky `/plugins/` na **všechny servery**:
+        * Na Proxy (Velocity/BungeeCord)
+        * Na všechny backend servery (Survival, Lobby, Skyblock...)
+
+    2. **Příprava (Restart)**
+
+        Všechny servery restartuj, aby se vygenerovaly konfigurační soubory.
+
+    3. **Nastavení Backend serverů (Příjemce)**
+
+        Nejprve nastavíme herní servery, aby "poslouchaly" a čekaly na příkazy.
+        Otevři `plugins/CommandSync/config.yml` na **Survivalu** (nebo jiném herním serveru).
+
+        <FileTree>
+        - plugins/
+          - CommandSync/
+            - **config.yml**
+        </FileTree>
+
+        ```yaml
+        # --- Config na SURVIVALU ---
+
+        # Unikátní název tohoto serveru (budeš ho používat v configu proxy)
+        name: survival
+
+        # IP adresa tohoto serveru (zpravidla 0.0.0.0 nebo 127.0.0.1)
+        ip: 127.0.0.1
+
+        # Port, na kterém bude plugin naslouchat.
+        # MUSÍ to být volný port (např. o jedno číslo vyšší než herní port).
+        port: 8888
+
+        # Heslo pro ověření (musí být stejné všude)
+        password: "moje_tajne_heslo"
+        ```
+
+        *Tento krok opakuj pro všechny herní servery (Lobby atd.), jen jim dej jiné jméno a **jiný port** (např. 8889).*
+
+    4. **Nastavení Proxy serveru (Odesílatel)**
+
+        Nyní nastavíme Proxy, aby věděla, kam má příkazy posílat.
+        Otevři `plugins/CommandSync/config.yml` na **Proxy**.
+
+        <FileTree>
+        - plugins/
+          - CommandSync/
+            - **config.yml**
+        </FileTree>
+
+        ```yaml
+        # --- Config na PROXY ---
+
+        sync:
+        # Název serveru (musí se shodovat s 'name' v configu na backend serveru)
+        survival:
+        # IP adresa, kde běží Survival
+        ip: 127.0.0.1
+        # Port, který jsi nastavil v configu na Survivalu
+        port: 8888
+        # Heslo (shodné)
+        password: "moje_tajne_heslo"
+
+        lobby:
+        ip: 127.0.0.1
+        port: 8889
+        password: "moje_tajne_heslo"
+        ```
+
+    5. **Finále**
+
+        Restartuj znovu všechny servery. Pokud je vše správně, v konzoli uvidíš zprávu o úspěšném připojení (Connection
+        successful).
+
+</Steps>
+
+## Jak to použít?
+
+Nyní můžeš posílat příkazy z Proxy na konkrétní servery.
+
+**Příkaz:**
+`/sync console <název_serveru> <příkaz>`
+
+**Příklad:**
+Chceš dát hráči `Pepa` dia meč na serveru `survival`, ale příkaz píšeš do konzole Proxy:
+
+```bash
+/sync console survival give Pepa diamond_sword 1
+```
+
+:::tip[Využití pro Webstore]
+Pokud používáš CraftingStore nebo Tebex, nastavíš příkaz tak, aby se odeslal na Proxy. Plugin ho pak automaticky přepošle na správný server.
+:::

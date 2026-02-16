@@ -1,0 +1,109 @@
+---
+title: Herní Servery
+description: Jaký herní server použít pro Minecraft a proč.
+---
+
+
+import {CardGrid, LinkCard, Steps} from '@astrojs/starlight/components';
+
+Pro mnohé nováčky je celkem překvapení, když zjistí, že servery, na kterých hrají, nejsou v drtivé většině případů "čistý" Minecraft (Vanilla).
+
+Proč tomu tak je? Jednoduše: **Vanilla nepodporuje pluginy.** Bez pluginů si nevytvoříš kvalitní server, nebudeš mít ochranu proti griefingu, permissions systém ani optimalizaci.
+
+## Historie a Vývoj
+
+CraftBukkit je zde již od nepaměti a za tu dobu z něj vzniklo mnoho dalších modifikací (forků). Zde je zjednodušený rodokmen nejpoužívanějších softwarů:
+
+`CraftBukkit` -> `Spigot` -> `Paper` -> `Pufferfish` -> `Purpur` / `Leaf`
+
+Každý další "potomek" v této řadě obsahuje vše, co měl jeho předchůdce, ale přidává opravy chyb, lepší výkon a nové funkce.
+
+:::caution[Varování]
+Silně nedoporučujeme používat různé "no-name" placené forky z pochybných stránek nebo BuiltByBit. Často obsahují zadní vrátka (backdoory), kradený kód nebo jsou nestabilní. Drž se ověřených projektů níže.
+:::
+
+## Přehled Softwaru
+
+Jaký z nich si tedy vybrat? Zde je rozdělení podle účelu.
+
+### ❌ Zastaralé (Nepoužívat)
+
+* **CraftBukkit:** Extrémně náročný na výkon, dnes již nepoužitelný.
+* **Spigot:** Ačkoliv byl léta standardem, dnes už nestačí. Chybí mu kritické optimalizace a opravy exploitů, které má Paper.
+
+### 🕊️ Ukončené (Pro starší verze)
+
+Tyto projekty již nejsou vyvíjeny, ale pro specifické starší verze Minecraftu jsou stále nejlepší volbou.
+
+* **Tuinity:** Byl to fork zaměřený na optimalizaci pro verzi **1.16.5**. Jeho funkce byly později včleněny přímo do Paperu.
+* **Airplane:** Předchůdce Pufferfishe, zaměřený na verzi **1.17**.
+
+### ✅ Doporučené (Moderní)
+
+<CardGrid>
+    <LinkCard title="Paper"
+              description="Zlatý standard. Opravuje bugy, exploity a výrazně zvyšuje výkon oproti Spigotu."
+              href="https://papermc.io/downloads" target="_blank"/>
+    <LinkCard title="Pufferfish"
+              description="Fork Paperu zaměřený na maximální výkon. Ideální pro velké Survival/SMP servery."
+              href="https://pufferfish.host/downloads" target="_blank"/>
+    <LinkCard title="Purpur"
+              description="Fork Pufferfish. Přidává stovky herních nastavení a možností konfigurace (gameplay)."
+              href="https://purpurmc.org/downloads" target="_blank"/>
+    <LinkCard title="Leaf"
+              description="Pokročilý fork (z Gale/Pufferfish) zaměřený na opravu chyb a další optimalizaci."
+              href="https://www.leafmc.one/download" target="_blank"/>
+</CardGrid>
+
+## Detailní popis
+
+### Paper (Základ)
+Paper je bezesporu nejdůležitější software současnosti. Má dostupné verze od 1.8.8 až po nejnovější. Zaměřuje se na zlepšení hry ve všech ohledech – optimalizace, oprava duplikačních glitchů a oprava vanillových chyb. Paper je **naprostý základ** a měl by ho používat každý, kdo chce stabilní server.
+
+### Pufferfish (Výkon)
+Pufferfish je fork Paperu, který se zaměřuje na "agresivní" optimalizaci. Mění způsob, jakým server nakládá s entitami a načítáním chunků, což vede k výrazně vyššímu výkonu. Pokud máš survival server a bojuješ s lagy, Pufferfish je logický krok vpřed. (Pufferfish je duchovním nástupcem projektu Airplane).
+
+### Purpur (Funkce + Výkon)
+Purpur je postaven na Pufferfish (takže má jeho výkon), ale navíc přidává obrovské množství herních nastavení. Chceš, aby hráči mohli jezdit na mobech? Chceš změnit dosah vesničanů? Povolit Silk Touch na spawner? Purpur to umí. Je to nejoblíbenější volba pro moderní servery typu Survival či Skyblock.
+
+### Leaf (Moderní alternativa)
+Leaf je novější projekt (často vycházející z Gale, což je fork Pufferfish). Zaměřuje se na opravu věcí, které Paper/Pufferfish ještě nevyřešili, a přidává další optimalizace výkonu a sítě. Je to skvělá volba pro moderní verze (1.21+).
+
+### Folia (Specialita)
+Folia je projekt od týmu PaperMC pro **extrémně velké servery**.
+* **Jak to funguje:** Rozdělí svět na nezávislé regiony a každý region počítá na jiném jádře procesoru (multithreading).
+* **Pro koho je:** Pro servery s 500+ hráči na jednom světě.
+* **Nevýhody:** Většina běžných pluginů na Folii **nefunguje**. Vyžaduje speciálně upravené pluginy. Pro běžný server je to zbytečně složité.
+
+## Jaký software zvolit pro mou verzi?
+
+Zde je naše doporučení podle verze Minecraftu:
+
+| Verze MC | Doporučený Software | Poznámka |
+| :--- | :--- | :--- |
+| **1.21+** | **Purpur**, **Pufferfish** nebo **Leaf** | Pro maximální výkon a možnosti. |
+| **1.20.x** | **Purpur** nebo **Pufferfish** | Stabilní a výkonné. |
+| **1.19.x** | **Purpur** nebo **Pufferfish** | |
+| **1.18.x** | **Purpur** nebo **Pufferfish** | |
+| **1.17.1** | **Purpur** nebo **Airplane** | Airplane byl pro tuto verzi dedikovaný, ale Pufferfish ji zpětně také podporuje. |
+| **1.16.5** | **Tuinity** nebo **Purpur** | Tuinity je pro tuto verzi legendou v optimalizaci. |
+| **1.8.8** | **Paper** | Staré verze jsou nebezpečné a neoptimalizované. Pokud musíš, použij Paper. |
+
+## Instalace
+
+Instalace je velice jednoduchá:
+
+<Steps>
+    1. Ověř si, že máš správnou verzi Javy.
+        * Pro MC 1.20.5 a novější: **Java 21**
+        * Pro MC 1.18 - 1.20.4: **Java 17**
+        * Pro starší verze (1.16/1.17): **Java 16/17** (podle konkrétního buildu)
+
+    2. Stáhni `.jar` soubor vybraného softwaru.
+
+    3. Nahraj ho do složky serveru.
+
+    4. Přejmenuj ho na `server.jar` (nebo uprav spouštěcí skript).
+
+    5. Zapni server.
+</Steps>

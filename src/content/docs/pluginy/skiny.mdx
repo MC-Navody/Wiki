@@ -1,0 +1,118 @@
+---
+title: Skiny
+description: Jak zprovoznit skiny na warez (offline) serveru.
+---
+
+
+import {CardGrid, LinkCard, Steps, TabItem, Tabs, FileTree} from '@astrojs/starlight/components';
+
+Pokud na serveru povolíš připojení warez hráčů (`online-mode=false`), server přestane komunikovat se servery Mojangu pro ověřování relací. Vedlejším efektem je, že **přestane stahovat skiny**, takže všichni hráči vypadají jako Steve nebo Alex.
+
+Tento problém naštěstí řeší pluginy, které skiny stahují "bokem" přímo od Mojangu a aplikují je na hráče.
+
+## 1. SkinsRestorer (Doporučeno)
+
+Toto je absolutní standard. Plugin funguje spolehlivě, podporuje URL skiny a má obrovskou komunitu.
+
+<CardGrid>
+    <LinkCard title="SkinsRestorer" href="https://hangar.papermc.io/SRTeam/SkinsRestorer" target="_blank"
+              description="Stáhnout z Hangaru (Doporučeno)" icon="rocket"/>
+    <LinkCard title="SkinsRestorer" href="https://www.spigotmc.org/resources/skinsrestorer.2124/" target="_blank"
+              description="Stáhnout ze Spigotu" icon="external"/>
+</CardGrid>
+
+### Instalace
+
+Kam plugin nahrát? To záleží na tom, jaký máš typ serveru.
+
+<Tabs>
+    <TabItem label="🚀 Velocity / Bungee (Síť)">
+        Pokud máš síť serverů (Proxy + Lobby + Survival), instalace je nejjednodušší.
+
+        <Steps>
+            1. Stáhni **SkinsRestorer**.
+            2. Nahraj ho do složky `plugins` **pouze na Proxy serveru** (Velocity nebo BungeeCord).
+            3. Na herní servery (Survival, Lobby) ho **nenahrávej**.
+            4. Restartuj proxy.
+        </Steps>
+
+        *Výhoda: Skin hráče se načte hned při připojení a zůstane stejný na všech serverech.*
+    </TabItem>
+
+    <TabItem label="📜 Paper / Spigot (Jeden server)">
+        Pokud máš jen jeden samostatný server bez proxy.
+
+        <Steps>
+            1. Stáhni **SkinsRestorer**.
+            2. Nahraj ho do složky `plugins` na svém serveru.
+            3. Restartuj server.
+        </Steps>
+    </TabItem>
+</Tabs>
+
+### Příkazy pro hráče
+
+Po instalaci mohou hráči používat tyto příkazy:
+
+* `/skin <jméno>` - Nastaví skin podle jména prémiového hráče (např. `/skin Notch`).
+* `/skin url <odkaz>` - Nastaví skin z odkazu (musí to být přímý odkaz na .png obrázek, např. z Imgur nebo NameMC).
+* `/skins` - Otevře GUI menu s uloženými skiny.
+* `/skin clear` - Resetuje skin na výchozí.
+
+### Konfigurace (Databáze)
+
+Ve výchozím stavu ukládá SkinsRestorer data do lokálních souborů. Pokud máš obrovský server, doporučujeme použít MySQL.
+Otevři `plugins/SkinsRestorer/config.yml`:
+
+<FileTree>
+- plugins/
+  - SkinsRestorer/
+    - **config.yml**
+</FileTree>
+
+```yaml
+# Příklad nastavení MySQL
+MySQL:
+  Enabled: true
+  Host: localhost
+  Port: 3306
+  Database: minecraft
+  User: root
+  Password: mojeheslo
+
+```
+
+---
+
+## 2. CMI (Alternativa)
+
+Pokud používáš plugin **CMI** (Content Management Interface) a nechceš instalovat SkinsRestorer, můžeš využít jeho vestavěnou funkci.
+
+:::caution[Omezení]
+CMI řešení skinů funguje **pouze na backend serverech** (Spigot/Paper). Pokud máš proxy síť, CMI skiny se nemusí načíst správně při přepínání serverů. Pro sítě vždy doporučujeme SkinsRestorer na proxy.
+:::
+
+V souboru `plugins/CMI/config.yml` najdi sekci **Skins**:
+
+<FileTree>
+- plugins/
+  - CMI/
+    - **config.yml**
+</FileTree>
+
+```yaml
+Skins:
+  # Automaticky stáhne skin podle jména hráče při připojení
+  AutoApply: true
+  # Vypne stahování, pokud hráč už nějaký skin má (např. z TLauncheru)
+  DoNotApplyIfPlayerHasOne: false
+
+```
+
+---
+
+## Časté problémy
+
+### Hráči s Bedrock edicí (Geyser)
+
+SkinsRestorer by měl automaticky detekovat hráče z Geyseru a ponechat jim jejich Bedrock skin. Pokud to nefunguje, zkontroluj v configu SkinsRestoreru, zda je povolena integrace s Floodgate.

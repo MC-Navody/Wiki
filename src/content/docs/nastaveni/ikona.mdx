@@ -1,0 +1,57 @@
+---
+title: Ikona serveru
+description: Jak nastavit vlastní ikonu v seznamu serverů.
+---
+
+
+import {FileTree, Steps} from '@astrojs/starlight/components';
+
+Ikona serveru je obrázek, který se zobrazuje v seznamu serverů (server list) vlevo od názvu a popisu (MOTD). Je to první vizuální prvek, kterým můžeš hráče zaujmout.
+
+## Požadavky na obrázek
+
+Aby Minecraft ikonu přijal, musí splňovat přesná kritéria:
+
+* **Rozměry:** Přesně **64x64 pixelů**.
+* **Formát:** Obrázek musí být ve formátu **.PNG**.
+* **Název:** Soubor se musí jmenovat přesně `server-icon.png`.
+
+:::tip[Nástroj na úpravu]
+Pokud tvůj obrázek nemá správné rozměry nebo formát, můžeš použít online editor, například [ResizePixel](https://www.resizepixel.com/) nebo jakýkoliv grafický program (Malování, Photoshop, GIMP).
+:::
+
+## Postup nastavení
+
+<Steps>
+
+    1. Připrav si obrázek splňující výše uvedené požadavky.
+
+    2. Přejmenuj soubor na `server-icon.png`.
+
+    3. Nahraj tento soubor do **hlavní složky serveru** (tam, kde se nachází `server.jar` a soubor `server.properties`).
+
+        <FileTree>
+            - logs/
+            - plugins/
+            - world/
+            - server.jar
+            - **server-icon.png**
+            - server.properties
+            - ...
+        </FileTree>
+
+    4. Restartuj server.
+
+</Steps>
+
+:::note[Máš Proxy server?]
+Pokud používáš **Velocity** nebo **BungeeCord**, musíš ikonu nahrát do hlavní složky **Proxy serveru**, nikoliv na backend servery (Survival, Lobby). Hráč se totiž připojuje k proxy, a ta posílá informace o ikoně.
+:::
+
+## Co dělat, když se ikona nezobrazuje?
+
+Nahrál jsi ikonu, restartoval server, ale v seznamu serverů ji stále nevidíš?
+
+1.  **Mezipaměť (Cache):** Minecraft klient si ikony ukládá. Zkus server ze seznamu **smazat a znovu přidat**.
+2.  **Ověření online:** Zkontroluj funkčnost přes externí nástroj, například [Minecraft Server Status](https://mcsrvstat.us/). Pokud ji tam vidíš, je chyba jen ve tvém Minecraft klientovi.
+3.  **Špatný název:** Ujisti se, že se soubor jmenuje přesně `server-icon.png` (vše malým, koncovka png).

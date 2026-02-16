@@ -1,0 +1,150 @@
+---
+title: MOTD Serveru
+description: Jak nastavit a nastylovat zprávu dne (MOTD) pomocí pluginu MiniMOTD.
+---
+
+
+import {FileTree, Steps} from '@astrojs/starlight/components';
+
+MOTD (*Message of the Day*) je krátký text, který hráči uvidí v seznamu serverů pod názvem tvého serveru. Pomocí pluginu **MiniMOTD** můžeš vytvářet moderní duhové barvy, přechody (gradienty) a měnit zobrazený počet hráčů.
+
+:::caution[Důležité pro sítě]
+Pokud používáš proxy (**Velocity** nebo **BungeeCord**), nainstaluj MiniMOTD **pouze na proxy**. Nastavení na herních serverech (Survival, Lobby) se v seznamu serverů neprojeví, protože hráč komunikuje jako první právě s proxy serverem.
+:::
+
+## 1. Instalace
+
+MiniMOTD podporuje Velocity, BungeeCord (Waterfall) i běžné servery (Paper/Spigot).
+
+<Steps>
+
+    1. Stáhni si nejnovější verzi **MiniMOTD** z [Hangaru](https://hangar.papermc.io/jmp/MiniMOTD).
+
+    2. Vlož soubor `.jar` do složky `plugins` na tvém serveru (nebo proxy).
+
+    3. Restartuj server, aby se vygenerovaly konfigurační soubory.
+
+</Steps>
+
+---
+
+## 2. Konfigurace (main.conf)
+
+MiniMOTD používá formát `.conf` (HOCON). Hlavní nastavení najdeš v `plugins/MiniMOTD/main.conf`.
+
+<FileTree>
+- plugins/
+  - MiniMOTD/
+    - icons/
+    - **main.conf**
+</FileTree>
+
+### Základní nastavení textu
+
+V sekci `motds` můžeš definovat libovolný počet zpráv, které se budou náhodně střídat. MiniMOTD využívá formát **MiniMessage**.
+
+```yaml
+# Příklad nastavení v main.conf
+motds=[
+    {
+        # První řádek (line1) a druhý řádek (line2)
+        line1="<gradient:blue:aqua>Můj Úžasný Server</gradient>"
+        line2="<yellow>Aktuálně hraje <white>{onlinePlayers} <yellow>hráčů!"
+        # Nastavení ikony (název souboru ve složce icons bez .png)
+        icon=random
+    },
+    {
+        line1="<rainbow>PŘIPOJ SE JEŠTĚ DNES!</rainbow>"
+        line2="<italic><gray>Verze 1.21.x - 1.21.x"
+        icon="server-icon"
+    }
+]
+
+```
+
+### Úprava počtu hráčů
+
+V sekci `player-count-settings` můžeš měnit, jak se hráčům zobrazuje kapacita serveru.
+
+```yaml
+player-count-settings {
+    # Pokud je true, nezobrazí se seznam hráčů po najetí myší
+    disable-player-list-hover=false
+
+    # Falešní hráči (např. pro zvýšení o 25 % oproti realitě)
+    fake-players {
+        fake-players="25%"
+        fake-players-enabled=false
+    }
+
+    # Zobrazí pevnou maximální kapacitu
+    max-players=100
+    max-players-enabled=true
+
+    # Funkce "vždy o X více" (např. 16/19 hráčů)
+    just-x-more-settings {
+        just-x-more-enabled=false
+        x-value=3
+    }
+}
+
+```
+
+---
+
+## 3. Ikony (Favicon)
+
+MiniMOTD umožňuje střídat více ikon pro tvůj server.
+
+<Steps>
+
+    1. Připrav si obrázky ve formátu **PNG** o velikosti přesně **64x64 pixelů**.
+    2. Vlož je do složky `plugins/MiniMOTD/icons/`.
+    3. V `main.conf` se ujisti, že máš zapnuto:
+        ```yaml
+        icon-enabled=true
+
+        ```
+
+
+    4. V sekci `motds` u konkrétní zprávy nastav `icon=random` pro náhodný výběr, nebo `icon="jmeno_souboru"` (bez
+    koncovky .png).
+
+</Steps>
+
+---
+
+## 4. Formátování (MiniMessage)
+
+Díky MiniMessage už nemusíš používat staré kódy jako `&a` nebo `&l`. MiniMOTD podporuje moderní značky:
+
+* **Barvy:** `<red>`, `<blue>`, `<gold>`
+* **Hex barvy:** `<color:#ff5555>`
+* **Přechody:** `<gradient:red:blue>Text</gradient>`
+* **Duha:** `<rainbow>Text</rainbow>`
+* **Styl:** `<bold>`, `<italic>`, `<underlined>`
+
+:::tip[Online Editor]
+Nejlepší způsob, jak si připravit MOTD, je použít [MiniMessage prohlížeč](https://webui.advntr.dev/). Tam si text graficky připravíš a pak ho jen zkopíruješ do configu.
+:::
+
+---
+
+## 5. Pokročilé nastavení (Proxy)
+
+Pokud běžíš na Velocity nebo BungeeCord, máš k dispozici soubor `plugin_settings.conf`. Ten ti umožní nastavit **jiné MOTD pro různé domény** (Virtual Hosts).
+
+Pokud se hráč připojí přes `survival.tvajdomena.cz`, uvidí jiné MOTD, než když se připojí přes `skyblock.tvajdomena.cz`.
+
+```yaml
+# V plugin_settings.conf
+proxy-settings {
+    virtual-host-configs {
+        "survival.priklad.cz:25565"=survival
+        "skyblock.priklad.cz:25565"=skyblock
+    }
+}
+
+```
+
+*(V tomto případě bys musel mít ve složce `extra-configs` soubory `survival.conf` a `skyblock.conf`.)*

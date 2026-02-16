@@ -1,0 +1,144 @@
+---
+title: Dynmapa
+description: Jak nastavit dynamickou mapu světa na serveru.
+---
+
+
+import {CardGrid, FileTree, LinkCard, Steps} from '@astrojs/starlight/components';
+
+Dynmap je legenda mezi pluginy. Umožňuje zobrazit tvůj Minecraft svět v prohlížeči, podobně jako Google Maps. Vidíš tam terén, stavby i pohybující se hráče v reálném čase.
+
+## Je Dynmap pro tebe?
+
+Dynmap je velmi náročná na **místo na disku** a **výkon procesoru**. Před instalací zvaž alternativu.
+
+<CardGrid>
+    <LinkCard title="Squaremap (Doporučeno)"
+              description="Moderní, ultra-rychlá mapa. Zabírá o 90 % méně místa než Dynmap a renderuje svět bleskově."
+              href="https://modrinth.com/plugin/squaremap" target="_blank" icon="rocket"/>
+    <LinkCard title="Dynmap"
+              description="Klasika. Má 3D pohled a mnoho doplňků, ale je extrémně náročná na disk (GB dat) a pomalá."
+              href="https://modrinth.com/plugin/dynmap" target="_blank" icon="document"/>
+</CardGrid>
+
+---
+
+## Instalace
+
+Pokud ses rozhodl pro Dynmapu, postupuj takto:
+
+<Steps>
+
+    1. Stáhni plugin **Dynmap** ze [SpigotMC](https://www.spigotmc.org/resources/dynmap%C2%AE.274/) nebo
+        [Modrinthu](https://modrinth.com/plugin/dynmap).
+
+    2. Nahraj soubor `.jar` do složky `plugins` na serveru.
+
+    3. **Restartuj server.**
+
+</Steps>
+
+## Konfigurace
+
+Výchozí nastavení Dynmapy je **nevhodné** pro produkční servery (vytváří miliony malých souborů). Musíme ho upravit.
+
+Otevři soubor `plugins/dynmap/configuration.txt`.
+
+<FileTree>
+- plugins/
+  - dynmap/
+    - **configuration.txt**
+</FileTree>
+
+### 1. Změna úložiště (Storage)
+
+Výchozí `filetree` ukládá každý dlaždici mapy jako samostatný soubor. To může rychle vyčerpat limit souborů (inodes) na hostingu.
+Doporučujeme přepnout na **SQLite** (jeden velký soubor) nebo **MySQL**.
+
+Najdi sekci `storage` (cca řádek 30) a uprav ji takto:
+* Přidej `#` před `type: filetree`
+* Smaž `#` před `type: sqlite`
+
+```yaml
+storage:
+  # Filetree storage (standard tree of image files for maps)
+  #type: filetree
+  # SQLite db for map storage (uses dbfile as storage location)
+  type: sqlite
+  dbfile: dynmap.db
+
+```
+
+### 2. Formát obrázků (Úspora místa)
+
+Změň formát obrázků na **WebP**. Kvalita je stejná jako PNG, ale zabírá mnohem méně místa.
+
+Najdi `image-format` (cca řádek 250) a změň ho:
+
+```yaml
+image-format: webp
+
+```
+
+### 3. Kvalita (Rozlišení)
+
+Rozlišení mapy ovlivňuje, jak moc můžeš přibližovat a kolik místa mapa zabere.
+Najdi `deftemplatesuffix` a zvol jednu z možností:
+
+* `vlowres` - Rozmazané, ale zabírá málo místa.
+* `lowres` - Zlatá střední cesta (Doporučeno).
+* `hires` - Vysoká kvalita (HD), ale mapa bude obrovská (stovky GB).
+
+```yaml
+deftemplatesuffix: lowres
+
+```
+
+### 4. Nastavení Portu (Webserver)
+
+Aby byla mapa viditelná na webu, musí běžet na vlastním portu.
+**Nemůžeš** použít port 25565 (ten má Minecraft). Musíš použít jiný volný port, který ti přidělil hosting (např. v sekci Network/Sítě).
+
+Najdi `webserver-port` (cca řádek 330):
+
+```yaml
+# TCP port, na kterém poběží webová mapa.
+webserver-port: 8123
+
+```
+
+*Po dokončení úprav soubor ulož a **restartuj server**.*
+
+---
+
+## Renderování (Generování mapy)
+
+Dynmapa sama o sobě ukáže jen to, co hráči prozkoumali (kde fyzicky byli). Aby byla mapa kompletní, musíš svět nejprve předgenerovat a pak nechat Dynmapu vykreslit.
+
+:::caution[Zátěž serveru]
+Renderování mapy extrémně zatěžuje procesor. Spouštěj ho ideálně v noci nebo když na serveru nikdo není.
+:::
+
+<Steps>
+
+    1. **Předgeneruj svět**
+        Použij plugin **Chunky** a vygeneruj svět. Pokud to neuděláš, Dynmapa bude mít černé díry.
+        *(Více v sekci [Doporučené pluginy](/pluginy/dop-pluginy/#-survival-a-svět)*
+    2. **Spusť Fullrender**
+        Jdi na server (nebo do konzole) a napiš příkaz:
+        ```bash
+        /dynmap fullrender
+
+        ```
+
+
+    3. **Čekej**
+        Tento proces může trvat hodiny (podle velikosti mapy). Stav můžeš sledovat příkazem `/dynmap stats`.
+
+</Steps>
+
+## Přístup na mapu
+
+Pokud jsi vše nastavil správně, mapa je dostupná na IP adrese tvého serveru s portem, který jsi nastavil.
+
+Například: `http://82.257.17.10:8123`

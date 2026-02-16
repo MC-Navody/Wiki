@@ -1,0 +1,33 @@
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+import type {StarlightRouteData as Props} from '@astrojs/starlight/route-data';
+---
+
+<Default {...Astro.props}/>
+
+<div class="footer">
+    MC Návody {new Date().getFullYear()} • <a href="/gdpr/">Ochrana osobních údajů (GDPR)</a>
+</div>
+
+<style>
+    .footer {
+        text-align: center;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        font-size: 0.9rem;
+        color: var(--sl-color-gray-3);
+        border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+    }
+    .footer a {
+        text-decoration: none;
+        color: inherit;
+    }
+    .footer a:hover {
+        text-decoration: underline;
+    }
+    @media print {
+        .footer {
+            display: none;
+        }
+    }
+</style>

@@ -1,0 +1,151 @@
+---
+title: Předgenerace světa
+description: Jak a proč předgenerovat svět pomocí pluginu Chunky.
+---
+
+
+import {CardGrid, LinkCard, Steps, TabItem, Tabs} from '@astrojs/starlight/components';
+
+Předgenerování světa je jedním z **nejdůležitějších kroků** při zakládání nového serveru.
+
+**Proč to dělat?**
+1.  **Žádné lagy:** Když hráč běží do neznáma (nebo letí s Elytrou), server musí náročně vypočítávat nové chunky. To vytěžuje procesor na 100 % a způsobuje sekání (pokles TPS). Pokud je svět hotový, server jen čte data z disku.
+2.  **Webová mapa:** Pluginy jako **Dynmap** nebo **Squaremap** nemohou zobrazit mapu, dokud fyzicky neexistuje.
+
+## 1. Instalace
+
+Budeme potřebovat plugin **Chunky**. Doporučujeme stáhnout i doplněk **ChunkyBorder** pro snadnou správu hranic světa.
+
+<CardGrid>
+    <LinkCard title="Chunky" href="https://hangar.papermc.io/pop4959/Chunky" target="_blank"
+              description="Hlavní plugin pro generování světa." icon="rocket"/>
+    <LinkCard title="ChunkyBorder" href="https://modrinth.com/plugin/chunkyborder" target="_blank"
+              description="Doplněk pro nastavení neviditelné zdi (hranice)." icon="puzzle"/>
+</CardGrid>
+
+Pluginy nahraj do složky `plugins` a **restartuj server**.
+
+---
+
+## 2. Nastavení a Spuštění
+
+Generaci spouštěj ideálně přes **konzoli serveru**. Pokud bys to dělal ve hře a spadl by ti internet nebo klient, neviděl bys průběh.
+
+<Steps>
+
+    1. **Vyber svět**
+        Nejprve pluginu řekni, který svět chceš generovat (např. `world`).
+        ```bash
+        chunky world world
+        ```
+
+    2. **Nastav střed**
+        Chceme generovat od středu mapy (souřadnice 0, 0).
+        ```bash
+        chunky center 0 0
+        ```
+
+    3. **Nastav rádius (Poloměr)**
+        Toto je nejdůležitější krok. Určuje, kolik bloků **na každou stranu** od středu se vygeneruje.
+        * *Příklad:* Rádius **5000** znamená mapu o šířce **10 000** bloků (od -5000 do +5000).
+        ```bash
+        chunky radius 5000
+        ```
+
+    4. **Spusť generování**
+        ```bash
+        chunky start
+        ```
+
+</Steps>
+
+:::caution[Vysoká zátěž]
+Během generování pojede procesor serveru naplno a TPS může klesnout. **To je normální.** Doporučujeme na serveru během této doby nestavět a nehrát.
+:::
+
+### Ovládání procesu
+
+* **Pauza:** `chunky pause` (uloží postup)
+* **Pokračování:** `chunky continue` (pokračuje tam, kde skončil, i po restartu serveru)
+* **Zrušení:** `chunky cancel`
+
+---
+
+## 3. Nastavení Hranice (Border)
+
+Samotné předgenerování nestačí. Musíš hráčům zabránit, aby chodili za vygenerovanou oblast (a tím generovali nové chunky a způsobovali lagy).
+
+<Tabs>
+    <TabItem label="🧱 ChunkyBorder (Doporučeno)">
+        Pokud jsi nainstaloval doplněk **ChunkyBorder**, hranice se nastaví přesně podle rádiusu, který jsi zadal při
+        generování.
+
+        **Příkaz:**
+        ```bash
+        chunkyborder set world 5000
+        ```
+        *(Číslo musí odpovídat rádiusu, který jsi použil v kroku 3)*.
+    </TabItem>
+
+    <TabItem label="minecraft Vanilla Border">
+        Pokud nechceš další plugin, můžeš použít příkaz přímo ze hry.
+        **Pozor:** Vanilla command bere jako parametr **průměr (šířku)**, nikoliv rádius! Musíš tedy zadat dvojnásobek.
+
+        **Příkaz (pro rádius 5000):**
+        ```bash
+        /worldborder set 10000
+        ```
+    </TabItem>
+</Tabs>
+
+---
+
+## 4. Nether a End
+
+Nezapomeň, že server má 3 světy. Nether a End je potřeba také omezit a vygenerovat.
+
+### Nether (`world_nether`)
+V Minecraftu je 1 blok v Netheru = 8 bloků v Overworldu.
+* Pokud máš Overworld Radius **5000**, Nether by matematicky měl mít **625**.
+* Z herního hlediska je to ale málo. Doporučujeme nastavit Nether Radius na **3000 - 4000**.
+
+```bash
+chunky world world_nether
+chunky center 0 0
+chunky radius 4000
+chunky start
+
+```
+
+### End (`world_the_end`)
+
+End se generuje jako "kruh" s ostrovy.
+
+* Hlavní ostrov je na souřadnicích 0,0.
+* Další ostrovy začínají cca od 1000 bloků dál.
+* Doporučený Radius: **5000 - 7500** (aby hráči našli Elytry).
+
+```bash
+chunky world world_the_end
+chunky center 0 0
+chunky radius 6000
+chunky start
+
+```
+
+---
+
+## Jak velký disk potřebuji?
+
+Verze 1.18+ (včetně 1.21) mají vyšší svět (od -64 do 320), takže zabírají více místa než staré verze.
+
+| Rádius | Šířka mapy (Bloky) | Přibližná velikost (Overworld) | Vhodné pro |
+| --- | --- | --- | --- |
+| **2 500** | 5 000 x 5 000 | ~ 1 GB | Malý SMP server pro kamarády |
+| **5 000** | 10 000 x 10 000 | ~ 4 GB | Standardní veřejný Survival |
+| **10 000** | 20 000 x 20 000 | ~ 17 GB | Větší servery (dlouhodobé) |
+| **20 000** | 40 000 x 40 000 | ~ 68 GB | Obří projekty (vyžaduje velký disk!) |
+
+:::tip[Squaremap / Dynmap]
+Pokud plánuješ webovou mapu, připočítej si k těmto hodnotám dalších **10-30 GB** místa pro vyrenderované dlaždice (v závislosti na kvalitě).
+:::

@@ -1,0 +1,219 @@
+---
+title: Doporučené pluginy
+description: Seznam nejlepších a nejpoužívanějších pluginů pro Minecraft server.
+tableOfContents: false
+---
+
+
+import {CardGrid, LinkCard} from '@astrojs/starlight/components';
+
+Níže najdeš seznam nejpoužívanějších a nejkvalitnějších **zdarma dostupných pluginů**, které najdou uplatnění téměř na každém serveru. V mnoha případech jsou dokonce lepší než jejich placené alternativy.
+
+## 🔧 Hlavní pluginy (Core)
+
+Tyto pluginy tvoří "mozek" serveru a jsou vyžadovány většinou ostatních pluginů.
+
+<CardGrid>
+    <LinkCard
+        title="Vault"
+        href="https://www.spigotmc.org/resources/vault.34315/"
+        target="_blank"
+        description="Absolutní nutnost. Slouží jako propojovací API pro ekonomiku, chat a oprávnění."
+    />
+    <LinkCard
+        title="ProtocolLib"
+        href="https://www.spigotmc.org/resources/protocollib.1997/"
+        target="_blank"
+        description="Knihovna pro manipulaci s packety. Vyžadována mnoha pluginy (Citizens, LibsDisguises, Anticheaty)."
+    />
+    <LinkCard
+        title="PlaceholderAPI (PAPI)"
+        href="https://www.spigotmc.org/resources/placeholderapi.6245/"
+        target="_blank"
+        description="Umožňuje používat tisíce proměnných (placeholderů) v chatu, tablistu, scoreboardu a menu."
+    />
+    <LinkCard
+        title="LuckPerms"
+        href="https://luckperms.net/download"
+        target="_blank"
+        description="Nejlepší plugin pro správu práv (permissions). Má skvělý webový editor."
+    />
+    <LinkCard
+        title="Spark"
+        href="https://spark.lucko.me/download"
+        target="_blank"
+        description="Profiler pro diagnostiku lagu. Ukáže ti přesně, co zpomaluje server (CPU/RAM)."
+    />
+    <LinkCard
+        title="EssentialsX"
+        href="https://essentialsx.net/downloads.html"
+        target="_blank"
+        description="Základní sada příkazů (/home, /spawn, /warp). Doporučujeme stáhnout i doplňky jako EssentialsChat a EssentialsSpawn."
+    />
+</CardGrid>
+
+## 🌲 Survival a Svět
+
+Pluginy pro správu mapy, ochranu a stavění.
+
+<CardGrid>
+    <LinkCard
+        title="Chunky"
+        href="https://hangar.papermc.io/pop4959/Chunky"
+        target="_blank"
+        description="Kriticky důležitý plugin. Slouží k předgenerování světa, aby se server nelagoval při načítání nových chunků."
+    />
+    <LinkCard
+        title="ChunkyBorder"
+        href="https://modrinth.com/plugin/chunkyborder"
+        target="_blank"
+        description="Doplněk pro Chunky. Nastaví pevnou hranici světa (World Border)."
+    />
+    <LinkCard
+        title="CoreProtect"
+        href="https://hangar.papermc.io/CORE/CoreProtect"
+        target="_blank"
+        description="Nejlepší nástroj pro logování bloků. Umožňuje zjistit, kdo co zničil a jednoduše to vrátit zpět (/co rollback)."
+    />
+    <LinkCard
+        title="WorldEdit"
+        href="https://modrinth.com/plugin/worldedit"
+        target="_blank"
+        description="Nástroj pro hromadné úpravy terénu a stavění."
+    />
+    <LinkCard
+        title="FastAsyncWorldEdit (FAWE)"
+        href="https://intellectualsites.github.io/download/fawe.html"
+        target="_blank"
+        description="Výrazně rychlejší a šetrnější alternativa WorldEditu. Ideální na build server."
+    />
+    <LinkCard
+        title="WorldGuard"
+        href="https://dev.bukkit.org/projects/worldguard"
+        target="_blank"
+        description="Ochrana spawnu a jiných oblastí (regionů). Umožňuje zakázat PvP, ničení bloků atd."
+    />
+    <LinkCard
+        title="GriefPrevention"
+        href="https://modrinth.com/plugin/griefprevention"
+        target="_blank"
+        description='Zlatá lopata. Umožňuje hráčům snadno si zabrat pozemek (claim) pomocí nástroje.'
+    />
+</CardGrid>
+
+## 🛡️ Administrace a Bezpečnost
+
+<CardGrid>
+    <LinkCard
+        title="GrimAC"
+        href="https://hangar.papermc.io/GrimAnticheat/GrimAnticheat"
+        target="_blank"
+        description="Momentálně nejlepší free Anticheat pro verze 1.20+. Detekuje killaury, fly, speed a další hacky."
+    />
+    <LinkCard
+        title="LibertyBans"
+        href="https://hangar.papermc.io/A248/LibertyBans"
+        target="_blank"
+        description="Moderní trestací systém (bany, mutes, historie). Skvělá a bezplatná alternativa k LiteBans."
+    />
+    <LinkCard
+        title="TAB"
+        href="https://hangar.papermc.io/NEZNAMY/TAB"
+        target="_blank"
+        description="Český plugin, světová špička. Kompletně upravuje Tablist, jména nad hlavou a Scoreboard."
+    />
+    <LinkCard
+        title="Maintenance"
+        href="https://hangar.papermc.io/kennytv/Maintenance"
+        target="_blank"
+        description="Umožňuje zapnout režim údržby s vlastním MOTD, odpočtem a ikonou."
+    />
+    <LinkCard
+        title="DiscordSRV"
+        href="https://modrinth.com/plugin/discordsrv"
+        target="_blank"
+        description="Propojí herní chat s Discord kanálem a umožňuje ovládat konzoli přes Discord."
+    />
+</CardGrid>
+
+## 🎮 Hratelnost a RPG
+
+<CardGrid>
+    <LinkCard
+        title="DecentHolograms"
+        href="https://modrinth.com/plugin/decentholograms"
+        target="_blank"
+        description="Tvorba vznášejících se textů (hologramů). Náhrada za zastaralé HolographicDisplays."
+    />
+    <LinkCard
+        title="CrazyCrates"
+        href="https://hangar.papermc.io/CrazyCrew/CrazyCrates"
+        target="_blank"
+        description="Systém beden s odměnami (lootboxy) za klíče. Má mnoho animací."
+    />
+    <LinkCard
+        title="AuraSkills"
+        href="https://hangar.papermc.io/Archy/AuraSkills"
+        target="_blank"
+        description="Moderní náhrada za McMMO. Přidává do hry skilly, levelování a staty. Má krásné GUI menu."
+    />
+    <LinkCard
+        title="DeluxeMenus"
+        href="https://hangar.papermc.io/HelpChat/DeluxeMenus"
+        target="_blank"
+        description="Tvorba vlastních GUI menu (warp menu, kit menu, shop)."
+    />
+</CardGrid>
+
+## 🌐 Ostatní užitečné nástroje
+
+<CardGrid>
+    <LinkCard
+        title="NuVotifier"
+        href="https://github.com/NuVotifier/NuVotifier"
+        target="_blank"
+        description="Propojení serveru s hlasovacími stránkami (Minecraft-list.cz atd.)."
+    />
+    <LinkCard
+        title="SuperbVote"
+        href="https://spigotmc.org/resources/superbvote.11626"
+        target="_blank"
+        description="Pokročilá správa odměn za hlasování. Spolupracuje s NuVotifierem."
+    />
+    <LinkCard
+        title="ViaVersion"
+        href="https://hangar.papermc.io/ViaVersion/ViaVersion"
+        target="_blank"
+        description="Umožní připojení hráčů s novějším klientem na starší server."
+    />
+    <LinkCard
+        title="ViaBackwards"
+        href="https://hangar.papermc.io/ViaVersion/ViaBackwards"
+        target="_blank"
+        description="Umožní připojení hráčů se starším klientem na novější server."
+    />
+    <LinkCard
+        title="Squaremap"
+        href="https://hangar.papermc.io/jmp/squaremap"
+        target="_blank"
+        description="Moderní a extrémně rychlá webová mapa. Šetrnější k výkonu serveru než Dynmap."
+    />
+    <LinkCard
+        title="Pl3xMap"
+        href="https://hangar.papermc.io/granny/Pl3xMap"
+        target="_blank"
+        description="Alternativa k Squaremap, moderní webová mapa s podporou 3D pohledu."
+    />
+    <LinkCard
+        title="Multiverse-Core"
+        href="https://hangar.papermc.io/Multiverse/Multiverse-Core"
+        target="_blank"
+        description="Umožňuje mít více světů na jednom serveru (např. Survival + těžební svět)."
+    />
+    <LinkCard
+        title="VoidGen"
+        href="https://modrinth.com/plugin/voidgen"
+        target="_blank"
+        description="Generátor prázdných světů (vhodné pro Skyblock, Lobby nebo Creative)."
+    />
+</CardGrid>

@@ -1,0 +1,74 @@
+---
+title: Voice Chat
+description: Jak zprovoznit hlasovou komunikaci přímo ve hře (Proximity Chat).
+---
+
+
+import {LinkCard, Steps, FileTree} from '@astrojs/starlight/components';
+
+Chceš, aby na sebe hráči mohli mluvit přímo ve hře, když stojí blízko sebe? Plugin **Simple Voice Chat** to umožňuje.
+Funguje to tak, že server má nainstalovaný **plugin** a hráči mají nainstalovaný **mód** (Fabric/Forge).
+
+:::caution[Důležité: Porty]
+Voice chat komunikuje přes protokol **UDP** (narozdíl od Minecraftu, který jede přes TCP).
+Musíš mít od hostingu přidělený **další port**, který v konfiguraci nastavíš.
+:::
+
+## 1. Instalace na Server
+
+<Steps>
+
+    1. Stáhni plugin **Simple Voice Chat** (verze pro Bukkit/Spigot/Paper).
+        <LinkCard title="Stáhnout Plugin" href="https://modrinth.com/plugin/simple-voice-chat/versions" target="_blank"/>
+
+    2. Nahraj ho do složky `plugins` a **restartuj server**.
+
+    3. Otevři konfigurační soubor `plugins/voicechat/voicechat-server.properties`.
+
+        <FileTree>
+        - plugins/
+          - voicechat/
+            - **voicechat-server.properties**
+        </FileTree>
+
+    4. **Nastavení Portu (Kritické):**
+        Najdi řádek `port=` a nastav tam port, který ti hosting přidělil (např. v sekci Network/Sítě).
+        * *Příklad:* Pokud máš od hostingu port `30050` (UDP), napiš `port=30050`.
+
+    5. Ulož soubor a **restartuj server**.
+
+</Steps>
+
+## 2. Instalace u Hráče (Klient)
+
+Aby to fungovalo, hráči si musí nainstalovat mód do svého počítače.
+
+<Steps>
+
+    1. Nainstaluj si **[Fabric Loader](https://fabricmc.net/use/installer/)** (nebo Forge) pro svou verzi Minecraftu.
+
+    2. Stáhni **[Fabric API](https://modrinth.com/mod/fabric-api)** (pokud používáš Fabric).
+
+    3. Stáhni mód **[Simple Voice Chat](https://modrinth.com/plugin/simple-voice-chat)** (verze pro tvůj loader).
+
+    4. Vlož stažené soubory `.jar` do složky `%appdata%/.minecraft/mods`.
+
+    5. Spusť hru.
+
+</Steps>
+
+## Jak ověřit funkčnost?
+
+Po připojení na server stiskni klávesu `V` (výchozí nastavení).
+
+* **Otevře se menu:** ✅ Vše funguje správně. Můžeš mluvit.
+* **Ikona přeškrtnuté zástrčky:** ❌ Klient se nemůže spojit s hlasovým serverem.
+* *Příčina:* Špatně nastavený `port` nebo `voice_host` v configu.
+* *Příčina:* Firewall blokuje UDP port.
+* **"Voice chat is not installed on this server":** ❌ Plugin na serveru neběží nebo nemáš nainstalovaný mód.
+
+### Ovládání
+
+* **V:** Nastavení voice chatu.
+* **M:** Ztlumit mikrofon (Mute).
+* **G:** Vytvořit skupinu (Group chat) – slyšíte se po celé mapě.

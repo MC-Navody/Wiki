@@ -1,0 +1,180 @@
+---
+title: Autentizace
+description: Jak zabezpečit server pro warez hráče pomocí pluginu LibreLogin.
+---
+
+
+import {Steps, TabItem, Tabs, FileTree} from '@astrojs/starlight/components';
+
+Pokud chceš na server pustit i hráče bez originálního Minecraftu (Warez), musíš mít autentizační plugin. Bez něj by se kdokoliv mohl připojit za tvůj nick a získat operátorská práva nebo vykrást tvé věci.
+
+V tomto návodu použijeme moderní plugin **[LibreLogin](https://modrinth.com/plugin/libre-login)**, který funguje skvěle na Velocity i Paperu a podporuje automatické přihlášení pro hráče se zakoupeným Minecraftem.
+
+## Instalace a Nastavení
+
+Vyber si platformu, kterou používáš.
+
+<Tabs>
+    <TabItem label="🚀 Velocity (Doporučeno)">
+        Toto je nejbezpečnější způsob. Autentizace probíhá přímo na proxy, takže se neověřený hráč nikdy nedostane na
+        herní servery (Survival/Lobby).
+
+        <Steps>
+            1. **Příprava serverů**
+                Potřebuješ jeden "prázdný" server, kde bude hráč během přihlašování. Ideální je
+                **[NanoLimbo](https://github.com/Nan1t/NanoLimbo/releases)** (spotřebuje jen pár MB RAM).
+                * Pojmenuj tento server v konfiguraci Velocity jako `auth`.
+                * Tvůj hlavní server (kam se hráč připojí po loginu) se bude jmenovat např. `lobby`.
+
+            2. **Instalace pluginu**
+                Stáhni **LibreLogin** a vlož ho do složky `/plugins/` na **Velocity proxy**. Restartuj proxy.
+
+            3. **Konfigurace (config.conf)**
+                    Otevři soubor `plugins/LibreLogin/config.conf`.
+
+                    <FileTree>
+                    - plugins/
+                      - LibreLogin/
+                        - **config.conf**
+                    </FileTree>
+
+                    **Sekce Limbo (Před přihlášením):**
+                    Zde nastav server, kde bude hráč "čekat" na zadání hesla.
+                    ```yaml
+                    limbo = [
+                    "auth"
+                    ]
+                    ```
+
+                    **Sekce Pass-through (Po přihlášení):**
+                    Kam má být hráč poslán, když zadá správné heslo.
+                    ```yaml
+                    pass-through {
+                        root = [
+                            "lobby"
+                        ]
+                    }
+                    ```
+        </Steps>
+    </TabItem>
+
+    <TabItem label="📜 Paper (Jeden server)">
+        Použij tuto možnost pouze pokud máš jen jeden server bez proxy.
+
+        <Steps>
+            1. **Příprava světa**
+                Aby hráči nemohli ničit hlavní svět před přihlášením, vytvoř pro ně speciální svět.
+                * Nainstaluj plugin **[Multiverse-Core](https://github.com/Multiverse/Multiverse-Core/releases)** a
+                **[Voidgen](https://www.spigotmc.org/resources/voidgen.25391/)**.
+                * Vytvoř svět: `/mv create auth normal -g VoidGen` (doporučujeme prázdný svět).
+                * Nastav spawn: Jdi do světa a napiš `/mv setspawn`.
+
+            2. **Instalace pluginu**
+                Stáhni **LibreLogin** a vlož ho do složky `/plugins/`. Restartuj server.
+
+            3. **Konfigurace (config.conf)**
+                    Otevři `plugins/LibreLogin/config.conf`.
+
+                    **Sekce Limbo:**
+                    Nastav svět pro přihlašování.
+                    ```yaml
+                    limbo = [
+                    "auth"
+                    ]
+                    ```
+
+                    **Sekce Pass-through:**
+                    Nastav svět, kam se hráč portne po přihlášení (např. `world`).
+                    ```yaml
+                    pass-through {
+                        root = [
+                            "world"
+                        ]
+                    }
+                    ```
+        </Steps>
+    </TabItem>
+</Tabs>
+
+## Nastavení Databáze
+
+Kde se budou ukládat hesla?
+
+<Tabs>
+    <TabItem label="📁 SQLite (Malé servery)">
+        Výchozí možnost. Data se ukládají do souboru ve složce pluginu.
+        * **Výhoda:** Nemusíš nic nastavovat.
+        * **Nevýhoda:** Pomalejší při velkém počtu hráčů.
+    </TabItem>
+
+    <TabItem label="🗄️ MySQL / MariaDB (Doporučeno)">
+        Bezpečnější a rychlejší řešení pro větší servery. Vyžaduje externí databázi.
+
+        V `config.conf` najdi sekci `database` a uprav ji:
+
+        ```yaml
+        database {
+            type = "mysql"
+            properties {
+                mysql {
+                    database = "librelogin"
+                    host = "localhost"
+                    password = "tvoje_heslo"
+                    port = 3306
+                    user = "tvoj_uzivatel"
+                }
+            }
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+## Autologin
+
+LibreLogin umí automaticky rozpoznat hráče s koupeným Minecraftem a přihlásit je bez hesla.
+
+V configu najdi a povol tuto možnost:
+
+```yaml
+auto-register = true
+
+```
+
+:::caution[Bezpečnost]
+Pokud tuto funkci zapneš, warez hráč se **nebude moci připojit** pod jménem, které vlastní někdo s originálkou. To je správně – chrání to účty pravých majitelů.
+:::
+
+## Migrace z AuthMe
+
+Přecházíš ze starého AuthMe? LibreLogin umí importovat data.
+
+<Steps>
+
+    1. Zastav server.
+    2. Vezmi soubor `authme.db` (z AuthMe složky) a vlož ho do složky `LibreLogin`.
+    3. V `config.conf` najdi sekci `migration`:
+            ```yaml
+            # Nastavení migrace z jiných pluginů
+            migration {
+                old - database {
+                    # Pokud jste měli AuthMe na MySQL, vyplňte sekci mysql výše.
+                    # Pokud jste měli AuthMe na SQLite (soubor), vyplňte sekci níže:
+                    sqlite {
+                        # Název souboru, který jsme přesunuli do složky LibreLogin
+                        path="authme.db"
+                    }
+                }
+
+                # DŮLEŽITÉ: Změňte na true pro spuštění migrace při startu
+                on-next-startup=true
+
+                # Typ migrace. Pro AuthMe SQLite zvolte:
+                type=authme-sqlite
+            }
+            ```
+
+
+    4. Spusť server. Sleduj konzoli, zda migrace proběhla úspěšně.
+    5. Po dokončení vypni v configu migraci (`enabled = false`) a restartuj server.
+
+</Steps>

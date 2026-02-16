@@ -1,0 +1,72 @@
+---
+title: Java verze
+description: Seznam Java verzí potřebných pro různé verze Minecraft serveru.
+---
+
+
+import {CardGrid, LinkCard, TabItem, Tabs} from '@astrojs/starlight/components';
+
+To, že Minecraft vyžaduje Javu, asi víš. Méně jasné už ale bývá, **jakou konkrétní verzi** Javy tvůj server potřebuje. Pokud použiješ špatnou verzi, server se buď nespustí, nebo bude házet chyby.
+
+Obecně platí pravidlo: Vždy používej **LTS (Long Term Support)** verze Javy (17, 21), pokud je to možné.
+
+## Přehled verzí
+
+V tabulce níže najdeš doporučenou verzi Javy pro tvou verzi Minecraftu.
+
+| Verze Minecraftu | Vyžadovaná Java | Poznámka |
+| :--- | :--- | :--- |
+| **1.21.x** | **Java 21** | Nutnost. Na starší Javě server nepoběží. |
+| **1.20.5 - 1.20.6** | **Java 21** | Změna přišla v průběhu verze 1.20. |
+| **1.18 - 1.20.4** | **Java 17** | Zlatý standard pro starší verze. |
+| **1.17.1** | **Java 16** | Lze bez problémů použít i **Java 17**. |
+| **1.16.5** | **Java 11** | Oficiálně Java 8, ale doporučujeme 11 pro lepší výkon. |
+| **1.12 - 1.15** | **Java 8** | S Paperem lze často použít i 11. |
+| **1.8 - 1.11** | **Java 8** | Staré verze, nepodporují novější Javu. |
+
+:::tip[Jakou mám verzi?]
+Svou aktuální verzi Javy na serveru zjistíš zadáním příkazu `java -version` do terminálu (konzole).
+:::
+
+## Proxy Servery
+
+Proxy servery (Velocity, BungeeCord) mají také své požadavky. Protože propojují různé verze serverů, doporučujeme na nich používat co nejnovější Javu, kterou proxy podporuje.
+
+<Tabs>
+    <TabItem label="Velocity (Doporučeno)">
+        Moderní verze Velocity (3.3.0+) vyžadují **Javu 21** (nebo minimálně 17).
+        Jelikož Velocity jen přeposílá pakety, novější Java jí pomáhá v rychlosti a bezpečnosti.
+    </TabItem>
+    <TabItem label="BungeeCord">
+        BungeeCord běží na **Javě 8** a novější.
+        Doporučujeme však používat alespoň **Javu 11** nebo **17** pro lepší správu paměti (Garbage Collection).
+    </TabItem>
+</Tabs>
+
+## Pokročilé nastavení
+
+### Použití novější Javy na starém serveru
+
+Někdy chceš použít Javu 17 na serveru 1.16.5 kvůli výkonu. Spigot a Paper mohou při startu protestovat, že Java verze není podporovaná.
+
+Pokud víš, co děláš, můžeš toto omezení obejít přidáním flagu do startovacího příkazu (před `-jar`):
+
+```bash
+-DPaper.IgnoreJavaVersion=true
+```
+
+:::caution[Riziko nekompatibility]
+Používání výrazně novější Javy na starých verzích (např. Java 21 na verzi 1.8) může rozbít některé staré pluginy, které používají odebrané knihovny z Javy. Vždy to nejprve otestuj.
+:::
+
+Kde stáhnout Javu?
+Doporučujeme používat distribuci Amazon Corretto, která je stabilní, open-source a ověřená komunitou.
+
+<CardGrid>
+    <LinkCard title="Stáhnout Java 21"
+              href="https://docs.aws.amazon.com/corretto/latest/corretto-21-ug/downloads-list.html" target="_blank"
+              icon="external"/>
+    <LinkCard title="Stáhnout Java 17"
+              href="https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html" target="_blank"
+              icon="external"/>
+</CardGrid>

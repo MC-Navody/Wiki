@@ -1,0 +1,183 @@
+---
+title: LuckPerms
+description: Kompletní průvodce správou oprávnění (permissions).
+---
+
+
+import {Steps, TabItem, Tabs, FileTree} from '@astrojs/starlight/components';
+
+LuckPerms je bezesporu nejlepší a nejpoužívanější plugin na správu oprávnění (permissions). Jedná se o základní kámen každého serveru.
+
+**Co jsou to permisse?**
+Permisse (oprávnění) určují, co hráč může a nemůže dělat. Většinou mají formát `plugin.akce` (např. `essentials.fly`). Pokud hráč tuto permissi má, může létat. Pokud ne, server mu napíše "You do not have permission".
+
+## 1. Instalace
+
+LuckPerms funguje na všech platformách (Bukkit, BungeeCord, Velocity, Fabric...). Vyber si variantu podle toho, jaký máš server.
+
+<Tabs>
+    <TabItem label="📜 Spigot / Paper (Jeden server)">
+        Pro běžný samostatný server, který není součástí sítě.
+
+        <Steps>
+            1. Stáhni **LuckPerms** (Bukkit) z [oficiálního webu](https://luckperms.net/download).
+            2. Stáhni plugin **[Vault](https://www.spigotmc.org/resources/vault.34315/)** (propojuje LuckPerms s chatem
+                a ekonomikou).
+            3. Oba soubory nahraj do složky `/plugins/`.
+            4. Restartuj server.
+        </Steps>
+    </TabItem>
+
+    <TabItem label="🚀 Velocity / Bungee (Síť serverů)">
+        Pokud provozuješ síť serverů (Proxy + Survival + Lobby), je instalace složitější. **LuckPerms musí být všude!**
+
+        <Steps>
+            1. **Instalace na Proxy (Velocity/Bungee)**
+                * Stáhni LuckPerms pro svou proxy (Velocity nebo BungeeCord) z [oficiálního
+                webu](https://luckperms.net/download).
+                * Nahraj ho do složky `/plugins/` na **Proxy serveru**.
+                * *Toto slouží pro oprávnění k příkazům proxy (např. /server, /alert).*
+
+            2. **Instalace na Backend servery (Survival, Lobby...)**
+                * Stáhni LuckPerms pro **Bukkit** z [oficiálního webu](https://luckperms.net/download).
+                * Stáhni plugin **Vault**.
+                * Nahraj **oba** pluginy do složky `/plugins/` na **každém herním serveru** (Lobby, Survival, Skyblock...).
+                * *Toto slouží pro prefixy v chatu, barvičky v tablistu a práva k herním příkazům.*
+
+            3. **Restart**
+                * Restartuj celou síť (proxy i herní servery).
+        </Steps>
+    </TabItem>
+</Tabs>
+
+---
+
+## 2. Konfigurace a Úložiště
+
+Způsob ukládání dat je klíčový. Máš dvě možnosti:
+
+### A) H2 (Jeden server)
+Pokud máš jen **jeden server** a neplánuješ síť, nemusíš nic nastavovat. LuckPerms v základu používá rychlou lokální databázi H2 (soubor).
+
+### B) MySQL / MariaDB (Síť serverů)
+Pokud máš síť serverů a chceš, aby měl hráč VIP a prefix všude, **musíš všechny servery napojit na stejnou databázi**.
+
+Tento postup proveď na **všech serverech** (Proxy, Lobby, Survival...):
+
+<Steps>
+    1. Otevři `plugins/LuckPerms/config.yml`.
+
+        <FileTree>
+        - plugins/
+          - LuckPerms/
+            - **config.yml**
+        </FileTree>
+
+    2. Změň typ úložiště na MySQL (nebo MariaDB):
+        ```yaml
+        storage-method: MySQL
+        ```
+
+    3. Vyplň údaje k databázi (všechny servery musí mít stejné údaje!):
+        ```yaml
+        data:
+        address: "localhost"
+        database: "minecraft"
+        username: "root"
+        password: "mojeheslo"
+        ```
+
+    4. **Důležité: Pojmenování serverů**
+        Aby plugin věděl, pro jaký server oprávnění platí, musíš každému serveru nastavit unikátní jméno.
+        * Na Proxy nastav: `server: proxy`
+        * Na Lobby nastav: `server: lobby`
+        * Na Survivalu nastav: `server: survival`
+
+        *Hledej řádek `server: global` (nebo `server: proxy` u velocity verze) a přepiš ho.*
+
+    5. **Synchronizace (Messaging Service)**
+        Aby se změna (např. přidání VIP) projevila hned na všech serverech, nastav typ komunikace.
+        Hledej řádek `messaging-service` a změň `auto` na `sql`:
+        ```yaml
+        messaging-service: sql
+        ```
+</Steps>
+
+---
+
+## 3. Webový Editor (Nejjednodušší cesta)
+
+LuckPerms má úžasný webový editor. Nemusíš si pamatovat desítky příkazů.
+
+<Steps>
+    1. Jdi na server a napiš příkaz:
+        ```bash
+        /lp editor
+        ```
+        *(Tento příkaz vygeneruje unikátní odkaz. Klikni na něj.)*
+
+    2. Otevře se ti webové rozhraní. Zde můžeš:
+        * Vytvářet skupiny (Groups).
+        * Přidávat permisse.
+        * Nastavovat prefixy (hodnosti v chatu).
+        * Řešit dědičnost (Inheritance).
+
+    3. Až budeš hotový, klikni vpravo nahoře na **Save** a zkopíruj vygenerovaný příkaz.
+
+    4. Vlož příkaz zpět do chatu ve hře. Hotovo!
+</Steps>
+
+---
+
+## 4. Základní nastavení skupin
+
+Pokud raději používáš příkazy, zde je rychlý návod, jak vytvořit základní systém hodností.
+
+### Vytvoření skupiny VIP
+```bash
+/lp creategroup vip
+
+```
+
+### Přidání oprávnění (např. létání)
+
+```bash
+/lp group vip permission set essentials.fly true
+
+```
+
+### Nastavení Prefixu (Vzhled v chatu)
+
+```bash
+/lp group vip meta setprefix "&6[VIP] &e"
+
+```
+
+*(Aby byl prefix vidět, potřebuješ na herním serveru plugin na formátování chatu, např. **LPC** nebo **EssentialsChat**).*
+
+### Dědičnost (Inheritance)
+
+Chceš, aby VIP mělo všechna práva jako hráč (default)?
+
+```bash
+/lp group vip parent add default
+
+```
+
+### Přiřazení hráče do skupiny
+
+```bash
+/lp user NickHrace parent set vip
+
+```
+
+---
+
+## 5. Hledání permissí (Verbose)
+
+Nevíš, jakou permissi plugin vyžaduje? LuckPerms to umí zjistit v reálném čase.
+
+1. Napiš příkaz `/lp verbose on`.
+2. Zkus provést akci, která ti nejde (např. otevřít truhlu).
+3. V chatu uvidíš, jakou permissi server kontroluje.
+4. Vypni nahrávání příkazem `/lp verbose off`.

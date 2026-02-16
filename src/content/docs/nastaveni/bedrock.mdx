@@ -1,0 +1,205 @@
+---
+title: Podpora Bedrock
+description: Zpřístupnění serveru pro Bedrock hráče (mobily, konzole).
+---
+
+
+import {Steps, TabItem, Tabs, FileTree} from '@astrojs/starlight/components';
+
+Pokud chceš umožnit připojení Bedrock hráčům na tvůj server (mobily, konzole, Windows 10/11 edition), stačí ti na to jeden nebo dva pluginy. Vyber si verzi serveru a postupuj podle návodu.
+
+## Jaký režim zvolit?
+
+Rozhodnutí závisí na tom, zda tvůj server vyžaduje originální Minecraft (Java Edition) účet, nebo je přístupný i pro warez.
+
+* **Online Mode:** Bedrock hráč musí mít zakoupenou Javu a propojený účet (přes [link.geysermc.org](https://link.geysermc.org/)).
+* **Offline Mode (Floodgate):** Bedrock hráč se připojí rovnou, server pro něj vytvoří speciální "offline" účet. Toto je nejčastější volba.
+
+---
+
+## 1. Instalace a Nastavení
+
+Vyber si platformu, na které tvůj server běží:
+
+<Tabs>
+    <TabItem label="🚀 Velocity (Doporučeno)">
+        Velocity je moderní proxy, kde Geyser funguje nejlépe.
+
+        **Potřebné pluginy:**
+        * [GeyserMC (Velocity)](https://geysermc.org/download/)
+        * [Floodgate (Velocity)](https://geysermc.org/download/?project=floodgate) *(Pouze pro Offline mode)*
+
+        <Steps>
+            1. Stáhni plugin(y) a vlož je do složky `/plugins/`.
+
+            2. Restartuj proxy server.
+
+            3. Přejdi do složky `/plugins/Geyser-Velocity/` a otevři `config.yml`.
+
+                <FileTree>
+                - plugins/
+                  - Geyser-Velocity/
+                    - **config.yml**
+                </FileTree>
+
+            4. Najdi sekci `bedrock` a uprav port (pokud nechceš výchozí):
+
+                ```yaml
+                bedrock:
+                # IP adresa pro naslouchání (0.0.0.0 = všechny rozhraní)
+                address: 0.0.0.0
+                # Port pro Bedrock připojení (UDP)
+                port: 19132
+                ```
+
+            5. **Pouze pro Offline mode (Floodgate):**
+                V `config.yml` (Geyser) najdi sekci `remote` a změň typ ověření:
+
+                ```yaml
+                remote:
+                auth-type: floodgate
+                ```
+
+            6. Ulož soubor a restartuj proxy.
+        </Steps>
+    </TabItem>
+
+    <TabItem label="🌊 BungeeCord">
+        Starší typ proxy sítě. *Pozor: Waterfall je již nepodporovaný software.*
+
+        **Potřebné pluginy:**
+        * [GeyserMC (BungeeCord)](https://geysermc.org/download/)
+        * [Floodgate (BungeeCord)](https://geysermc.org/download/?project=floodgate) *(Pouze pro Offline mode)*
+
+        <Steps>
+            1. Stáhni plugin(y) a vlož je do složky `/plugins/`.
+
+            2. Restartuj proxy server.
+
+            3. Přejdi do složky `/plugins/Geyser-BungeeCord/` a otevři `config.yml`.
+
+                <FileTree>
+                - plugins/
+                  - Geyser-BungeeCord/
+                    - **config.yml**
+                </FileTree>
+
+            4. Najdi sekci `bedrock` a uprav port:
+
+                ```yaml
+                bedrock:
+                address: 0.0.0.0
+                port: 19132
+                ```
+
+            5. **Pouze pro Offline mode (Floodgate):**
+                V `config.yml` (Geyser) změň typ ověření:
+
+                ```yaml
+                remote:
+                auth-type: floodgate
+                ```
+
+            6. Ulož soubor a restartuj proxy.
+        </Steps>
+    </TabItem>
+
+    <TabItem label="🌳 Spigot/Paper">
+        Pokud máš jen jeden server bez proxy.
+
+        **Potřebné pluginy:**
+        * [GeyserMC (Spigot)](https://geysermc.org/download/)
+        * [Floodgate (Spigot)](https://geysermc.org/download/?project=floodgate) *(Pouze pro Offline mode)*
+
+        <Steps>
+            1. Stáhni plugin(y) a vlož je do složky `/plugins/`.
+
+            2. Restartuj server.
+
+            3. Přejdi do složky `/plugins/Geyser-Spigot/` a otevři `config.yml`.
+
+                <FileTree>
+                - plugins/
+                  - Geyser-Spigot/
+                    - **config.yml**
+                </FileTree>
+
+            4. Najdi sekci `bedrock` a uprav port:
+
+                ```yaml
+                bedrock:
+                address: 0.0.0.0
+                port: 19132
+                ```
+
+            5. **Pouze pro Offline mode (Floodgate):**
+                V `config.yml` (Geyser) změň typ ověření:
+
+                ```yaml
+                remote:
+                auth-type: floodgate
+                ```
+
+            6. Ulož soubor a restartuj server.
+        </Steps>
+    </TabItem>
+</Tabs>
+
+## 2. Nastavení prefixu (Pouze Floodgate)
+
+Pokud používáš Floodgate (Offline mode), Bedrock hráči by měli mít před jménem speciální znak (prefix). Je to proto, aby nedocházelo ke konfliktům se jmény Java hráčů (např. Java hráč "Pepa" vs Bedrock hráč "Pepa").
+
+Výchozí prefix je `.`, ale některé pluginy (např. Essentials) tento znak nemají rády.
+
+<Steps>
+    1. Otevři `config.yml` ve složce `/plugins/floodgate/`.
+
+        <FileTree>
+        - plugins/
+          - floodgate/
+            - **config.yml**
+        </FileTree>
+
+    2. Najdi `username-prefix` a změň jej například na `*`.
+
+        ```yaml
+        # Prefix, který se přidá před jméno Bedrock hráče.
+        username-prefix: "*"
+        ```
+
+    3. Restartuj server/proxy. Hráč se nyní připojí jako `*Pepa`.
+</Steps>
+
+---
+
+## 3. Připojení na server
+
+Jak se hráči připojí, závisí na tom, jakou máš IP adresu a port.
+
+<Tabs>
+    <TabItem label="S výchozím portem (19132)">
+        Hráči zadávají pouze IP adresu serveru.
+        * **IP:** `play.tvojadomena.cz` (nebo číselná IP)
+        * **Port:** `19132` (výchozí)
+
+        :::tip[DNS záznamy]
+        Bedrock edice má často problémy s načítáním **SRV** záznamů. Pro Bedrock hráče je vždy jistější používat přímou
+        **A** doménu (subdoménu) nebo číselnou IP adresu.
+        :::
+    </TabItem>
+    <TabItem label="S vlastním portem">
+        Pokud jsi v configu změnil port (např. na `40005`), hráči ho musí zadat.
+        * **IP:** `play.tvojadomena.cz`
+        * **Port:** `40005`
+    </TabItem>
+</Tabs>
+
+## 4. Firewall (Důležité!)
+
+Máš-li vlastní VPS/VDS a používáš firewall (např. UFW nebo IPTables), nebo pokud jsi na hostingu, který blokuje porty, musíš **povolit port**, který jsi nastavil v configu Geyseru.
+
+:::danger[POZOR NA PROTOKOL]
+Bedrock edice komunikuje přes protokol **UDP** (zatímco Java edice používá TCP).
+
+Při povolování portu (např. 19132) se ujisti, že povoluješ **UDP** protokol. Pokud povolíš pouze TCP, Bedrock hráči se nepřipojí!
+:::
