@@ -20,6 +20,3 @@ jobs:
     - name: Astro Check
       run: npm run check
     - run: npm run build
-
-
-
