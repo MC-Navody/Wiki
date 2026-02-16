@@ -1,0 +1,30 @@
+name: Deploy Wiki (Production)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Spuštění příkazů na serveru přes SSH
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+
+            cd /var/www/mcnavody.eu
+
+            git fetch origin main
+            git reset --hard origin/main
+
+            npm ci
+            
+            npm run build
+
+            chown -R www-data:www-data dist/
