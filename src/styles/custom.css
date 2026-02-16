@@ -164,3 +164,6 @@ footer {
     margin-top: auto;
 }
 
+.expressive-code .frame.is-terminal .header:has(.title:empty) {
+    display: none;
+}

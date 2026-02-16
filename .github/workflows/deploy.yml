@@ -1,13 +1,17 @@
 name: Deploy Wiki (Production)
 
 on:
-  push:
-    branches: [ main ]
+  workflow_run:
+    workflows: ["CI"]
+    branches: [main]
+    types:
+      - completed
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Spuštění příkazů na serveru přes SSH
         uses: appleboy/ssh-action@v1.2.2
