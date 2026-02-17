@@ -1,0 +1,31 @@
+{
+  "docsearch.searchBox.resetButtonTitle": "Vymazat dotaz",
+  "docsearch.searchBox.resetButtonAriaLabel": "Vymazat dotaz",
+  "docsearch.searchBox.cancelButtonText": "Zrušit",
+  "docsearch.searchBox.cancelButtonAriaLabel": "Zrušit",
+  "docsearch.searchBox.searchInputLabel": "Hledat",
+
+  "docsearch.startScreen.recentSearchesTitle": "Nedávné",
+  "docsearch.startScreen.noRecentSearchesText": "Žádná nedávná hledání",
+  "docsearch.startScreen.saveRecentSearchButtonTitle": "Uložit toto hledání",
+  "docsearch.startScreen.removeRecentSearchButtonTitle": "Odstranit toto hledání z historie",
+  "docsearch.startScreen.favoriteSearchesTitle": "Oblíbené",
+  "docsearch.startScreen.removeFavoriteSearchButtonTitle": "Odstranit toto hledání z oblíbených",
+
+  "docsearch.errorScreen.titleText": "Nelze načíst výsledky",
+  "docsearch.errorScreen.helpText": "Zkontrolujte své internetové připojení.",
+
+  "docsearch.footer.selectText": "vybrat",
+  "docsearch.footer.selectKeyAriaLabel": "klávesa Enter",
+  "docsearch.footer.navigateText": "navigovat",
+  "docsearch.footer.navigateUpKeyAriaLabel": "Šipka nahoru",
+  "docsearch.footer.navigateDownKeyAriaLabel": "Šipka dolů",
+  "docsearch.footer.closeText": "zavřít",
+  "docsearch.footer.closeKeyAriaLabel": "klávesa Escape",
+  "docsearch.footer.searchByText": "Hledání od",
+
+  "docsearch.noResultsScreen.noResultsText": "Žádné výsledky pro",
+  "docsearch.noResultsScreen.suggestedQueryText": "Zkuste hledat",
+  "docsearch.noResultsScreen.reportMissingResultsText": "Myslíte, že by tento dotaz měl vrátit výsledky?",
+  "docsearch.noResultsScreen.reportMissingResultsLinkText": "Dejte nám vědět."
+}

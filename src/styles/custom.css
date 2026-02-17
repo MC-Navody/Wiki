@@ -167,3 +167,7 @@ footer {
 .expressive-code .frame.is-terminal .header:has(.title:empty) {
     display: none;
 }
+
+.DocSearch-NoResults-Prefill-List {
+    display: none !important;
+}
