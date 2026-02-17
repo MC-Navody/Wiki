@@ -1,0 +1,111 @@
+---
+title: Výběr hostingu
+description: Srovnání možností, kde provozovat Minecraft server, a jak vybrat ten správný hardware.
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Jedním z prvních a nejdůležitějších rozhodnutí, které jako majitel serveru učiníš, je volba místa, kde tvůj server poběží. Kvalitní hosting je základem stabilní hry bez lagů.
+
+## Možnosti hostování
+
+Existují čtyři hlavní způsoby, jak hostovat Minecraft server.
+
+<CardGrid>
+    <LinkCard title="Game Hosting"
+              description="Ideální pro začátečníky. Předpřipravený panel, jednoduchá správa."
+              href="#1-game-hosting-pronájem-serveru" />
+    <LinkCard title="VPS"
+              description="Zlatá střední cesta. Vyšší výkon, vyžaduje správu Linuxu."
+              href="#2-vps-virtuální-privátní-server" />
+    <LinkCard title="Dedikovaný server"
+              description="Maximální výkon pro obří sítě. Celý fyzický stroj jen pro tebe."
+              href="#3-dedikovaný-server" />
+    <LinkCard title="Localhost"
+              description="Hosting na vlastním PC. Vhodné na testování nebo pro pár kamarádů."
+              href="#4-vlastní-pc-localhost" />
+</CardGrid>
+
+---
+
+### 1. Game Hosting (Pronájem serveru)
+Toto je nejčastější volba pro většinu majitelů serverů. Zaplatíš si službu u firmy, která se specializuje na herní servery.
+
+* **✅ Výhody:**
+  * **Jednoduchost:** Dostaneš přístup do webového panelu, kde server ovládáš klikáním.
+  * **Instalace na jedno kliknutí:** Verze, pluginy i mody lze často instalovat přímo z panelu.
+  * **Rychlé zprovoznění:** Server běží ihned po zaplacení.
+* **❌ Nevýhody:**
+  * **Omezení:** Nemáš přístup k celému systému, jen ke složce se serverem.
+  * **Sdílený výkon:** O procesor se dělíš s ostatními zákazníky na stejném stroji.
+
+#### Příklady hostingů (Abecedně)
+Zde je několik zavedených hostingů, které komunita často využívá:
+* **[GamerHost](https://gamerhost.pro/)**
+* **[Hostify](http://hostify.cz/)**
+* **[PearHost](https://pearhost.cz/)**
+
+### 2. VPS (Virtuální privátní server)
+Pronajmeš si část fyzického serveru s vlastním operačním systémem (zpravidla Linux - Debian/Ubuntu).
+
+* **✅ Výhody:**
+  * **Výkon a cena:** Za stejné peníze často získáš více výkonu než u Game Hostingu.
+  * **Dedikovaná IP:** Většinou máš vlastní IP adresu (port 25565) v ceně.
+  * **Svoboda:** Můžeš na tom samém stroji provozovat web, databázi, Discord bota i Minecraft server najednou.
+* **❌ Nevýhody:**
+  * **Složitost:** Musíš umět ovládat Linux přes příkazovou řádku (SSH).
+  * **Údržba:** Musíš se starat o aktualizace systému, Javy a zabezpečení.
+
+### 3. Dedikovaný server
+Pronájem celého fyzického stroje. Nikdo jiný na něm neběží, veškerý hardware je jen tvůj.
+
+* **✅ Výhody:**
+  * **Extrémní výkon:** Žádné sdílení procesoru.
+  * **Plná kontrola:** Stejné možnosti jako u VPS, ale bez virtualizace.
+* **❌ Nevýhody:**
+  * **Cena:** Pronájem celého stroje stojí tisíce korun měsíčně.
+  * **Vhodnost:** Pro běžný server s 20 hráči je to zbytečný. Dává smysl až pro velké sítě.
+
+### 4. Vlastní PC (Localhost)
+Server spustíš na svém domácím počítači.
+
+* **✅ Výhody:**
+  * **Zdarma:** Neplatíš žádný měsíční nájem.
+  * **Nulová odezva:** Pro tebe (hostitele) je ping 0ms.
+* **❌ Nevýhody:**
+  * **Spotřeba elektřiny:** Počítač musí běžet, což se může prodražit více než levný hosting.
+  * **Zátěž PC:** Server ubírá výkon tvému počítači, což můžeš pocítit při hraní.
+  * **Upload:** Domácí internet má často pomalé odesílání dat, což způsobí lagy ostatním hráčům.
+
+:::caution[Síť a Bezpečnost]
+Aby se k tobě mohli připojit ostatní, potřebuješ **veřejnou IP adresu**.
+Pokud ji nemáš, můžeš využít tunelovací služby jako **[playit.gg](https://playit.gg/)**, které ti vytvoří adresu bez nutnosti zásahu do routeru.
+
+**Bezpečnost:** Zveřejněním své IP adresy riskuješ DDoS útoky, které ti mohou "shodit" internet v celé domácnosti.
+:::
+
+## Hardwarové nároky
+
+Při výběru hostingu nebo VPS se nenech zlákat pouze velkými čísly.
+
+### Procesor (CPU)
+Minecraft server (Java) běží primárně na **jednom hlavním vlákně**. Nezáleží tedy tolik na tom, kolik má procesor jader (16, 32...), ale jak silné je **jedno jádro** (Single-thread performance).
+
+* **Co hledat:** Moderní desktopové procesory (např. Ryzen 5000/7000/9000 série nebo Intel Core i9/i7 posledních generací).
+* **Čemu se vyhnout:** Starým serverovým procesorům (Intel Xeon), které sice mají hodně jader, ale pro Minecraft jsou pomalé.
+
+### Operační paměť (RAM)
+Neexistuje univerzální tabulka, kolik RAM potřebuješ. Záleží na verzi hry (novější verze 1.18+ jsou náročnější), typu serveru (Vanilla vs. Modovaný) a počtu pluginů.
+
+* Začni s menší hodnotou a v případě potřeby navyšuj.
+* **Pozor:** Příliš mnoho RAM (např. 32GB pro malý server) může být na škodu kvůli chování Java Garbage Collectoru, který může způsobovat záseky při čištění paměti.
+
+### Úložiště (Disk)
+Zde je volba jednoduchá: **Vždy vyžaduj NVMe SSD.**
+Klasické HDD disky jsou pro Minecraft naprosto nepoužitelné (pomalé načítání chunků). SATA SSD jsou použitelné, ale NVMe je dnes standardem pro plynulý chod.
+
+## Lokace serveru
+
+Vybírej hosting, který má servery fyzicky blízko tvým hráčům.
+* **Hráči z CZ/SK:** Hledej hostingy se servery v Praze, Bratislavě nebo blízkém okolí (např. Německo - Frankfurt).
+* Proč? Nižší ping (odezva) znamená plynulejší hra a rychlejší načítání světa.

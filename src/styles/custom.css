@@ -94,9 +94,9 @@ body::before {
 }
 
 .sidebar-content a {
-    padding-block: 0.6rem !important;
+    padding-block: 0.4rem !important;
     transition: background-color 0.2s ease, color 0.2s ease;
-    border-radius: var(--radius) !important;
+    border-radius: 8px !important;
 }
 
 .sidebar-content a[aria-current="page"] {

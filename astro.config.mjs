@@ -112,6 +112,10 @@ export default defineConfig({
                     label: 'Pluginy',
                     autogenerate: {directory: 'pluginy'},
                 },
+                {
+                    label: 'Správa serverů',
+                    autogenerate: {directory: 'sprava'},
+                }
             ],
         }),
 

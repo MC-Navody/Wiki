@@ -1,0 +1,120 @@
+---
+title: Propojení s Discordem
+description: Kompletní návod na propojení Minecraft serveru s Discordem, nastavení chatu a konzole.
+---
+
+import { Steps, FileTree, Aside } from '@astrojs/starlight/components';
+
+**DiscordSRV** je nejvýkonnější plugin pro propojení Minecraft serveru s Discord komunitou. Umožňuje sdílet chat mezi hrou a Discord kanálem, spravovat konzoli na dálku a synchronizovat herní ranky s rolemi na Discordu.
+
+<Aside type="caution">
+  Nikdy nikomu neukazuj **Token** svého bota. Token slouží jako heslo, kterým se plugin přihlašuje k ovládání bota.
+</Aside>
+
+## Vytvoření Discord Bota
+
+Než nahrajeme plugin na server, musíme si vytvořit "aplikaci" na Discordu.
+
+<Steps>
+
+1.  Jdi na [Discord Developer Portal](https://discord.com/developers/applications) a přihlas se.
+
+2.  Klikni na tlačítko **New Application** vpravo nahoře. Pojmenuj ji (např. `MujServerBot`) a potvrď.
+
+3.  V levém menu vyber záložku **Bot**.
+    * Zde můžeš nastavit ikonu bota a jeho uživatelské jméno.
+    * Klikni na tlačítko **Reset Token** a zkopíruj si vygenerovaný řetězec. **Ulož si ho**, budeme ho potřebovat v konfiguraci.
+
+4.  **Důležité:** Posuň se níže k sekci **Privileged Gateway Intents**.
+    * Zaškrtni **Presence Intent**.
+    * Zaškrtni **Server Members Intent**.
+    * Zaškrtni **Message Content Intent**.
+    * Ulož změny tlačítkem **Save Changes**.
+
+5.  Nyní bota pozveme na server. V levém menu klikni na **OAuth2** -> **URL Generator**.
+    * V sekci *Scopes* zaškrtni `bot`.
+    * V sekci *Bot Permissions* zaškrtni `Administrator` (pro zjednodušení, aby bot mohl číst a psát všude).
+    * Zkopíruj vygenerovaný odkaz dole, vlož ho do prohlížeče a pozvi bota na svůj Discord server.
+
+</Steps>
+
+## Instalace pluginu
+
+Stáhni si nejnovější verzi pluginu z [SpigotMC](https://www.spigotmc.org/resources/discordsrv.18494/) nebo [Modrinth](https://modrinth.com/plugin/discordsrv).
+
+<Steps>
+
+1.  Vypni server.
+2.  Nahraj soubor `.jar` do složky `plugins`.
+3.  Zapni server. Po načtení se vytvoří konfigurační složka, ale server vypíše chybu, že chybí token.
+4.  Znovu vypni server pro konfiguraci.
+
+</Steps>
+
+<FileTree>
+- plugins
+  - DiscordSRV
+    - **config.yml**
+    - messages.yml
+    - synchronization.yml
+  - DiscordSRV-Build-xyz.jar
+</FileTree>
+
+## Konfigurace (config.yml)
+
+Otevři soubor `plugins/DiscordSRV/config.yml`. Zde musíme nastavit dvě kritické věci: Token a ID kanálů.
+
+<Aside type="tip" title="Jak získat ID?">
+  Na Discordu jdi do **Nastavení** -> **Rozšířené** a zapni **Vývojářský režim**. Nyní můžeš kliknout pravým tlačítkem na jakýkoliv kanál nebo roli a zvolit **Kopírovat ID**.
+</Aside>
+
+### 1. Nastavení Tokenu
+Najdi řádek `BotToken` a vlož token, který jsme zkopírovali v prvním kroku.
+
+```yaml"
+# Token bota z Developer Portalu
+BotToken: "OTk4N...zde_bude_tvuj_dlouhy_token...XxX"
+
+```
+
+### 2. Nastavení chatu (Global)
+
+Najdi sekci `Channels`. Zde nastavujeme propojení herního chatu s konkrétním textovým kanálem na Discordu.
+ID získáš kliknutím pravým na kanál -> Kopírovat ID.
+
+```yaml"
+# Formát je "název-kanálu": "ID_KANÁLU"
+Channels: {"global": "123456789012345678"}
+
+```
+
+### 3. Nastavení konzole (Volitelné)
+
+Pokud chceš vidět konzoli serveru v privátním kanálu na Discordu, nastav `DiscordConsoleChannelId`.
+
+<Aside type="danger">
+    Ujisti se, že do kanálu s konzolí mají přístup **pouze majitelé**. Kdokoliv v tomto kanálu může ovládat server!
+</Aside>
+
+```yaml"
+# ID kanálu pro konzoli (nech 000000000000000000 pro vypnutí)
+DiscordConsoleChannelId: "987654321098765432"
+
+```
+
+Po nastavení soubor ulož a **zapni server**.
+
+## Propojení účtů (Linkování)
+
+Aby DiscordSRV fungoval naplno (např. pro synchronizaci ranků), hráči si musí propojit svůj Minecraft účet s Discordem.
+
+1. Hráč na serveru napíše příkaz:
+```cmd
+/discord link
+
+```
+
+
+2. Server mu vygeneruje číselný kód (např. `1234`).
+3. Hráč pošle tento kód do soukromé zprávy botovi na Discordu.
+4. Bot potvrdí propojení zprávou: *"Váš účet byl úspěšně propojen s HracXYZ"*.

@@ -1,0 +1,100 @@
+---
+title: Vlastní doména a DNS
+description: Jak nastavit hezkou IP adresu (např. play.moje-domena.cz) místo čísel.
+---
+
+import { Tabs, TabItem, Steps, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Nikdo si nechce pamatovat IP adresu ve tvaru `82.208.17.10:27354`.
+Vlastní doména (např. `mojeserver.cz` nebo `play.super-craft.cz`) vypadá lépe a hráči si ji snáze zapamatují.
+
+## Kde získat doménu?
+
+Doménu si musíš **koupit** u registrátora. Cena `.cz` domény se pohybuje okolo 200–300 Kč ročně.
+
+<CardGrid>
+    <LinkCard title="Vedos"
+              description="Největší český registrátor. Časté slevy na první rok."
+              href="https://www.wedos.cz/" target="_blank"/>
+    <LinkCard title="Forpsi"
+              description="Stabilní český registrátor, jednoduchá správa."
+              href="https://www.forpsi.com/" target="_blank"/>
+    <LinkCard title="Websupport"
+              description="Jednička na Slovensku. Moderní a přehledná administrace."
+              href="https://www.websupport.sk/" target="_blank"/>
+    <LinkCard title="Cloudflare"
+              description="Doporučujeme pro správu DNS. Nejrychlejší aktualizace záznamů na světě."
+              href="https://www.cloudflare.com/" target="_blank"/>
+</CardGrid>
+
+## Typy záznamů
+
+V administraci domény budeš nejčastěji pracovat s těmito záznamy:
+
+* **A záznam:** Přeměňuje text na IP adresu (např. `play.moje.cz` -> `82.208.17.10`).
+* **SRV záznam:** Umožňuje **schovat port**, pokud nemáš standardní 25565.
+* **CNAME:** Alias pro jinou doménu. Pro Minecraft servery se příliš nedoporučuje.
+
+---
+
+## Jak nastavit IP adresu?
+
+Vyber si situaci, která odpovídá tvému serveru.
+
+<Tabs>
+    <TabItem label="Standardní port (25565)">
+        Pokud máš dedikovanou IP adresu s portem 25565 (nebo jsi na VPS), nastavení je triviální.
+
+        **Cíl:** Hráči se připojí přes `play.moje-domena.cz`.
+
+        <Steps>
+            1.  Otevři správu DNS u svého registrátora.
+
+            2.  Vytvoř nový záznam typu **A**.
+
+            3.  Vyplň údaje:
+                * **Název (Name/Host):** `play` (toto vytvoří play.domena.cz)
+                * **Typ:** `A`
+                * **Data (Cíl/IP):** Tvoje číselná IP adresa (bez portu).
+
+            4.  Ulož změny.
+        </Steps>
+    </TabItem>
+
+    <TabItem label="Nestandardní port (např. 27354)">
+        Většina levnějších hostingů ti přidělí port, třeba `27354`. Pokud chceš, aby hráči nemuseli tento port psát, musíš použít **SRV záznam**.
+
+        **Cíl:** Hráči napíší `hraj.moje-domena.cz` a server je sám přesměruje na port 27354.
+
+        ### Krok A: Zjištění cílové adresy
+        SRV záznam nemůže směřovat na číselnou IP adresu. Musí směřovat na jinou doménu. Máš dvě možnosti:
+
+        1.  **Použij adresu hostingu (Doporučeno):** Pokud se k serveru připojuješ přes adresu typu `node1.nazevhostingu.cz`, použij ji. Nemusíš nic dalšího vytvářet.
+        2.  **Vytvoř si vlastní:** Pokud máš jen číselnou IP (`82.208...`), vytvoř si pomocný **A záznam** (např. s názvem `node`) a nasměruj ho na tuto IP. Tvůj cíl pak bude `node.moje-domena.cz`.
+
+        ### Krok B: Vytvoření SRV záznamu
+        Teď řekneme, že kdo se připojí na `hraj`, má být přesměrován na konkrétní cíl a port.
+
+        <Steps>
+            1.  Vytvoř **SRV záznam**.
+            2.  **Název (Service/Name):** `_minecraft._tcp.hraj`
+                * Někteří registrátoři mají oddělená políčka pro službu (`_minecraft`), protokol (`_tcp`) a název (`hraj`).
+                * Pokud chceš adresu přímo `moje-domena.cz` (bez "hraj"), do názvu dej `@` nebo nech prázdné.
+            3.  **Priorita (Priority):** `0`
+            4.  **Váha (Weight):** `5`
+            5.  **Port:** `27354` (tvůj port serveru)
+            6.  **Cíl (Target/Host):** Zde napiš adresu z Kroku A (např. `node1.hostify.cz` nebo `node.moje-domena.cz`).
+        </Steps>
+
+        :::caution[Pozor na cíl]
+        Do pole **Cíl** u SRV záznamu nelze napsat číselnou IP adresu! Vždy tam musí být textová doména.
+        :::
+    </TabItem>
+</Tabs>
+
+## Kdy to začne fungovat?
+
+Změny v DNS nejsou okamžité. Rozšíření do celého světa může trvat:
+* **Cloudflare:** 1–5 minut.
+* **Vedos/Forpsi:** 15 minut až 24 hodin.
+* **Ostatní:** Až 48 hodin.

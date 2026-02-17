@@ -1,0 +1,64 @@
+---
+title: Připojení k souborům (SFTP/FTP)
+description: Jak spravovat soubory serveru efektivně pomocí klienta (WinSCP/FileZilla).
+---
+
+import { Steps, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Každý herní panel má v sobě zabudovaného **Správce souborů**.
+
+Ten je skvělý na rychlé úpravy konfigurace nebo nahrání jednoho malého pluginu. Pokud však potřebuješ nahrát celou mapu, stáhnout zálohu nebo spravovat velké množství souborů, webový prohlížeč na to nestačí. Pro tyto účely potřebuješ **SFTP/FTP klienta**.
+
+## Rozdíl mezi SFTP a FTP
+
+Hostingy mohou podporovat jeden nebo oba tyto protokoly. Z uživatelského pohledu fungují stejně, liší se hlavně v bezpečnosti a použitém portu.
+
+* **SFTP (Secure):** Modernější, bezpečnější, data jsou šifrována. Většina herních hostingů běží na portu **2022**.
+* **FTP:** Starší protokol, méně bezpečný. Obvykle běží na portu **21**.
+
+## Výběr klienta
+
+Doporučujeme jeden z těchto programů. Oba podporují SFTP i FTP a jsou zdarma.
+
+<CardGrid>
+    <LinkCard title="WinSCP"
+              description="Doporučeno pro Windows. Přehledný, jednoduchý a v češtině."
+              href="https://winscp.net/eng/download.php" target="_blank"/>
+    <LinkCard title="FileZilla"
+              description="Populární multiplatformní klient (Windows, Mac, Linux)."
+              href="https://filezilla-project.org/download.php?type=client" target="_blank"/>
+</CardGrid>
+
+## Kde najdu přihlašovací údaje?
+
+Údaje pro připojení se liší od těch, kterými se přihlašuješ do panelu. Většinou je najdeš v sekci **Settings** (Nastavení) pod názvem **SFTP Details**.
+
+Hledej tyto údaje:
+1.  **Server Address (Host):** Adresa serveru (např. `node1.hosting.cz` nebo IP adresa).
+2.  **Port:** Číslo portu (nejčastěji `2022` pro SFTP nebo `21` pro FTP).
+3.  **Username:** Tvé uživatelské jméno pro přenos souborů (často ve formátu `uzivatel.id`).
+
+:::note[Heslo]
+Heslo je ve většině případů **shodné s heslem**, kterým se přihlašuješ do ovládacího panelu hostingu.
+:::
+
+## Postup připojení (WinSCP)
+
+<Steps>
+    1. Stáhni a nainstaluj **WinSCP**.
+
+    2. Otevři program. Vyskočí na tebe okno pro nové připojení.
+
+    3. Vyplň údaje podle svého hostingu:
+        * **Přenosový protokol:** Zvol `SFTP` (pokud hosting nepodporuje, zkus `FTP`).
+        * **Hostitel:** Adresa tvého node (bez `sftp://`).
+        * **Port:** Číslo portu z panelu.
+        * **Uživatelské jméno:** Zkopíruj z panelu.
+        * **Heslo:** Tvé heslo do panelu.
+
+    4. Klikni na **Přihlásit**.
+
+    5. Pokud se připojuješ poprvé přes SFTP, vyskočí ověření klíče serveru. Klikni na **Ano** (Důvěřovat).
+</Steps>
+
+Nyní vidíš v levém okně soubory ve svém počítači a v pravém okně soubory na serveru. Soubory můžeš jednoduše přetahovat myší tam a zpět.
