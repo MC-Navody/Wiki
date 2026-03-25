@@ -71,7 +71,7 @@ Otevři soubor `plugins/DiscordSRV/config.yml`. Zde musíme nastavit dvě kritic
 ### 1. Nastavení Tokenu
 Najdi řádek `BotToken` a vlož token, který jsme zkopírovali v prvním kroku.
 
-```yaml"
+```yaml
 # Token bota z Developer Portalu
 BotToken: "OTk4N...zde_bude_tvuj_dlouhy_token...XxX"
 
@@ -82,7 +82,7 @@ BotToken: "OTk4N...zde_bude_tvuj_dlouhy_token...XxX"
 Najdi sekci `Channels`. Zde nastavujeme propojení herního chatu s konkrétním textovým kanálem na Discordu.
 ID získáš kliknutím pravým na kanál -> Kopírovat ID.
 
-```yaml"
+```yaml
 # Formát je "název-kanálu": "ID_KANÁLU"
 Channels: {"global": "123456789012345678"}
 
@@ -96,7 +96,7 @@ Pokud chceš vidět konzoli serveru v privátním kanálu na Discordu, nastav `D
     Ujisti se, že do kanálu s konzolí mají přístup **pouze majitelé**. Kdokoliv v tomto kanálu může ovládat server!
 </Aside>
 
-```yaml"
+```yaml
 # ID kanálu pro konzoli (nech 000000000000000000 pro vypnutí)
 DiscordConsoleChannelId: "987654321098765432"
 
