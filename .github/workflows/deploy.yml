@@ -2,8 +2,8 @@ name: Deploy Wiki (Production)
 
 on:
   workflow_run:
-    workflows: ["CI"]
-    branches: [main]
+    workflows: [ "CI" ]
+    branches: [ main ]
     types:
       - completed
   workflow_dispatch:
@@ -17,7 +17,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Spuštění příkazů na serveru přes SSH
-        uses: appleboy/ssh-action@v1.2.2
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}

@@ -56,6 +56,8 @@ Chcete opravit chybu nebo přidat nový návod?
 
 ## Licence
 
-Tento projekt je licencován pod licencí [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](LICENSE).
+Tento projekt je licencován pod
+licencí [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](LICENSE).
 
-Znamená to, že můžete obsah sdílet a upravovat, ale musíte uvést původního autora, nesmíte jej využít komerčně a musíte zachovat stejnou licenci.
+Znamená to, že můžete obsah sdílet a upravovat, ale musíte uvést původního autora, nesmíte jej využít komerčně a musíte
+zachovat stejnou licenci.
