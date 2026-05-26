@@ -106,15 +106,21 @@ export default defineConfig({
                 },
                 {
                     label: 'Hlavní nastavení serverů',
-                    autogenerate: {directory: 'nastaveni'},
+                    items: [
+                        { autogenerate: { directory: 'nastaveni' } }
+                    ]
                 },
                 {
                     label: 'Pluginy',
-                    autogenerate: {directory: 'pluginy'},
+                    items: [
+                        { autogenerate: { directory: 'pluginy' } }
+                    ]
                 },
                 {
                     label: 'Správa serverů',
-                    autogenerate: {directory: 'sprava'},
+                    items: [
+                        { autogenerate: { directory: 'sprava' } }
+                    ]
                 }
             ],
         }),
