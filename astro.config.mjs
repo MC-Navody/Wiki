@@ -3,8 +3,13 @@ import starlight from '@astrojs/starlight';
 import starlightDocSearch from '@astrojs/starlight-docsearch';
 import starlightLinksValidator from 'starlight-links-validator';
 import mermaid from 'astro-mermaid';
+import { unified } from '@astrojs/markdown-remark';
 
 export default defineConfig({
+    markdown: {
+        processor: unified(),
+    },
+
     site: 'https://mcnavody.eu',
     redirects: {
         '/cs/home': '/',
