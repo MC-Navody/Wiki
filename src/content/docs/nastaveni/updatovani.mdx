@@ -45,7 +45,7 @@ Nikdy neupdatuj pluginy příkazem `/reload` nebo pomocí pluginů typu PlugMan 
 
 ## Jak aktualizovat jádro serveru (Paper/Purpur)?
 
-Aktualizace samotného serveru (souboru `server.jar`) v rámci stejné verze hry (např. z Paper build 100 na Paper build 120 pro verzi 1.21) je snadná.
+Aktualizace samotného serveru (souboru `server.jar`) v rámci stejné verze hry (např. z Paper buildu 10 na nový Paper build pro verzi 26.3) je snadná.
 
 <Steps>
 
@@ -65,12 +65,12 @@ Nikdy nepřepisuj `server.jar`, když server běží! Soubor by se mohl poškodi
 
 ## Přechod na novou verzi hry (Upgrade)
 
-Přechod mezi hlavními verzemi (např. z **1.20.4** na **1.21**) je složitější proces. Zde musíš být obzvlášť opatrný.
+Přechod mezi hlavními verzemi (např. z **1.21** na **26.3**) je složitější proces. Zde musíš být obzvlášť opatrný.
 
 ### 1. Příprava
 
-* **Java 21:** Ujisti se, že tvůj hosting nebo VPS používá **Javu 21**. Verze 1.20.5+ na starší Javě nespustíš.
-* **Pluginy:** Mezi verzí 1.20.4 a 1.20.5 došlo k **obrovským změnám** v kódu (NBT tagy byly nahrazeny Komponentami). Staré pluginy na verzi 1.21 **nebudou fungovat**. Musíš stáhnout aktuální verze všech pluginů.
+* **Java 25:** Ujisti se, že tvůj hosting nebo VPS používá **Javu 25**. Verzi 26.x na starší Javě (Java 21 či starší) nespustíš.
+* **Pluginy:** Mezi verzemi dochází ke změnám v interním kódu hry a API. Staré pluginy na verzi 26.3 **nemusí fungovat** nebo budou házet chyby. Musíš stáhnout aktuální verze všech pluginů určené pro verzi 26.3 / 26.x.
 * **Záloha:** Zopakuji to znovu – udělej si zálohu.
 
 ### 2. Proces upgradu
@@ -79,7 +79,7 @@ Přechod mezi hlavními verzemi (např. z **1.20.4** na **1.21**) je složitěj�
 
     1. Vypni server.
 
-    2. Nahraď `server.jar` novou verzí (např. pro 1.21).
+    2. Nahraď `server.jar` novou verzí (např. pro 26.3).
 
     3. Aktualizuj všechny pluginy.
 
@@ -99,5 +99,5 @@ Přechod mezi hlavními verzemi (např. z **1.20.4** na **1.21**) je složitěj�
 </Steps>
 
 :::danger[Cesta zpět neexistuje]
-Minecraft nepodporuje downgrade! Pokud jednou načteš svět na verzi 1.21, už ho **nikdy nespustíš na 1.20** bez toho, aby se poškodil nebo resetoval. Jediná cesta zpět je obnova ze zálohy.
+Minecraft nepodporuje downgrade! Pokud jednou načteš svět na verzi 26.3, už ho **nikdy nespustíš na starší verzi (např. 1.21)** bez toho, aby se poškodil nebo resetoval. Jediná cesta zpět je obnova ze zálohy.
 :::

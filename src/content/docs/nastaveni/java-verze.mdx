@@ -8,7 +8,7 @@ import {CardGrid, LinkCard, TabItem, Tabs} from '@astrojs/starlight/components';
 
 To, že Minecraft vyžaduje Javu, asi víš. Méně jasné už ale bývá, **jakou konkrétní verzi** Javy tvůj server potřebuje. Pokud použiješ špatnou verzi, server se buď nespustí, nebo bude házet chyby.
 
-Obecně platí pravidlo: Vždy používej **LTS (Long Term Support)** verze Javy (17, 21), pokud je to možné.
+Obecně platí pravidlo: Vždy používej **LTS (Long Term Support)** verze Javy (17, 21, 25), pokud je to možné.
 
 ## Přehled verzí
 
@@ -16,6 +16,7 @@ V tabulce níže najdeš doporučenou verzi Javy pro tvou verzi Minecraftu.
 
 | Verze Minecraftu | Vyžadovaná Java | Poznámka |
 | :--- | :--- | :--- |
+| **26.x (včetně 26.3)** | **Java 25** | Nutnost. Od Minecraft verze 26 vyžaduje hra i server minimálně Javu 25. |
 | **1.21.x** | **Java 21** | Nutnost. Na starší Javě server nepoběží. |
 | **1.20.5 - 1.20.6** | **Java 21** | Změna přišla v průběhu verze 1.20. |
 | **1.18 - 1.20.4** | **Java 17** | Zlatý standard pro starší verze. |
@@ -34,12 +35,12 @@ Proxy servery (Velocity, BungeeCord) mají také své požadavky. Protože propo
 
 <Tabs>
     <TabItem label="Velocity (Doporučeno)">
-        Moderní verze Velocity (3.3.0+) vyžadují **Javu 21** (nebo minimálně 17).
+        Moderní verze Velocity vyžadují **Javu 21** nebo novější (pro servery s verzí 26.x doporučujeme rovnou **Javu 25**).
         Jelikož Velocity jen přeposílá pakety, novější Java jí pomáhá v rychlosti a bezpečnosti.
     </TabItem>
     <TabItem label="BungeeCord">
-        BungeeCord běží na **Javě 8** a novější.
-        Doporučujeme však používat alespoň **Javu 11** nebo **17** pro lepší správu paměti (Garbage Collection).
+        BungeeCord běží na **Javě 8** a novější (podle backend serverů, pro 26.x vyžaduje **Javu 25**).
+        Doporučujeme však používat alespoň **Javu 17** nebo **21/25** pro lepší správu paměti (Garbage Collection).
     </TabItem>
 </Tabs>
 
@@ -60,9 +61,12 @@ Používání výrazně novější Javy na starých verzích (např. Java 21 na 
 :::
 
 Kde stáhnout Javu?
-Doporučujeme používat distribuci Amazon Corretto, která je stabilní, open-source a ověřená komunitou.
+Doporučujeme používat oficiální distribuce jako Adoptium Temurin nebo Amazon Corretto, které jsou stabilní, open-source a ověřené komunitou.
 
 <CardGrid>
+    <LinkCard title="Stáhnout Java 25"
+              href="https://adoptium.net/temurin/releases/?version=25" target="_blank"
+              icon="external"/>
     <LinkCard title="Stáhnout Java 21"
               href="https://docs.aws.amazon.com/corretto/latest/corretto-21-ug/downloads-list.html" target="_blank"
               icon="external"/>

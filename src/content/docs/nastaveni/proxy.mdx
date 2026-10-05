@@ -39,15 +39,14 @@ Proxy servery pouze přeposílají pakety, nepočítají fyziku světa ani AI mo
 * **CPU:** Minimální zátěž.
 * **Port:** Doporučujeme, aby proxy běžela na portu **25565** (výchozí MC port).
 
----
-
+---\n
 ## Instalace a Nastavení
 
 Vyber si software, který chceš použít.
 
 <Tabs>
     <TabItem label="🚀 Velocity (Doporučeno)">
-        Velocity má přímou podporu pro Paper, Sponge, Fabric i Forge (1.7.2 - 1.21+). Používá **Modern Forwarding**, což
+        Velocity má přímou podporu pro Paper, Sponge, Fabric i Forge (1.7.2 - 26.x). Používá **Modern Forwarding**, což
         je bezpečnější a rychlejší než starý Bungee protokol.
 
         <Steps>
@@ -55,7 +54,7 @@ Vyber si software, který chceš použít.
             1. **Stažení a Příprava**
 
                 Stáhni nejnovější [Velocity](https://papermc.io/downloads/velocity). Ujisti se, že máš nainstalovanou **Javu
-                21**.
+                21** nebo novější (pro backend servery Minecraft 26.x doporučujeme **Javu 25**).
                 Nahraj soubor `velocity.jar` na server a spusť ho.
 
             2. **Nastavení Proxy (velocity.toml)**
@@ -143,8 +142,8 @@ Vyber si software, který chceš použít.
         <Steps>
 
             1. **Instalace**
-                Stáhni [BungeeCord](https://ci.md-5.net/job/BungeeCord/) a spusť ho (vyžaduje Javu podle verze MC, pro 1.21
-                je to Java 21).
+                Stáhni [BungeeCord](https://ci.md-5.net/job/BungeeCord/) a spusť ho (vyžaduje Javu podle verze MC, pro 26.x
+                je to Java 25, pro 1.21 Java 21).
             2. **Nastavení Proxy (config.yml)**
                 Otevři `config.yml` a nastav:
 

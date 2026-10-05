@@ -6,7 +6,7 @@ description: Jak umožnit připojení hráčů se starším i novějším klient
 
 import {CardGrid, LinkCard, Steps, TabItem, Tabs, FileTree} from '@astrojs/starlight/components';
 
-Ve výchozím stavu Minecraft vyžaduje, aby verze serveru a klienta byla **naprosto shodná**. Pokud máš server na verzi 1.21.1, připojí se jen hráči s klientem 1.21.1.
+Ve výchozím stavu Minecraft vyžaduje, aby verze serveru a klienta byla **naprosto shodná**. Pokud máš server na verzi 26.3, připojí se jen hráči s klientem 26.3.
 
 Aby se mohli připojit i ostatní, potřebuješ sadu pluginů, které překládají packety mezi serverem a hráčem.
 
@@ -16,17 +16,17 @@ Mnoho lidí si myslí, že stačí stáhnout jen ViaVersion. To je ale omyl. Exi
 
 ### 1. ViaVersion
 Umožňuje připojení **novějších klientů** na **starší server**.
-* *Příklad:* Server běží na 1.8.8, ale chceš, aby se připojili hráči s 1.21.
+* *Příklad:* Server běží na 1.8.8 nebo 1.21, ale chceš, aby se připojili hráči s 26.3.
 * **Nutnost:** Toto je základní plugin, který je vyžadován pro fungování ostatních doplňků.
 
 ### 2. ViaBackwards
 Umožňuje připojení **starších klientů** na **novější server** (až do verze 1.9).
-* *Příklad:* Server běží na 1.21, ale chceš, aby se připojili hráči s 1.16.5.
+* *Příklad:* Server běží na 26.3, ale chceš, aby se připojili hráči s 1.21 nebo 1.16.5.
 * *Vyžaduje:* ViaVersion.
 
 ### 3. ViaRewind
 Umožňuje připojení **historických klientů** (1.7 a 1.8) na **novější server**.
-* *Příklad:* Server běží na 1.21, ale chceš podporovat PvP komunitu na verzi 1.8.8.
+* *Příklad:* Server běží na 26.3, ale chceš podporovat PvP komunitu na verzi 1.8.8.
 * *Vyžaduje:* ViaVersion + ViaBackwards.
 
 ---
@@ -42,7 +42,7 @@ To záleží na tom, jak je tvůj server nastavený.
 
         **Výhody:**
         * Ušetříš výkon na herních serverech (Backend).
-        * Hráč může měnit verze serverů (Lobby 1.21 -> Survival 1.18) bez odpojování.
+        * Hráč může měnit verze serverů (Lobby 26.3 -> Survival 1.20) bez odpojování.
         * Stačí nastavit jen jednou.
 
         *Poznámka: Ujisti se, že stahuješ verzi pluginu určenou pro Velocity/BungeeCord!*
@@ -88,7 +88,7 @@ To záleží na tom, jak je tvůj server nastavený.
 ## Časté otázky a problémy
 
 ### Jak je to s bloky?
-Pokud se hráč s verzí **1.8** připojí na server **1.21**, neuvidí nové bloky (Netherite, Copper, atd.). ViaVersion je musí nahradit něčím, co 1.8 zná (např. Stone).
+Pokud se hráč s verzí **1.8** připojí na server **26.3**, neuvidí nové bloky (Netherite, Copper, Crafter, betonové schody a desky z verze 26.3 atd.). ViaVersion je musí nahradit něčím, co 1.8 zná (např. Stone).
 * Hra může vypadat pro starší klienty "divně".
 * Hráči na starších verzích nemohou používat nové funkce (plavání, Elytra, druhá ruka - offhand).
 

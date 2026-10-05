@@ -6,9 +6,11 @@ description: Jak nahrát staženou mapu nebo zálohu na server.
 
 import {FileTree, Steps, TabItem, Tabs} from '@astrojs/starlight/components';
 
-Chceš na server nahrát mapu, kterou sis stáhl z internetu, nebo přesunout svůj svět z počítače(Singleplayer) ? Postup se liší podle toho, zda chceš tento svět používat jako ** hlavní **, nebo jako ** vedlejší ** (pomocí Multiverse - Core).
+Chceš na server nahrát mapu, kterou sis stáhl z internetu, nebo přesunout svůj svět z počítače (Singleplayer)? Postup se liší podle toho, zda chceš tento svět používat jako **hlavní**, nebo jako **vedlejší** (pomocí Multiverse-Core).
+
 ## 1. Příprava mapy
-Než začneš cokoli nahrávat, zkontroluj složku se světem.Otevři ji a ujisti se, že ** přímo v ní ** vidíš soubory jako`level.dat`, `session.lock` a složku`region`.
+Než začneš cokoli nahrávat, zkontroluj složku se světem. Otevři ji a ujisti se, že **přímo v ní** vidíš soubory jako `level.dat`, `session.lock` a složku `region`.
+
 <FileTree>
     - MujSvet/
     - **level.dat**
@@ -16,12 +18,16 @@ Než začneš cokoli nahrávat, zkontroluj složku se světem.Otevři ji a ujist
     - data/
     - ...
 </FileTree>
-    :::caution[Častá chyba]
-Pokud po otevření složky vidíš další složku se stejným názvem a teprve v ní jsou data, server svět nenajde.Musíš obsah přesunout o úroveň výš.
-    :::
+
+:::caution[Častá chyba]
+Pokud po otevření složky vidíš další složku se stejným názvem a teprve v ní jsou data, server svět nenajde. Musíš obsah přesunout o úroveň výš.
+:::
+
 ---
+
 ## 2. Nastavení jako Hlavní svět
-Tato metoda nahradí tvůj aktuální svět(Survival, Lobby) tím, který nahráváš.
+Tato metoda nahradí tvůj aktuální svět (Survival, Lobby) tím, který nahráváš.
+
 <Steps>
     1. **Vypni server.**
     2. Připoj se na FTP (FileZilla / WinSCP).
@@ -31,10 +37,14 @@ Tato metoda nahradí tvůj aktuální svět(Survival, Lobby) tím, který nahrá
     5. Přejmenuj nahranou složku na `world` (nebo na název, který máš v `server.properties` u položky `level-name`).
     6. **Zapni server.**
 </Steps>
-* Poznámka: Pokud nahráváš starší mapu(např.z verze 1.16) na server 1.21, první spuštění může trvat déle, protože server musí zkonvertovat formát chunků. *
+
+*Poznámka: Pokud nahráváš starší mapu (např. z verze 1.16 nebo 1.21) na server 26.3, první spuštění může trvat déle, protože server musí zkonvertovat formát chunků.*
+
 ---
-## 3. Nastavení jako Vedlejší svět(Multiverse)
-Pokud chceš mít na serveru více světů najednou(např.Survival + Creative + Parkour), potřebuješ plugin ** [Multiverse - Core](https://modrinth.com/plugin/multiverse-core)**.
+
+## 3. Nastavení jako Vedlejší svět (Multiverse)
+Pokud chceš mít na serveru více světů najednou (např. Survival + Creative + Parkour), potřebuješ plugin **[Multiverse-Core](https://modrinth.com/plugin/multiverse-core)**.
+
 <Steps>
     1. Nainstaluj plugin **Multiverse-Core** a restartuj server.
     2. Nahraj složku s mapou do **hlavní složky serveru** (vedle složky `world`, `plugins` atd.).
@@ -45,8 +55,10 @@ Pokud chceš mít na serveru více světů najednou(např.Survival + Creative + 
         ```
         *(Místo `jmeno_slozky` napiš přesný název složky).*
 </Steps>
+
 ### Speciální typy světů
 Pokud nahráváš Nether, End nebo prázdný svět, musíš příkaz upravit.
+
 <Tabs>
     <TabItem label="🔥 Nether / End">
         Pokud importuješ dimenzi, musíš serveru říct, o jaký typ prostředí jde.
@@ -68,8 +80,10 @@ Pokud nahráváš Nether, End nebo prázdný svět, musíš příkaz upravit.
         ```
     </TabItem>
 </Tabs>
-### Jak se tam dostat ?
-    Po úspěšném importu se do světa portneš```bash
+
+### Jak se tam dostat?
+Po úspěšném importu se do světa portneš:
+```bash
 /mv tp [jméno_světa]
 ```
-Seznam všech světů zobrazíš pomocí`/mv list`.
+Seznam všech světů zobrazíš pomocí `/mv list`.

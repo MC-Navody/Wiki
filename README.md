@@ -2,6 +2,7 @@
 
 ![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg?style=for-the-badge)
 ![Starlight](https://img.shields.io/badge/Docs-Starlight-F54927?style=for-the-badge)
+![Minecraft](https://img.shields.io/badge/Minecraft-26.3-2ecc71?style=for-the-badge)
 
 Toto je komplexní znalostní báze zaměřená na tvorbu, správu a optimalizaci Minecraft serverů. Wiki je postavena na
 frameworku [Starlight](https://starlight.astro.build).

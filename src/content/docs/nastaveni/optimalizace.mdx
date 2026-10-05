@@ -6,7 +6,7 @@ description: Průvodce optimalizací serveru Minecraft pro maximální výkon.
 
 import {CardGrid, LinkCard, Steps, FileTree} from '@astrojs/starlight/components';
 
-Tento průvodce je určen primárně pro verzi **1.21.x**, ale většina informací platí i pro starší verze (1.18+).
+Tento průvodce je určen primárně pro verzi **26.x (včetně 26.3)**, ale většina informací platí i pro starší verze (1.21 a 1.18+).
 
 :::note[Zlaté pravidlo]
 Nikdy nebude existovat jeden univerzální návod, který přinese perfektní výsledky pro všechny. Každý server má jiné potřeby (Survival vs. Skyblock) a jiný hardware. Ladění možností pro tvůj konkrétní server je klíčem.
@@ -84,8 +84,7 @@ misc: 8
 tick-inactive-villagers: false # Pozor: Může rozbít farmy na železo.
 ignore-spectators: true
 ```
-* **`merge-radius`** (Doporučeno: `item: 3.5`, `exp: 4.0`)
-* Spojuje itemy na zemi do jednoho stacku. Méně entit = menší lagy.
+* **`merge-radius`** (Doporučeno: `item: 3.5`, `exp: 4.0`)\n* Spojuje itemy na zemi do jednoho stacku. Méně entit = menší lagy.
 
 ### config/paper-world-defaults.yml
 *(Dříve paper.yml)*
@@ -123,7 +122,7 @@ ignore-spectators: true
 
 ## 4. Java Flagy (Startovací argumenty)
 
-**⚠️ Důležité:** Minecraft 1.21 vyžaduje **Java 21**.
+**⚠️ Důležité:** Minecraft 26.x (včetně 26.3) vyžaduje **Java 25** (pro Minecraft 1.21 byla vyžadována Java 21).
 
 Nepoužívej výchozí parametry. Používej **Aikar's Flags**, které jsou průmyslovým standardem pro optimalizaci Garbage Collectoru (G1GC).
 
